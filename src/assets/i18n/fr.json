@@ -1,0 +1,28 @@
+{
+  "app-name": "Rerum Imperium",
+  "home": {
+    "animation": {
+      "clock": "Horloge",
+      "rainbow": "Arc-en-ciel",
+      "stop": "Stop"
+    },
+    "form": {
+      "label": "URL de l'objet",
+      "placeholder": "http://192.168.0.33:2812"
+    },
+    "welcome": "Contrôlez tous vos trucs !"
+  },
+  "misc": {
+    "dark-mode": "Thème sombre",
+    "language": "Langue :",
+    "version": "Version :"
+  },
+  "nav": {
+    "menu-title": "Menu",
+    "pin-sidenav": "Épingler",
+    "settings": "Paramètres",
+    "tools": "Outils",
+    "update-activated": "MàJ activée",
+    "update-available": "MàJ disponible"
+  }
+}

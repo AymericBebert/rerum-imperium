@@ -1,0 +1,230 @@
+@import '~@angular/material/theming';
+@import '_fonts.scss';
+
+@include mat-core();
+
+@import './custom-component-themes.scss';
+
+$mat-bronze: (
+  50: #efebe6,
+  100: #d6cec0,
+  200: #bbad96,
+  300: #a08c6c,
+  400: #8b734d,
+  500: #775a2d,
+  600: #6f5228,
+  700: #644822,
+  800: #5a3f1c,
+  900: #472e11,
+  A100: #ffc081,
+  A200: #ffa74e,
+  A400: #ff8d1b,
+  A700: #ff8002,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  ),
+);
+
+$mat-rose-bronze: (
+  50 : #f2e9eb,
+  100 : #e0c8ce,
+  200 : #cba3ad,
+  300 : #b67e8c,
+  400 : #a66274,
+  500 : #96465b,
+  600 : #8e3f53,
+  700 : #833749,
+  800 : #792f40,
+  900 : #68202f,
+  A100 : #ffa7b8,
+  A200 : #ff748f,
+  A400 : #ff4165,
+  A700 : #ff2850,
+  contrast: (
+    50 : $dark-primary-text,
+    100 : $dark-primary-text,
+    200 : $dark-primary-text,
+    300 : $dark-primary-text,
+    400 : $light-primary-text,
+    500 : $light-primary-text,
+    600 : $light-primary-text,
+    700 : $light-primary-text,
+    800 : $light-primary-text,
+    900 : $light-primary-text,
+    A100 : $dark-primary-text,
+    A200 : $dark-primary-text,
+    A400 : $light-primary-text,
+    A700 : $light-primary-text,
+  ),
+);
+
+$light-primary: mat-palette($mat-bronze);
+$light-accent: mat-palette($mat-rose-bronze, A200, A100, A400);
+$light-warn: mat-palette($mat-red);
+$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+
+@include angular-material-theme($light-theme);
+@include custom-components-theme($light-theme);
+
+// Defines an alternate dark theme.
+$mat-bronze-dark: (
+  50 : #ebe8e4,
+  100 : #cec5bb,
+  200 : #ad9f8e,
+  300 : #8c7960,
+  400 : #735c3e,
+  500 : #5a3f1c,
+  600 : #523919,
+  700 : #483114,
+  800 : #3f2911,
+  900 : #2e1b09,
+  A100 : #ffa969,
+  A200 : #ff8c36,
+  A400 : #ff6f03,
+  A700 : #e96400,
+  contrast: (
+    50 : $dark-primary-text,
+    100 : $dark-primary-text,
+    200 : $dark-primary-text,
+    300 : $light-primary-text,
+    400 : $light-primary-text,
+    500 : $light-primary-text,
+    600 : $light-primary-text,
+    700 : $light-primary-text,
+    800 : $light-primary-text,
+    900 : $light-primary-text,
+    A100 : $dark-primary-text,
+    A200 : $light-primary-text,
+    A400 : $light-primary-text,
+    A700 : $light-primary-text,
+  ),
+);
+
+$mat-rose-bronze-dark: (
+  50 : #f0e7ea,
+  100 : #dac4ca,
+  200 : #c29ca7,
+  300 : #aa7483,
+  400 : #975769,
+  500 : #85394e,
+  600 : #7d3347,
+  700 : #722c3d,
+  800 : #682435,
+  900 : #551725,
+  A100 : #ff91a6,
+  A200 : #ff5e7d,
+  A400 : #ff2b54,
+  A700 : #ff1240,
+  contrast: (
+    50 : $dark-primary-text,
+    100 : $dark-primary-text,
+    200 : $dark-primary-text,
+    300 : $dark-primary-text,
+    400 : $light-primary-text,
+    500 : $light-primary-text,
+    600 : $light-primary-text,
+    700 : $light-primary-text,
+    800 : $light-primary-text,
+    900 : $light-primary-text,
+    A100 : $dark-primary-text,
+    A200 : $dark-primary-text,
+    A400 : $light-primary-text,
+    A700 : $light-primary-text,
+  ),
+);
+
+$dark-primary: mat-palette($mat-bronze-dark);
+$dark-accent: mat-palette($mat-rose-bronze-dark, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// Insert custom background color
+$dark-background: map-get($dark-theme, background);
+$dark-background: map_merge($dark-background, (app-bar: #101010, background: #202020));
+$dark-theme: map_merge($dark-theme, (background: $dark-background));
+
+.bronze-dark-theme {
+  @include angular-material-theme($dark-theme);
+  @include custom-components-theme($dark-theme);
+  @include custom-components-dark-theme($dark-theme);
+}
+
+// CSS
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.very-light-text {
+  color: #cccccc;
+
+  .bronze-dark-theme & {
+    color: #666666;
+  }
+}
+
+.bronze-dark-theme {
+  .mat-button.mat-primary, .mat-icon-button.mat-primary {
+    color: mat-color($light-primary, 100);
+  }
+
+  .mat-progress-spinner circle {
+    stroke: mat-color($light-primary, 100);
+  }
+
+  .mat-form-field.mat-focused {
+    .mat-form-field-label {
+      color: mat-color($light-primary, 100);
+    }
+    .mat-form-field-ripple {
+      background-color: mat-color($light-primary, 100);
+    }
+  }
+
+  .mat-input-element {
+    caret-color: mat-color($light-primary, 100);
+  }
+}
+
+.crown-icon-bw {
+  &.icon-64 {
+    background: url('assets/icons/icon-black-64.png');
+    background-size: contain;
+    height: 32px;
+    width: 32px;
+  }
+
+  .bronze-dark-theme & {
+    &.icon-64 {
+      background: url('assets/icons/icon-white-64.png');
+      background-size: contain;
+      height: 32px;
+      width: 32px;
+    }
+  }
+}
+
+.hide-focus:focus {
+  outline: 0 solid transparent;
+}
+
+.edit-score div.mat-form-field-infix {
+  width: 140px;
+}

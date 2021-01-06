@@ -1,0 +1,18 @@
+version: "3"
+services:
+  code:
+    image: aymericbernard/rerum-imperium:latest
+    container_name: cn_rerum_imperium
+    restart: always
+#    networks:
+#      - proxy
+    ports:
+      - "4200:80"
+#    environment:
+#      - VIRTUAL_HOST=rerum-imperium.kyr.pw
+#      - LETSENCRYPT_HOST=rerum-imperium.kyr.pw
+#      - LETSENCRYPT_EMAIL=nope@exxample.com
+#networks:
+#  proxy:
+#    external:
+#      name: nginx-proxy

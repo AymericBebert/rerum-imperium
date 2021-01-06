@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+@mixin sidenav-content-component-theme($theme) {
+  //$primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  //$warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-sidenav-content {
+    color: mat-color($foreground, text);
+    background-color: mat-color($background, app-bar);
+  }
+
+  .mat-list-item.selectable {
+    background-color: mat-color($accent, 0.04);
+
+    &.selected {
+      background-color: mat-color($accent, 0.1);
+    }
+    &:hover {
+      background-color: mat-color($accent, 0.2);
+    }
+  }
+}

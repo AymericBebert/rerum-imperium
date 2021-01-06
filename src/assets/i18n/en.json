@@ -1,0 +1,28 @@
+{
+  "app-name": "Rerum Imperium",
+  "home": {
+    "animation": {
+      "clock": "Clock",
+      "rainbow": "Rainbow",
+      "stop": "Stop"
+    },
+    "form": {
+      "label": "Thing URL",
+      "placeholder": "http://192.168.0.33:2812"
+    },
+    "welcome": "Control all the tings!"
+  },
+  "misc": {
+    "dark-mode": "Dark mode",
+    "language": "Language:",
+    "version": "Version:"
+  },
+  "nav": {
+    "menu-title": "Menu",
+    "pin-sidenav": "Pin Sidenav",
+    "settings": "Settings",
+    "tools": "Tools",
+    "update-activated": "Update activated",
+    "update-available": "Update available"
+  }
+}

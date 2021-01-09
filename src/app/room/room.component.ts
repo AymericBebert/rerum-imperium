@@ -10,6 +10,7 @@ import {SocketService} from '../socket/socket.service';
 import {environment} from '../../environments/environment';
 import {RoomsService} from '../service/rooms.service';
 import {IRoom} from '../model/room';
+import {IArgValue} from '../model/imperium';
 
 @Component({
   selector: 'app-room',
@@ -65,6 +66,14 @@ export class RoomComponent implements OnInit, OnDestroy {
 
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public imperiumAction(satellesId: string, commandName: string, args: IArgValue[]) {
+    this.socket.emit('imperium action', {
+      satellesId,
+      commandName,
+      args,
+    });
   }
 
   private shareRoom(room: IRoom | null) {

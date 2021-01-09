@@ -9,5 +9,26 @@
   <div class="header">
     <span>{{ room.roomName.trim() || '...' }}</span>
   </div>
-  <pre>{{ room.satellites | json }}</pre>
+
+  <span *ngIf="room.satellites.length === 0">{{ 'room.no-satellites' | translate }}</span>
+
+  <mat-accordion *ngIf="room.satellites.length > 0" class="example-headers-align" multi>
+    <mat-expansion-panel *ngFor="let satelles of room.satellites">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ satelles.name }}
+        </mat-panel-title>
+        <!--        <mat-panel-description>-->
+        <!--          {{ satelles.id }}-->
+        <!--        </mat-panel-description>-->
+      </mat-expansion-panel-header>
+      <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <span *ngIf="satelles.commands.length === 0">{{ 'room.satelles.no-commands' | translate }}</span>
+        <app-command *ngFor="let command of satelles.commands"
+                     [command]="command"
+                     (action)="imperiumAction(satelles.id, command.name, $event)">
+        </app-command>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

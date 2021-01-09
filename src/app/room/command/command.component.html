@@ -1,0 +1,10 @@
+<ng-container [ngSwitch]="command.type">
+  <div *ngSwitchCase="'action'">
+    <button mat-raised-button color="primary" (click)="action.emit()">
+      {{ command.name }}
+    </button>
+  </div>
+  <div *ngSwitchDefault>
+    <pre>{{ command | json }}</pre>
+  </div>
+</ng-container>

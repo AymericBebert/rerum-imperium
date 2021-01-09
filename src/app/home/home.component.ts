@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private rawVisitedRooms$ = new BehaviorSubject<IStoredRoom[]>([]);
 
   public visitedRooms$: Observable<IStoredRoom[]> = this.rawVisitedRooms$.pipe(
-    map(vg => vg.sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0))),
+    map(vr => vr.sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0))),
   );
 
   public roomFormControl: FormControl;

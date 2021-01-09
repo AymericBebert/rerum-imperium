@@ -15,6 +15,7 @@ export interface IArgValue {
 }
 
 export interface IImperiumAction {
-  id: string;
+  satellesId: string;
+  commandName: string;
   args: IArgValue[];
 }

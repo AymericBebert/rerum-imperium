@@ -1,4 +1,5 @@
-export type CommandArgType = 'info' | 'string' | 'number' | 'boolean' | 'color' | 'select' | 'action';
+export type CommandType = 'info' | 'action' | 'complex';
+export type CommandArgType = 'string' | 'number' | 'boolean' | 'color' | 'select';
 
 export interface IArg {
   name: string;
@@ -13,7 +14,8 @@ export interface IArg {
 
 export interface ICommand {
   name: string;
-  args: IArg[];
+  type: CommandType;
+  args?: IArg[];
 }
 
 export interface ISatelles {
@@ -21,9 +23,3 @@ export interface ISatelles {
   name: string;
   commands: ICommand[];
 }
-
-// export interface IAnnounce {
-//   token: string;
-//   roomName: string;
-//   satelles: ISatelles;
-// }

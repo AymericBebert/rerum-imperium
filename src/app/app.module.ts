@@ -1,16 +1,9 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {NavComponent} from './nav/nav.component';
-import {ChangeLanguageComponent} from './nav/change-language.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
@@ -21,10 +14,18 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserModule} from '@angular/platform-browser';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {environment} from '../environments/environment';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {DirectHomeComponent} from './direct-home/direct-home.component';
+import {NavComponent} from './nav/nav.component';
+import {ChangeLanguageComponent} from './nav/change-language.component';
 import {DebugHttpInterceptor} from './utils/debug-http.interceptor';
 import {DeviceService} from './service/device.service';
 import {ThingsService} from './service/things.service';
@@ -38,6 +39,7 @@ import {RoomComponent} from './room/room.component';
 import {HomeComponent} from './home/home.component';
 import {ShareButtonModule} from './share-button/share-button.module';
 import {RoomsService} from './service/rooms.service';
+import {CommandComponent} from "./room/command/command.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -52,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DirectHomeComponent,
     HomeComponent,
     RoomComponent,
+    CommandComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatExpansionModule,
     StorageModule,
     UpdaterModule,
     SocketModule,

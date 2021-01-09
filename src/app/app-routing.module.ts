@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'direct-home',
     component: DirectHomeComponent,
     data: {
-      // backRouterNavigate: '/',
+      backRouterNavigate: '/',
       // navButtons: ['share'],
       // navTools: [{name: 'nav-tool.wheel', icon: 'near_me'}],
     },

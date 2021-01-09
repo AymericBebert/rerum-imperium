@@ -1,46 +1,48 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {HomeComponent} from './home.component';
-import {TranslateTestingModule} from '../testing/translate-testing-module';
+import {RoomComponent} from './room.component';
+import {MatIconModule} from '@angular/material/icon';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TranslateTestingModule} from '../testing/translate-testing-module';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ActivatedRoute} from '@angular/router';
+import {EMPTY} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
+import {ShareButtonModule} from '../share-button/share-button.module';
 import {SocketTestingModule} from '../testing/socket-testing.module';
+import {NavButtonsService} from '../service/nav-buttons.service';
 import {RoomsService} from '../service/rooms.service';
 import {StorageModule} from '../storage/storage.module';
-import {NavButtonsService} from '../service/nav-buttons.service';
-import {MatInputModule} from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('RoomComponent', () => {
+  let component: RoomComponent;
+  let fixture: ComponentFixture<RoomComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         TranslateTestingModule,
-        SocketTestingModule,
         RouterTestingModule,
+        SocketTestingModule,
+        ShareButtonModule,
+        MatIconModule,
+        MatDialogModule,
         StorageModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NoopAnimationsModule,
       ],
       declarations: [
-        HomeComponent,
+        RoomComponent,
       ],
       providers: [
+        {provide: ActivatedRoute, useValue: {paramMap: EMPTY}},
         RoomsService,
         NavButtonsService,
-      ]
+      ],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(RoomComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,13 @@
+<div style="position: relative">
+  <div *ngIf="connectionError$ | async" class="connection-error">
+    <mat-icon style="margin-right: 5px">link_off</mat-icon>
+    <span>{{ 'misc.connection-error' | translate }}</span>
+  </div>
+</div>
+
+<div *ngIf="room$ | async as room" class="wrapper" fxLayout="column" fxLayoutAlign="center center">
+  <div class="header">
+    <span>{{ room.roomName.trim() || '...' }}</span>
+  </div>
+  <pre>{{ room.satellites | json }}</pre>
+</div>

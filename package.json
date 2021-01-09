@@ -1,6 +1,6 @@
 {
   "name": "rerum-imperium",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Rerum Imperium SPA/PWA",
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "ngx-cookie-service": "^11.0.2",
     "rxjs": "^6.6.3",
+    "socket.io-client": "^3.0.4",
     "tslib": "^2.0.3",
     "zone.js": "~0.10.3"
   },
@@ -46,6 +47,7 @@
     "@types/jasmine": "~3.6.2",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^14.14.14",
+    "@types/socket.io-client": "^1.4.34",
     "codelyzer": "^6.0.1",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "^6.0.0",

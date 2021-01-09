@@ -1,0 +1,42 @@
+.connection-error {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #e77070;
+  padding: 5px 20px;
+  border-radius: 5px;
+  z-index: 10;
+  box-shadow: 0 2px 4px -1px rgba(92, 0, 0, 0.25), 0 4px 5px 0 rgba(99, 14, 14, 0.14), 0 1px 10px 0 rgba(128, 33, 33, 0.12);
+
+  & > * {
+    vertical-align: middle
+  }
+}
+
+.header {
+  font-weight: bold;
+  font-size: 1.4em;
+  padding-bottom: 10px;
+
+  span {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+}
+
+.wrapper {
+  padding: 20px 0;
+}
+
+.score-box {
+  width: 100%;
+}
+
+@media (screen and min-width: 600px) {
+  .score-box {
+    width: fit-content;
+    min-width: 600px;
+    max-width: 100%;
+    margin: auto;
+  }
+}

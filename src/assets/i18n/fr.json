@@ -1,6 +1,6 @@
 {
   "app-name": "Rerum Imperium",
-  "home": {
+  "direct-home": {
     "animation": {
       "clock": "Horloge",
       "rainbow": "Arc-en-ciel",
@@ -12,7 +12,22 @@
     },
     "welcome": "Contrôlez tous vos trucs !"
   },
+  "home": {
+    "form": {
+      "label": "Code de salle",
+      "placeholder": "8 caractères",
+      "room-not-found": "Salle non trouvée",
+      "title": "Nouvelle salle"
+    },
+    "visited-rooms": {
+      "delete": "Supprimer des salles",
+      "delete-stop": "Arrêter la suppression",
+      "title": "Salles visitées"
+    },
+    "welcome": "Contrôlez tous vos trucs !"
+  },
   "misc": {
+    "connection-error": "Déconnecté",
     "dark-mode": "Thème sombre",
     "language": "Langue :",
     "version": "Version :"
@@ -24,5 +39,17 @@
     "tools": "Outils",
     "update-activated": "MàJ activée",
     "update-available": "MàJ disponible"
+  },
+  "room": {
+    "share": {
+      "text": "Contrôle mes trucs avec Rerum Imperium !",
+      "title": "Rerum Imperium"
+    }
+  },
+  "share": {
+    "copied": "Lien copié",
+    "copy": "Copier",
+    "disabled": "Partage désactivé",
+    "share": "Partager"
   }
 }

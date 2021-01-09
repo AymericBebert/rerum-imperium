@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+
+@mixin game-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  //$warn: map-get($theme, warn);
+  //$foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  app-room {
+    .score-box {
+      background-color: mat-color($background, background);
+    }
+  }
+}
+
+@mixin game-component-dark-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  app-room {
+  }
+}

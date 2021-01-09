@@ -1,26 +1,40 @@
 <div style="padding: 20px" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
   <span>{{ 'home.welcome' | translate }}</span>
 
-  <mat-form-field appearance="standard">
-    <mat-label>{{ 'home.form.label' | translate }}</mat-label>
-    <input matInput
-           name="thing-url"
-           type="text"
-           autocomplete="off"
-           [formControl]="deviceUrlControl"
-           [placeholder]="'home.form.placeholder' | translate">
-  </mat-form-field>
+  <ng-container *ngIf="visitedRooms$ | async as visitedRooms">
+    <div *ngIf="(visitedRooms || []).length > 0" fxLayout="column" fxLayoutAlign="start center">
+      <h3>{{ 'home.visited-rooms.title' | translate }}</h3>
+      <div *ngFor="let room of visitedRooms">
+        <button mat-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
+          {{ room.token }} - {{ room.roomName.length > 25 ? room.roomName.substr(0, 24) + '...' : room.roomName }}
+        </button>
+      </div>
+      <button mat-button color="primary" (click)="toggleDeletion()" [ngClass]="{'semi-transparent': !deletion}">
+        <ng-container
+          *ngIf="deletion; else notDeletion">{{ 'home.visited-rooms.delete-stop' | translate }}</ng-container>
+        <ng-template #notDeletion>{{ 'home.visited-rooms.delete' | translate }}</ng-template>
+      </button>
+    </div>
+  </ng-container>
 
-  <button mat-raised-button color="primary" (click)="runAnimation('clock')">
-    {{ 'home.animation.clock' | translate }}
-  </button>
-
-  <button mat-raised-button color="primary" (click)="runAnimation('rainbow')">
-    {{ 'home.animation.rainbow' | translate }}
-  </button>
-
-  <button mat-button color="primary" (click)="runAnimation('stop')">
-    {{ 'home.animation.stop' | translate }}
-  </button>
-
+  <h3>{{ 'home.form.title' | translate }}</h3>
+  <form class="token-form" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div style="width: 24px"></div>
+    <mat-form-field appearance="standard">
+      <mat-label>{{ 'home.form.label' | translate }}</mat-label>
+      <input matInput
+             type="text"
+             autocomplete="off"
+             maxlength="8"
+             [formControl]="roomFormControl"
+             [errorStateMatcher]="matcher"
+             [placeholder]="'home.form.placeholder' | translate">
+      <mat-error *ngIf="roomFormControl.errors?.roomNotFound">
+        {{ 'home.form.room-not-found' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <div style="width: 24px">
+      <mat-spinner diameter="24" *ngIf="roomCheckPending$ | async"></mat-spinner>
+    </div>
+  </form>
 </div>

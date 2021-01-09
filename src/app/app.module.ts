@@ -22,7 +22,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HomeComponent} from './home/home.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {DirectHomeComponent} from './direct-home/direct-home.component';
 import {DebugHttpInterceptor} from './utils/debug-http.interceptor';
 import {DeviceService} from './service/device.service';
 import {ThingsService} from './service/things.service';
@@ -31,8 +33,11 @@ import {NavButtonsService} from './service/nav-buttons.service';
 import {SettingsService} from './service/settings.service';
 import {StorageModule} from './storage/storage.module';
 import {UpdaterModule} from './updater/updater.module';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {SocketModule} from './socket/socket.module';
+import {RoomComponent} from './room/room.component';
+import {HomeComponent} from './home/home.component';
+import {ShareButtonModule} from './share-button/share-button.module';
+import {RoomsService} from './service/rooms.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,7 +49,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     NavComponent,
     ChangeLanguageComponent,
+    DirectHomeComponent,
     HomeComponent,
+    RoomComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +83,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     StorageModule,
     UpdaterModule,
+    SocketModule,
+    ShareButtonModule,
   ],
   providers: [
     {
@@ -88,6 +97,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavService,
     NavButtonsService,
     SettingsService,
+    RoomsService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [],

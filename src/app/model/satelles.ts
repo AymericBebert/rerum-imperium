@@ -4,12 +4,15 @@ export type CommandArgType = 'string' | 'number' | 'boolean' | 'color' | 'select
 export interface IArg {
   name: string;
   type: CommandArgType;
-  infoValue?: string;
+  stringValue?: string;
+  numberValue?: number;
   numberMin?: number;
   numberMax?: number;
   numberStep?: number;
+  booleanValue?: boolean;
+  colorValue?: string;
+  selectValue?: string;
   selectOptions?: string[];
-  actionName?: string;
 }
 
 export interface ICommand {

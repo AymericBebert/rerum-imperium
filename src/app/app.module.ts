@@ -39,7 +39,7 @@ import {RoomComponent} from './room/room.component';
 import {HomeComponent} from './home/home.component';
 import {ShareButtonModule} from './share-button/share-button.module';
 import {RoomsService} from './service/rooms.service';
-import {CommandComponent} from "./room/command/command.component";
+import {CommandModule} from './room/command/command.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -54,7 +54,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DirectHomeComponent,
     HomeComponent,
     RoomComponent,
-    CommandComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UpdaterModule,
     SocketModule,
     ShareButtonModule,
+    CommandModule,
   ],
   providers: [
     {

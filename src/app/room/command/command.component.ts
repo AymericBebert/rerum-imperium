@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ICommand} from '../../model/satelles';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {MatSliderChange} from '@angular/material/slider';
 import {IArgValue} from '../../model/imperium';
+import {IArg, ICommand} from '../../model/satelles';
 
 @Component({
   selector: 'app-command',
@@ -13,5 +15,23 @@ export class CommandComponent {
   @Output() public action = new EventEmitter<IArgValue[]>();
 
   constructor() {
+  }
+
+  public booleanChange(arg: IArg, $event: MatCheckboxChange) {
+    this.command.args.forEach(a => {
+      if (a.name === arg.name) {
+        a.booleanValue = $event.checked;
+      }
+    });
+    this.action.emit(this.command.args);
+  }
+
+  public numberChange(arg: IArg, $event: MatSliderChange) {
+    this.command.args.forEach(a => {
+      if (a.name === arg.name) {
+        a.numberValue = $event.value;
+      }
+    });
+    this.action.emit(this.command.args);
   }
 }

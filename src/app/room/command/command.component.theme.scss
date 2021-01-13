@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+@mixin command-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  //$warn: map-get($theme, warn);
+  //$foreground: map-get($theme, foreground);
+  //$background: map-get($theme, background);
+
+  app-command {
+    .cmd-complex {
+      border-top: 1px solid mat-color($primary, 300, 0.4);
+      border-bottom: 1px solid mat-color($primary, 300, 0.4);
+
+      .cmd-name {
+        color: mat-color($primary, 300);
+      }
+
+      .arg-value {
+        color: mat-color($accent);
+      }
+    }
+  }
+}

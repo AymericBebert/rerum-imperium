@@ -14,27 +14,18 @@
 .header {
   font-weight: bold;
   font-size: 1.4em;
-  padding-bottom: 10px;
-
-  span {
-    margin-right: 10px;
-    cursor: pointer;
-  }
+  text-align: center;
+  padding-bottom: 20px;
 }
 
 .wrapper {
-  padding: 20px 0;
+  padding: 20px 20px;
 }
 
-.score-box {
+.satellites-wrapper {
   width: 100%;
+  max-width: 600px;
 }
 
 @media (screen and min-width: 600px) {
-  .score-box {
-    width: fit-content;
-    min-width: 600px;
-    max-width: 100%;
-    margin: auto;
-  }
 }

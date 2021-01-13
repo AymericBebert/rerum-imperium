@@ -1,44 +1,46 @@
 <ng-container [ngSwitch]="command.type">
-  <div *ngSwitchCase="'info'">
+  <div *ngSwitchCase="'info'" class="cmd-info">
     <span>{{ command.name }}</span>
   </div>
-  <div *ngSwitchCase="'action'">
+  <div *ngSwitchCase="'action'" class="cmd-action">
     <button mat-raised-button color="primary" (click)="action.emit()">
       {{ command.name }}
     </button>
   </div>
-  <div *ngSwitchCase="'complex'">
-    <div>{{ command.name }}</div>
+  <div *ngSwitchCase="'complex'" class="cmd-complex">
+    <div *ngIf="!command.name.startsWith('_')" class="cmd-name">{{ command.name }}</div>
     <div *ngFor="let arg of command.args || []">
       <ng-container [ngSwitch]="arg.type">
-        <div *ngSwitchCase="'string'">
+        <div *ngSwitchCase="'string'" class="arg-string">
           <span>{{ arg.name || '-' }}: </span>
           <span>{{ arg.stringValue || '-' }}</span>
         </div>
-        <div *ngSwitchCase="'number'">
-          <span>{{ arg.name || '-' }}: </span>
-          <span>{{ arg.numberValue || 0 }}</span>
-          <mat-slider
+        <div *ngSwitchCase="'number'" class="arg-number" fxLayout="row" fxLayoutAlign="stretch center">
+          <div fxFlex="grow" style="text-align: right">{{ arg.name || '-' }}&nbsp;: </div>
+          <div style="min-width: 3em">{{ arg.numberValue || 0 }}</div>
+          <mat-slider fxFlex="grow"
             [max]="arg.numberMax"
             [min]="arg.numberMin"
             [step]="arg.numberStep"
             [(ngModel)]="arg.numberValue"
             [thumbLabel]="true"
-            (change)="numberChange(arg, $event)">
+            (change)="numberChange(arg, $event)"
+          >
           </mat-slider>
         </div>
-        <div *ngSwitchCase="'boolean'">
+        <div *ngSwitchCase="'boolean'" class="arg-boolean">
           <mat-checkbox [ngModel]="arg.booleanValue" (change)="booleanChange(arg, $event)">
             {{ arg.name || '-' }}
           </mat-checkbox>
         </div>
-        <div *ngSwitchCase="'color'">
+        <div *ngSwitchCase="'color'" class="arg-color">
           <span>{{ arg.name || '-' }}: </span>
           <span>{{ arg.colorValue || '#000000' }}</span>
         </div>
-        <div *ngSwitchCase="'select'">
+        <div *ngSwitchCase="'select'" class="arg-select">
           <span>{{ arg.name || '-' }}: </span>
           <span>{{ arg.selectValue || '-' }}</span>
+          ( <span *ngFor="let value of arg.selectValue || []">{{ arg.selectOptions || '-' }} </span>)
         </div>
         <div *ngSwitchDefault>
           <pre>{{ arg | json }}</pre>

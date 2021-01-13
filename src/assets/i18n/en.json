@@ -41,6 +41,10 @@
     "update-available": "Update available"
   },
   "room": {
+    "no-satellites": "No satelles",
+    "satelles": {
+      "no-commands": "No command"
+    },
     "share": {
       "text": "Control my things with Rerum Imperium!",
       "title": "Rerum Imperium"

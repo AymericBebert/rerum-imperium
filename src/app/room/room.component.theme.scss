@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
 @mixin room-component-theme($theme) {
-  $primary: map-get($theme, primary);
+  //$primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   //$warn: map-get($theme, warn);
   //$foreground: map-get($theme, foreground);
@@ -19,9 +19,9 @@
   }
 }
 
-@mixin game-component-dark-theme($theme) {
-  $primary: map-get($theme, primary);
-
-  app-room {
-  }
-}
+//@mixin room-component-dark-theme($theme) {
+//  $primary: map-get($theme, primary);
+//
+//  app-room {
+//  }
+//}

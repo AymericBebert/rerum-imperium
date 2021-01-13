@@ -41,6 +41,10 @@
     "update-available": "MàJ disponible"
   },
   "room": {
+    "no-satellites": "Aucun satelles",
+    "satelles": {
+      "no-commands": "Aucune commande"
+    },
     "share": {
       "text": "Contrôle mes trucs avec Rerum Imperium !",
       "title": "Rerum Imperium"

@@ -23,7 +23,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {DirectHomeComponent} from './direct-home/direct-home.component';
 import {NavComponent} from './nav/nav.component';
 import {ChangeLanguageComponent} from './nav/change-language.component';
 import {DebugHttpInterceptor} from './utils/debug-http.interceptor';
@@ -51,7 +50,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     NavComponent,
     ChangeLanguageComponent,
-    DirectHomeComponent,
     HomeComponent,
     RoomComponent,
   ],

@@ -1,58 +1,15 @@
-.connection-error {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 20px;
-  border-radius: 5px;
-  z-index: 10;
-
-  & > * {
-    vertical-align: middle
-  }
+.cmd-info {
+  text-align: center;
 }
 
-.header {
-  font-weight: bold;
-  font-size: 1.4em;
-  padding-bottom: 10px;
-
-  span {
-    margin-right: 10px;
-    cursor: pointer;
-  }
+.cmd-action {
+  text-align: center;
 }
 
-.example-action-buttons {
-  padding-bottom: 20px;
-}
+.cmd-complex {
+  text-align: center;
 
-.example-headers-align .mat-expansion-panel-header-title,
-.example-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
-}
-
-.example-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
-}
-
-.example-headers-align .mat-form-field + .mat-form-field {
-  margin-left: 8px;
-}
-
-.wrapper {
-  padding: 20px 0;
-}
-
-.score-box {
-  width: 100%;
-}
-
-@media (screen and min-width: 600px) {
-  .score-box {
-    width: fit-content;
-    min-width: 600px;
-    max-width: 100%;
-    margin: auto;
+  .cmd-name {
+    margin-top: 10px;
   }
 }

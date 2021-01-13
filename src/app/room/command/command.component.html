@@ -17,7 +17,7 @@
         </div>
         <div *ngSwitchCase="'number'" class="arg-number" fxLayout="row" fxLayoutAlign="stretch center">
           <div fxFlex="grow" style="text-align: right">{{ arg.name || '-' }}&nbsp;: </div>
-          <div style="min-width: 3em">{{ arg.numberValue || 0 }}</div>
+          <div class="arg-value">{{ arg.numberValue || 0 }}</div>
           <mat-slider fxFlex="grow"
             [max]="arg.numberMax"
             [min]="arg.numberMin"
@@ -39,7 +39,7 @@
         </div>
         <div *ngSwitchCase="'select'" class="arg-select">
           <span>{{ arg.name || '-' }}: </span>
-          <span>{{ arg.selectValue || '-' }}</span>
+          <span class="arg-value">{{ arg.selectValue || '-' }}</span>
           ( <span *ngFor="let value of arg.selectValue || []">{{ arg.selectOptions || '-' }} </span>)
         </div>
         <div *ngSwitchDefault>

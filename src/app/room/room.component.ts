@@ -11,6 +11,7 @@ import {environment} from '../../environments/environment';
 import {RoomsService} from '../service/rooms.service';
 import {IRoom} from '../model/room';
 import {IArgValue} from '../model/imperium';
+import {ICommand, ISatelles} from '../model/satelles';
 
 @Component({
   selector: 'app-room',
@@ -67,6 +68,10 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  public trackSatelles = (index: number, satelles: ISatelles) => satelles.id;
+
+  public trackCommand = (index: number, command: ICommand) => command.name;
 
   public imperiumAction(satellesId: string, commandName: string, args: IArgValue[]) {
     this.socket.emit('imperium action', {

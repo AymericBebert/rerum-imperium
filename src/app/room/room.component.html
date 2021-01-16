@@ -13,7 +13,7 @@
   <span *ngIf="room.satellites.length === 0">{{ 'room.no-satellites' | translate }}</span>
 
   <mat-accordion *ngIf="room.satellites.length > 0" class="satellites-wrapper" multi>
-    <mat-expansion-panel *ngFor="let satelles of room.satellites">
+    <mat-expansion-panel *ngFor="let satelles of room.satellites; trackBy: trackSatelles">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ satelles.name }}
@@ -21,7 +21,7 @@
       </mat-expansion-panel-header>
       <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
         <span *ngIf="satelles.commands.length === 0">{{ 'room.satelles.no-commands' | translate }}</span>
-        <app-command *ngFor="let command of satelles.commands"
+        <app-command *ngFor="let command of satelles.commands; trackBy: trackCommand"
                      [command]="command"
                      (action)="imperiumAction(satelles.id, command.name, $event)">
         </app-command>

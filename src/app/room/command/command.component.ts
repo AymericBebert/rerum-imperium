@@ -17,6 +17,8 @@ export class CommandComponent {
   constructor() {
   }
 
+  public trackArgs = (index: number, arg: IArg) => arg.name + arg.type;
+
   public booleanChange(arg: IArg, $event: MatCheckboxChange) {
     this.command.args.forEach(a => {
       if (a.name === arg.name) {

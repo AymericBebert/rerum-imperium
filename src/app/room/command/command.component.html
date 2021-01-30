@@ -9,7 +9,7 @@
   </div>
   <div *ngSwitchCase="'complex'" class="cmd-complex">
     <div *ngIf="!command.name.startsWith('_')" class="cmd-name">{{ command.name }}</div>
-    <div *ngFor="let arg of command.args || []">
+    <div *ngFor="let arg of command.args || []; trackBy: trackArgs">
       <ng-container [ngSwitch]="arg.type">
         <div *ngSwitchCase="'string'" class="arg-string">
           <span>{{ arg.name || '-' }}: </span>

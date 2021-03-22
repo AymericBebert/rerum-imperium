@@ -4,11 +4,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {map, takeUntil, withLatestFrom} from 'rxjs/operators';
 import {StorageService} from '../storage/storage.service';
-import {NavButtonsService} from '../service/nav-buttons.service';
+import {NavButtonsService} from '../nav/nav-buttons.service';
 import {ShareButtonService} from '../share-button/share-button.service';
 import {SocketService} from '../socket/socket.service';
 import {environment} from '../../environments/environment';
-import {RoomsService} from '../service/rooms.service';
+import {RoomsService} from './rooms.service';
 import {IRoom} from '../model/room';
 import {IArgValue} from '../model/imperium';
 import {ICommand, ISatelles} from '../model/satelles';
@@ -73,7 +73,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   public trackCommand = (index: number, command: ICommand) => command.name;
 
-  public imperiumAction(satellesId: string, commandName: string, args: IArgValue[]) {
+  public imperiumAction(satellesId: string, commandName: string, args: IArgValue[]): void {
     this.socket.emit('imperium action', {
       satellesId,
       commandName,
@@ -81,7 +81,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     });
   }
 
-  private shareRoom(room: IRoom | null) {
+  private shareRoom(room: IRoom | null): void {
     const shareTitle = this.translateService.instant('room.share.title');
     const shareText = this.translateService.instant('room.share.text');
     if (room === null) {

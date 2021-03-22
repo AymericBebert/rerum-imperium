@@ -23,11 +23,11 @@ export class NavButtonsService {
     return this.privateNavButtonClicked$.asObservable();
   }
 
-  public setBackRouterLink(backRouterNavigate: string) {
+  public setBackRouterLink(backRouterNavigate: string): void {
     this.backRouterNavigate = backRouterNavigate;
   }
 
-  public backClicked() {
+  public backClicked(): void {
     if (this.backRouterNavigate && this.backRouterNavigate.startsWith('/')) {
       this.router.navigate([this.backRouterNavigate]).catch(e => console.error('Navigation error:', e));
     } else if (this.backRouterNavigate === '[back]') {
@@ -43,7 +43,7 @@ export class NavButtonsService {
     }
   }
 
-  public navButtonClicked(buttonId: string) {
+  public navButtonClicked(buttonId: string): void {
     this.privateNavButtonClicked$.next(buttonId);
   }
 }

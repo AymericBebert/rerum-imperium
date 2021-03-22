@@ -9,8 +9,8 @@ import {EMPTY} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ShareButtonModule} from '../../share-button/share-button.module';
 import {SocketTestingModule} from '../../testing/socket-testing.module';
-import {NavButtonsService} from '../../service/nav-buttons.service';
-import {RoomsService} from '../../service/rooms.service';
+import {NavButtonsService} from '../../nav/nav-buttons.service';
+import {RoomsService} from '../rooms.service';
 import {StorageModule} from '../../storage/storage.module';
 
 describe('CommandComponent', () => {

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RoomsService} from '../service/rooms.service';
+import {RoomsService} from '../room/rooms.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {IStoredRoom} from '../model/room';
@@ -7,7 +7,8 @@ import {filter, map, takeUntil} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {ImmediateErrorStateMatcher} from '../utils/error-state-matcher';
-import {NavButtonsService} from '../service/nav-buttons.service';
+import {NavButtonsService} from '../nav/nav-buttons.service';
+import {isNotNull} from '../utils/utils';
 
 @Component({
   selector: 'app-home',
@@ -51,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.roomsService.roomCheck$
       .pipe(
-        filter(room => !!room),
+        filter(isNotNull),
         takeUntil(this.destroy$),
       )
       .subscribe(room => {
@@ -65,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public visitedRoomClicked(token: string) {
+  public visitedRoomClicked(token: string): void {
     if (this.deletion) {
       this.deleteVisitedRoom(token);
     } else {
@@ -73,15 +74,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  public getVisitedRooms() {
+  public getVisitedRooms(): void {
     this.rawVisitedRooms$.next(this.roomsService.getVisitedRooms());
   }
 
-  public deleteVisitedRoom(token: string) {
+  public deleteVisitedRoom(token: string): void {
     this.rawVisitedRooms$.next(this.roomsService.deleteVisitedRoom(token));
   }
 
-  public toggleDeletion() {
+  public toggleDeletion(): void {
     this.deletion = !this.deletion;
   }
 }

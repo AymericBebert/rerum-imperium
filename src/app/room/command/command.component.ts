@@ -11,7 +11,7 @@ import {IArg, ICommand} from '../../model/satelles';
 })
 export class CommandComponent {
 
-  @Input() public command: ICommand;
+  @Input() public command: ICommand | undefined;
   @Output() public action = new EventEmitter<IArgValue[]>();
 
   constructor() {
@@ -19,21 +19,23 @@ export class CommandComponent {
 
   public trackArgs = (index: number, arg: IArg) => arg.name + arg.type;
 
-  public booleanChange(arg: IArg, $event: MatCheckboxChange) {
-    this.command.args.forEach(a => {
+  public booleanChange(arg: IArg, $event: MatCheckboxChange): void {
+    const args = this.command?.args ?? [];
+    args.forEach(a => {
       if (a.name === arg.name) {
         a.booleanValue = $event.checked;
       }
     });
-    this.action.emit(this.command.args);
+    this.action.emit(args);
   }
 
-  public numberChange(arg: IArg, $event: MatSliderChange) {
-    this.command.args.forEach(a => {
+  public numberChange(arg: IArg, $event: MatSliderChange): void {
+    const args = this.command?.args ?? [];
+    args.forEach(a => {
       if (a.name === arg.name) {
-        a.numberValue = $event.value;
+        a.numberValue = $event.value || undefined;
       }
     });
-    this.action.emit(this.command.args);
+    this.action.emit(args);
   }
 }

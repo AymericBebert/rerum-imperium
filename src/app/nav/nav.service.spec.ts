@@ -4,8 +4,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {TranslateTestingModule} from '../testing/translate-testing-module';
 import {NavButtonsService} from './nav-buttons.service';
-import {SettingsService} from './settings.service';
-import {DeviceService} from './device.service';
+import {SettingsService} from '../service/settings.service';
+import {DeviceService} from '../service/device.service';
 import {StorageModule} from '../storage/storage.module';
 import {UpdaterTestingModule} from '../testing/updater-testing.module';
 

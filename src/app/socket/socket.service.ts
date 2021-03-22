@@ -1,16 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, fromEvent, Observable, of, Subject} from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  shareReplay,
-  skip,
-  startWith,
-  take,
-  takeUntil,
-  tap
-} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, map, shareReplay, skip, startWith, take, takeUntil, tap} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 import {EmittedEventTypes, ReceivedEventTypes} from './socket-event-types';
 import {io, Socket} from 'socket.io-client';
@@ -49,19 +39,21 @@ export class SocketService {
         } else {
           console.log('Socket should disconnect');
           this.disconnect$.next();
-          this.socket.disconnect();
-          this.socket.close();
+          if (this.socket != null) {
+            this.socket.disconnect();
+            this.socket.close();
+          }
           this.socket = null;
           this.connected$.next(false);
         }
       });
   }
 
-  public connectSocket() {
+  public connectSocket(): void {
     this.shouldBeConnected$.next(true);
   }
 
-  public disconnectSocket() {
+  public disconnectSocket(): void {
     this.shouldBeConnected$.next(false);
   }
 

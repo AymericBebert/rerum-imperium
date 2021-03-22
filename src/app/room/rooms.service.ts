@@ -1,25 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
-import {
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  finalize,
-  map,
-  skip,
-  switchMap,
-  takeUntil,
-  tap
-} from 'rxjs/operators';
-import {StorageService} from '../storage/storage.service';
-import {SocketService} from '../socket/socket.service';
-import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
+import {catchError, debounceTime, distinctUntilChanged, filter, finalize, map, skip, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {IRoom, IStoredRoom} from '../model/room';
 import {roomsBackendRoutes} from '../rooms-backend.routes';
+import {StorageService} from '../storage/storage.service';
+import {SocketService} from '../socket/socket.service';
+import {isNotNull} from '../utils/utils';
 
 @Injectable()
 export class RoomsService {
@@ -30,7 +20,7 @@ export class RoomsService {
   public currentRoom$ = new BehaviorSubject<IRoom | null>(null);
   private currentRoomId$ = this.currentRoom$.pipe(map(room => room?.token || ''), distinctUntilChanged());
 
-  private roomLeft$ = this.currentRoom$.pipe(skip(1), filter(g => !g), map<null, void>(() => void 0));
+  private roomLeft$ = this.currentRoom$.pipe(skip(1), filter(r => !r), map(() => void 0));
 
   constructor(private http: HttpClient,
               private socket: SocketService,
@@ -39,7 +29,7 @@ export class RoomsService {
   ) {
     this.currentRoom$
       .pipe(
-        filter(room => !!room),
+        filter(isNotNull),
         map(room => ({token: room.token, roomName: room.roomName})),
         debounceTime(500),
       )
@@ -80,7 +70,7 @@ export class RoomsService {
     this.roomLeft$.subscribe(() => console.log('room left'));
   }
 
-  public setCurrentRoomToken(token: string | null) {
+  public setCurrentRoomToken(token: string | null): void {
     const currentRoom = this.currentRoom$.getValue();
     if (!token) {
       this.socket.disconnectSocket();
@@ -107,7 +97,7 @@ export class RoomsService {
 
   public getVisitedRooms(): IStoredRoom[] {
     const visitedRoomsFromStorage = this.storageService.getItem('visitedRooms') || '[]';
-    return JSON.parse(visitedRoomsFromStorage).map(g => ({...g, date: new Date(g.date)}));
+    return (JSON.parse(visitedRoomsFromStorage) as IStoredRoom[]).map(g => ({...g, date: new Date(g.date)}));
   }
 
   public deleteVisitedRoom(token: string): IStoredRoom[] {
@@ -135,7 +125,7 @@ export class RoomsService {
     );
   }
 
-  private addToVisitedRooms(token: string, roomName: string) {
+  private addToVisitedRooms(token: string, roomName: string): void {
     const visitedRoomsFromStorage = this.storageService.getItem('visitedRooms') || '[]';
     const visitedRooms: IStoredRoom[] = JSON.parse(visitedRoomsFromStorage);
     const foundAtIndex = visitedRooms.map(sg => sg.token).indexOf(token);

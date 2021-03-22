@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {NavService} from './service/nav.service';
+import {NavService} from './nav/nav.service';
 
 @Component({
   selector: 'app-root',

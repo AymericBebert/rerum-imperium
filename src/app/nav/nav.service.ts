@@ -3,8 +3,8 @@ import {BehaviorSubject, from} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {StorageService} from '../storage/storage.service';
 import {NavButtonsService} from './nav-buttons.service';
-import {SettingsService} from './settings.service';
-import {DeviceService} from './device.service';
+import {SettingsService} from '../service/settings.service';
+import {DeviceService} from '../service/device.service';
 import {filter, switchMap, tap} from 'rxjs/operators';
 import {version} from '../../version';
 import {UpdaterService} from '../updater/updater.service';
@@ -15,7 +15,7 @@ export class NavService {
   public pinSideNav$ = new BehaviorSubject<boolean>(false);
   public showBackButton$ = new BehaviorSubject<boolean>(false);
   public navButtons$ = new BehaviorSubject<string[]>([]);
-  public navTools$ = new BehaviorSubject<{name: string, icon: string}[]>([]);
+  public navTools$ = new BehaviorSubject<{ name: string, icon: string }[]>([]);
   public notificationBadge$ = new BehaviorSubject<string>('');
   public displayUpdatesAvailable$ = new BehaviorSubject<boolean>(false);
   public displayUpdatesActivated$ = new BehaviorSubject<boolean>(false);
@@ -42,23 +42,23 @@ export class NavService {
     });
   }
 
-  public setBackRouterLink(backRouterNavigate: string) {
+  public setBackRouterLink(backRouterNavigate: string): void {
     this.navButtonsService.setBackRouterLink(backRouterNavigate);
   }
 
-  public backClicked() {
+  public backClicked(): void {
     this.navButtonsService.backClicked();
   }
 
-  public navButtonClicked(buttonId: string) {
+  public navButtonClicked(buttonId: string): void {
     this.navButtonsService.navButtonClicked(buttonId);
   }
 
-  public navToolClicked(toolId: string) {
+  public navToolClicked(toolId: string): void {
     this.navButtonsService.navButtonClicked(toolId);
   }
 
-  public setLanguage(lang: string) {
+  public setLanguage(lang: string): void {
     if (lang === this.translateService.currentLang) {
       return;
     }
@@ -67,7 +67,7 @@ export class NavService {
     this.storageService.setItem('language', lang);
   }
 
-  public applyStoredLanguage() {
+  public applyStoredLanguage(): void {
     const languageFromStorage = this.storageService.getItem('language');
     const languageFromBrowser = this.translateService.getBrowserLang();
     if (languageFromStorage) {
@@ -79,41 +79,41 @@ export class NavService {
     }
   }
 
-  public setDarkMode(b: boolean) {
+  public setDarkMode(b: boolean): void {
     this.storageService.setItem('darkMode', JSON.stringify(b));
     this.settingsService.darkMode$.next(b);
   }
 
-  public applyStoredDarkMode() {
+  public applyStoredDarkMode(): void {
     const darkModeFromStorage = this.storageService.getItem('darkMode');
     if (darkModeFromStorage && JSON.parse(darkModeFromStorage)) {
       this.setDarkMode(true);
     }
   }
 
-  public setPinSideNav(b: boolean) {
+  public setPinSideNav(b: boolean): void {
     this.storageService.setItem('pinSideNav', JSON.stringify(b));
     this.pinSideNav$.next(b);
   }
 
-  public applyPinSideNav() {
+  public applyPinSideNav(): void {
     const pinSideNavFromStorage = this.storageService.getItem('pinSideNav');
     if (pinSideNavFromStorage && JSON.parse(pinSideNavFromStorage)) {
       this.setPinSideNav(true);
     }
   }
 
-  public update() {
+  public update(): void {
     this.updater.update();
   }
 
-  public checkForUpdates() {
+  public checkForUpdates(): void {
     console.log('checkForUpdates clicked');
     console.log(`Current version: ${version}`);
     this.clearRefreshPage(false);
   }
 
-  public clearRefreshPage(alwaysRefresh: boolean = true) {
+  public clearRefreshPage(alwaysRefresh: boolean = true): void {
     console.log('checkForUpdates clicked');
     from(window.caches.keys())
       .pipe(
@@ -126,7 +126,7 @@ export class NavService {
       .subscribe(() => this.refreshPage());
   }
 
-  public refreshPage() {
+  public refreshPage(): void {
     console.log('Refreshing page...');
     location.reload();
   }

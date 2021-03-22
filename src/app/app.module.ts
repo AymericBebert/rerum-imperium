@@ -27,9 +27,8 @@ import {NavComponent} from './nav/nav.component';
 import {ChangeLanguageComponent} from './nav/change-language.component';
 import {DebugHttpInterceptor} from './utils/debug-http.interceptor';
 import {DeviceService} from './service/device.service';
-import {ThingsService} from './service/things.service';
-import {NavService} from './service/nav.service';
-import {NavButtonsService} from './service/nav-buttons.service';
+import {NavService} from './nav/nav.service';
+import {NavButtonsService} from './nav/nav-buttons.service';
 import {SettingsService} from './service/settings.service';
 import {StorageModule} from './storage/storage.module';
 import {UpdaterModule} from './updater/updater.module';
@@ -37,7 +36,7 @@ import {SocketModule} from './socket/socket.module';
 import {RoomComponent} from './room/room.component';
 import {HomeComponent} from './home/home.component';
 import {ShareButtonModule} from './share-button/share-button.module';
-import {RoomsService} from './service/rooms.service';
+import {RoomsService} from './room/rooms.service';
 import {CommandModule} from './room/command/command.module';
 
 // AoT requires an exported function for factories
@@ -95,7 +94,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       multi: true
     },
     DeviceService,
-    ThingsService,
     NavService,
     NavButtonsService,
     SettingsService,

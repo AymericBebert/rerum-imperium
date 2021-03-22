@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -7,15 +7,14 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './share-button.component.html',
   styleUrls: ['./share-button.component.scss']
 })
-export class ShareButtonComponent implements OnInit {
+export class ShareButtonComponent {
   @Input() public title = 'Rerum Imperium';
   @Input() public text = 'Room link';
   @Input() public url = '';
   @Input() public disabled = false;
   @Input() public iconOnly = false;
-
-  private readonly webNavigator: any = null;
   public canShare = false;
+  private readonly webNavigator: any = null;
 
   constructor(private snackBar: MatSnackBar,
               private translateService: TranslateService,
@@ -24,10 +23,7 @@ export class ShareButtonComponent implements OnInit {
     this.canShare = this.webNavigator !== null && this.webNavigator.share !== undefined;
   }
 
-  public ngOnInit() {
-  }
-
-  public shareClicked() {
+  public shareClicked(): void {
     if (this.canShare) {
       this.webNavigator.share({
         title: this.title,
@@ -37,7 +33,7 @@ export class ShareButtonComponent implements OnInit {
     }
   }
 
-  public copyToClipboard() {
+  public copyToClipboard(): void {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -55,7 +51,7 @@ export class ShareButtonComponent implements OnInit {
     );
   }
 
-  public activate() {
+  public activate(): void {
     if (this.disabled) {
       this.translateService.get('share.disabled').subscribe(t =>
         this.snackBar.open(t, '', {duration: 3000})

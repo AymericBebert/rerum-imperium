@@ -13,7 +13,7 @@ export class SocketTestingService {
   constructor() {
   }
 
-  public connectSocket() {
+  public connectSocket(): void {
     if (this.socket === null) {
       console.log('Connecting fake socket');
       this.socket = true;
@@ -21,7 +21,7 @@ export class SocketTestingService {
     }
   }
 
-  public disconnectSocket() {
+  public disconnectSocket(): void {
     if (this.socket !== null) {
       console.log('Disconnecting fake socket');
       this.connected$.next(false);
@@ -40,7 +40,7 @@ export class SocketTestingService {
     return this.on(event).pipe(take(1));
   }
 
-  public emit(event: string, data: string = '') {
+  public emit(event: string, data: string = ''): void {
     if (this.socket !== null) {
       throw new Error('emit called but fake socket is disconnected');
     }

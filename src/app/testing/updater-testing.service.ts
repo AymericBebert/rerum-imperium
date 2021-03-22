@@ -14,7 +14,7 @@ export class UpdaterTestingService {
   constructor() {
   }
 
-  public update() {
+  public update(): void {
     console.log('UpdaterTestingService.update() called');
   }
 }

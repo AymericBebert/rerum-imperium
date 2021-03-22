@@ -11,7 +11,7 @@ export class ShareButtonService {
   ) {
   }
 
-  public shareOrCopy(title: string, text: string, url: string) {
+  public shareOrCopy(title: string, text: string, url: string): void {
     const fakeShareButton = new ShareButtonComponent(this.snackBar, this.translateService);
     fakeShareButton.title = title;
     fakeShareButton.text = text;

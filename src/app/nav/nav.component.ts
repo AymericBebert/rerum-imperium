@@ -4,7 +4,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter, map, mergeMap} from 'rxjs/operators';
 import {version} from '../../version';
 import {DeviceService} from '../service/device.service';
-import {NavService} from '../service/nav.service';
+import {NavService} from './nav.service';
 import {SettingsService} from '../service/settings.service';
 
 @Component({
@@ -13,7 +13,7 @@ import {SettingsService} from '../service/settings.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
-  @ViewChild('drawer', {static: true}) public navDrawer: MatSidenav;
+  @ViewChild('drawer', {static: true}) public navDrawer!: MatSidenav;
 
   public appVersion = version;
 

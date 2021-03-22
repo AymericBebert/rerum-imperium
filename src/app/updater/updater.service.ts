@@ -17,8 +17,8 @@ export class UpdaterService {
     }
 
     // Allow the app to stabilize first, before starting polling for updates with `interval()`.
-    const appIsStable$ = appRef.isStable.pipe(first(isStable => isStable === true));
-    const checkInterval$ = interval(5 * 60 * 1000);  // TODO increase those 5 min?
+    const appIsStable$ = appRef.isStable.pipe(first(isStable => isStable));
+    const checkInterval$ = interval(5 * 60 * 1000);
     const everyCheckIntervalOnceAppIsStable$ = concat(appIsStable$, checkInterval$);
 
     everyCheckIntervalOnceAppIsStable$.subscribe(() => {
@@ -37,7 +37,7 @@ export class UpdaterService {
     });
   }
 
-  public update() {
+  public update(): void {
     if (!this.updates.isEnabled) {
       return;
     }

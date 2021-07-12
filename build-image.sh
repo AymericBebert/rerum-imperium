@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-set -xeuo pipefail
-
-BUILD_CONFIGURATION=$1
-
-if [ -z "$BUILD_CONFIGURATION" ]; then
-  read -rp "Enter build configuration [PRODUCTION/testing]: " bc
-  BUILD_CONFIGURATION=${bc:-production}
-fi
-
 tags=$(git describe --contains)
 
 if [ -z "$tags" ]; then
@@ -40,16 +31,13 @@ fi
 function delete_new_tag() {
   if [ -z "$tags" ]; then
     echo "Removing new git tag $newtag"
-    git tag -d "$newtag" > /dev/null
+    git tag -d "$newtag" >/dev/null
   fi
 }
 
 version=$newtag
-if [ "$BUILD_CONFIGURATION" != "production" ]; then
-  version=$newtag-$BUILD_CONFIGURATION
-fi
 
-read -rp "Will build version $version, configuration $BUILD_CONFIGURATION, continue? [y/N]: " c
+read -rp "Will build version $version, continue? [y/N]: " c
 if [[ ! $c =~ ^[Yy]$ ]]; then
   echo "Cancelled"
   delete_new_tag
@@ -58,7 +46,7 @@ fi
 
 echo "-----"
 echo "Building rerum-imperium:$version..."
-docker build -t "aymericbernard/rerum-imperium:$version" --build-arg BUILD_CONFIGURATION="$BUILD_CONFIGURATION" --build-arg VERSION="$version" . ||
+docker build -t "aymericbernard/rerum-imperium:$version" --build-arg APP_VERSION="$version" . ||
   {
     echo 'Build failed'
     delete_new_tag

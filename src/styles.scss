@@ -1,7 +1,7 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '_fonts.scss';
 
-@include mat-core();
+@include mat.core();
 
 @import './custom-component-themes.scss';
 
@@ -21,20 +21,20 @@ $mat-bronze: (
   A400: #ff8d1b,
   A700: #ff8002,
   contrast: (
-    50: $dark-primary-text,
-    100: $dark-primary-text,
-    200: $dark-primary-text,
-    300: $dark-primary-text,
-    400: $light-primary-text,
-    500: $light-primary-text,
-    600: $light-primary-text,
-    700: $light-primary-text,
-    800: $light-primary-text,
-    900: $light-primary-text,
-    A100: $dark-primary-text,
-    A200: $dark-primary-text,
-    A400: $dark-primary-text,
-    A700: $dark-primary-text,
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
   ),
 );
 
@@ -54,29 +54,29 @@ $mat-rose-bronze: (
   A400 : #ff4165,
   A700 : #ff2850,
   contrast: (
-    50 : $dark-primary-text,
-    100 : $dark-primary-text,
-    200 : $dark-primary-text,
-    300 : $dark-primary-text,
-    400 : $light-primary-text,
-    500 : $light-primary-text,
-    600 : $light-primary-text,
-    700 : $light-primary-text,
-    800 : $light-primary-text,
-    900 : $light-primary-text,
-    A100 : $dark-primary-text,
-    A200 : $dark-primary-text,
-    A400 : $light-primary-text,
-    A700 : $light-primary-text,
+    50 : rgba(black, 0.87),
+    100 : rgba(black, 0.87),
+    200 : rgba(black, 0.87),
+    300 : rgba(black, 0.87),
+    400 : white,
+    500 : white,
+    600 : white,
+    700 : white,
+    800 : white,
+    900 : white,
+    A100 : rgba(black, 0.87),
+    A200 : rgba(black, 0.87),
+    A400 : white,
+    A700 : white,
   ),
 );
 
-$light-primary: mat-palette($mat-bronze);
-$light-accent: mat-palette($mat-rose-bronze, A200, A100, A400);
-$light-warn: mat-palette($mat-red);
-$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+$light-primary: mat.define-palette($mat-bronze);
+$light-accent: mat.define-palette($mat-rose-bronze, A200, A100, A400);
+$light-warn: mat.define-palette(mat.$red-palette);
+$light-theme: mat.define-light-theme($light-primary, $light-accent, $light-warn);
 
-@include angular-material-theme($light-theme);
+@include mat.all-component-themes($light-theme);
 @include custom-components-theme($light-theme);
 
 // Defines an alternate dark theme.
@@ -96,20 +96,20 @@ $mat-bronze-dark: (
   A400 : #ff6f03,
   A700 : #e96400,
   contrast: (
-    50 : $dark-primary-text,
-    100 : $dark-primary-text,
-    200 : $dark-primary-text,
-    300 : $light-primary-text,
-    400 : $light-primary-text,
-    500 : $light-primary-text,
-    600 : $light-primary-text,
-    700 : $light-primary-text,
-    800 : $light-primary-text,
-    900 : $light-primary-text,
-    A100 : $dark-primary-text,
-    A200 : $light-primary-text,
-    A400 : $light-primary-text,
-    A700 : $light-primary-text,
+    50 : rgba(black, 0.87),
+    100 : rgba(black, 0.87),
+    200 : rgba(black, 0.87),
+    300 : white,
+    400 : white,
+    500 : white,
+    600 : white,
+    700 : white,
+    800 : white,
+    900 : white,
+    A100 : rgba(black, 0.87),
+    A200 : white,
+    A400 : white,
+    A700 : white,
   ),
 );
 
@@ -129,27 +129,27 @@ $mat-rose-bronze-dark: (
   A400 : #ff2b54,
   A700 : #ff1240,
   contrast: (
-    50 : $dark-primary-text,
-    100 : $dark-primary-text,
-    200 : $dark-primary-text,
-    300 : $dark-primary-text,
-    400 : $light-primary-text,
-    500 : $light-primary-text,
-    600 : $light-primary-text,
-    700 : $light-primary-text,
-    800 : $light-primary-text,
-    900 : $light-primary-text,
-    A100 : $dark-primary-text,
-    A200 : $dark-primary-text,
-    A400 : $light-primary-text,
-    A700 : $light-primary-text,
+    50 : rgba(black, 0.87),
+    100 : rgba(black, 0.87),
+    200 : rgba(black, 0.87),
+    300 : rgba(black, 0.87),
+    400 : white,
+    500 : white,
+    600 : white,
+    700 : white,
+    800 : white,
+    900 : white,
+    A100 : rgba(black, 0.87),
+    A200 : rgba(black, 0.87),
+    A400 : white,
+    A700 : white,
   ),
 );
 
-$dark-primary: mat-palette($mat-bronze-dark);
-$dark-accent: mat-palette($mat-rose-bronze-dark, A200, A100, A400);
-$dark-warn: mat-palette($mat-deep-orange);
-$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$dark-primary: mat.define-palette($mat-bronze-dark);
+$dark-accent: mat.define-palette($mat-rose-bronze-dark, A200, A100, A400);
+$dark-warn: mat.define-palette(mat.$deep-orange-palette);
+$dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 // Insert custom background color
 $dark-background: map-get($dark-theme, background);
@@ -157,7 +157,7 @@ $dark-background: map_merge($dark-background, (app-bar: #101010, background: #20
 $dark-theme: map_merge($dark-theme, (background: $dark-background));
 
 .bronze-dark-theme {
-  @include angular-material-theme($dark-theme);
+  @include mat.all-component-themes($dark-theme);
   @include custom-components-theme($dark-theme);
   @include custom-components-dark-theme($dark-theme);
 }
@@ -182,24 +182,24 @@ body {
 
 .bronze-dark-theme {
   .mat-button.mat-primary, .mat-icon-button.mat-primary {
-    color: mat-color($light-primary, 100);
+    color: mat.get-color-from-palette($light-primary, 100);
   }
 
   .mat-progress-spinner circle {
-    stroke: mat-color($light-primary, 100);
+    stroke: mat.get-color-from-palette($light-primary, 100);
   }
 
   .mat-form-field.mat-focused {
     .mat-form-field-label {
-      color: mat-color($light-primary, 100);
+      color: mat.get-color-from-palette($light-primary, 100);
     }
     .mat-form-field-ripple {
-      background-color: mat-color($light-primary, 100);
+      background-color: mat.get-color-from-palette($light-primary, 100);
     }
   }
 
   .mat-input-element {
-    caret-color: mat-color($light-primary, 100);
+    caret-color: mat.get-color-from-palette($light-primary, 100);
   }
 }
 

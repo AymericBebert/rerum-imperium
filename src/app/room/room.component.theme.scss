@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin room-component-theme($theme) {
   //$primary: map-get($theme, primary);
@@ -9,12 +9,12 @@
 
   app-room {
     .connection-error {
-      background-color: mat-color($accent, 300);
+      background-color: mat.get-color-from-palette($accent, 300);
       box-shadow: 0 2px 4px -1px rgba(92, 0, 0, 0.25), 0 4px 5px 0 rgba(99, 14, 14, 0.14), 0 1px 10px 0 rgba(128, 33, 33, 0.12);
     }
 
     .score-box {
-      background-color: mat-color($background, background);
+      background-color: mat.get-color-from-palette($background, background);
     }
   }
 }

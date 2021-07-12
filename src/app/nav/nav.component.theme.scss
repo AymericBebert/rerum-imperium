@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin sidenav-content-component-theme($theme) {
   //$primary: map-get($theme, primary);
@@ -8,18 +8,18 @@
   $background: map-get($theme, background);
 
   .mat-sidenav-content {
-    color: mat-color($foreground, text);
-    background-color: mat-color($background, app-bar);
+    color: mat.get-color-from-palette($foreground, text);
+    background-color: mat.get-color-from-palette($background, app-bar);
   }
 
   .mat-list-item.selectable {
-    background-color: mat-color($accent, 0.04);
+    background-color: mat.get-color-from-palette($accent, 0.04);
 
     &.selected {
-      background-color: mat-color($accent, 0.1);
+      background-color: mat.get-color-from-palette($accent, 0.1);
     }
     &:hover {
-      background-color: mat-color($accent, 0.2);
+      background-color: mat.get-color-from-palette($accent, 0.2);
     }
   }
 }

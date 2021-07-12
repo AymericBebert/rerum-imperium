@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin command-component-theme($theme) {
   $primary: map-get($theme, primary);
@@ -9,15 +9,15 @@
 
   app-command {
     .cmd-complex {
-      border-top: 1px solid mat-color($primary, 300, 0.4);
-      border-bottom: 1px solid mat-color($primary, 300, 0.4);
+      border-top: 1px solid mat.get-color-from-palette($primary, 300, 0.4);
+      border-bottom: 1px solid mat.get-color-from-palette($primary, 300, 0.4);
 
       .cmd-name {
-        color: mat-color($primary, 300);
+        color: mat.get-color-from-palette($primary, 300);
       }
 
       .arg-value {
-        color: mat-color($accent);
+        color: mat.get-color-from-palette($accent);
       }
     }
   }

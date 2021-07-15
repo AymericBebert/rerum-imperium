@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, fromEvent, Observable, of, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, shareReplay, skip, startWith, take, takeUntil, tap} from 'rxjs/operators';
-import {environment} from 'src/environments/environment';
-import {EmittedEventTypes, ReceivedEventTypes} from './socket-event-types';
 import {io, Socket} from 'socket.io-client';
+import {APP_CONFIG, AppConfig} from '../../config/app.config';
+import {EmittedEventTypes, ReceivedEventTypes} from './socket-event-types';
 
 @Injectable()
 export class SocketService {
@@ -27,13 +27,13 @@ export class SocketService {
 
   private disconnect$ = new Subject<void>();
 
-  constructor() {
+  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
     this.shouldBeConnected$
       .pipe(distinctUntilChanged(), skip(1))
       .subscribe(shouldConnect => {
         if (shouldConnect) {
           console.log('Socket should connect');
-          this.socket = io(environment.backendUrl);
+          this.socket = io(this.config.backendUrl);
           this.on('connect').subscribe(() => this.connected$.next(true));
           this.on('disconnect').subscribe(() => this.connected$.next(false));
         } else {
@@ -62,10 +62,10 @@ export class SocketService {
       console.error('Cannot receive event: null socket');
       return of();
     }
-    return fromEvent<ReceivedEventTypes[T]>(this.socket, eventName)
+    return fromEvent<ReceivedEventTypes[T]>(this.socket as any, eventName)
       .pipe(
-        tap(data => environment.debugSocket && console.log(`socket> ${eventName}:`, data)),
-        takeUntil(this.disconnect$)
+        tap(data => this.config.debugSocket && console.log(`socket> ${eventName}:`, data)),
+        takeUntil(this.disconnect$),
       );
   }
 
@@ -78,7 +78,7 @@ export class SocketService {
       console.error('Cannot emit event: null socket');
       return;
     }
-    if (environment.debugSocket) {
+    if (this.config.debugSocket) {
       console.log(`socket< ${eventName}:`, args?.[0]);
     }
     this.socket.emit(eventName, ...args);

@@ -1,17 +1,5 @@
 {
   "app-name": "Rerum Imperium",
-  "direct-home": {
-    "animation": {
-      "clock": "Horloge",
-      "rainbow": "Arc-en-ciel",
-      "stop": "Stop"
-    },
-    "form": {
-      "label": "URL de l'objet",
-      "placeholder": "http://192.168.0.33:2812"
-    },
-    "welcome": "Contrôlez tous vos trucs !"
-  },
   "home": {
     "form": {
       "label": "Code de salle",

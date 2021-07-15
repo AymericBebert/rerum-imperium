@@ -1,43 +1,44 @@
-import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
-import {ServiceWorkerModule} from '@angular/service-worker';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgModule} from '@angular/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ServiceWorkerModule} from '@angular/service-worker';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {APP_CONFIG, appConfigFactory} from '../config/app.config';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NavComponent} from './nav/nav.component';
+import {HomeComponent} from './home/home.component';
 import {ChangeLanguageComponent} from './nav/change-language.component';
-import {DebugHttpInterceptor} from './utils/debug-http.interceptor';
-import {DeviceService} from './service/device.service';
-import {NavService} from './nav/nav.service';
 import {NavButtonsService} from './nav/nav-buttons.service';
+import {NavComponent} from './nav/nav.component';
+import {NavService} from './nav/nav.service';
+import {CommandModule} from './room/command/command.module';
+import {RoomComponent} from './room/room.component';
+import {RoomsService} from './room/rooms.service';
+import {DeviceService} from './service/device.service';
 import {SettingsService} from './service/settings.service';
+import {ShareButtonModule} from './share-button/share-button.module';
+import {SocketModule} from './socket/socket.module';
 import {StorageModule} from './storage/storage.module';
 import {UpdaterModule} from './updater/updater.module';
-import {SocketModule} from './socket/socket.module';
-import {RoomComponent} from './room/room.component';
-import {HomeComponent} from './home/home.component';
-import {ShareButtonModule} from './share-button/share-button.module';
-import {RoomsService} from './room/rooms.service';
-import {CommandModule} from './room/command/command.module';
+import {DebugHttpInterceptor} from './utils/debug-http.interceptor';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -88,6 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommandModule,
   ],
   providers: [
+    {provide: APP_CONFIG, useFactory: appConfigFactory},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: DebugHttpInterceptor,

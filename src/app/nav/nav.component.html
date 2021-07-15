@@ -80,7 +80,7 @@
 
       <img routerLink="/" [src]="'assets/icons/icon-white-64.png'" alt="icon" class="main-icon hide-focus"/>
       <span routerLink="/" class="main-title hide-focus">
-        {{ (navService.mainTitle$ | async | translate) || ('app-name' | translate) }}
+        {{ (navService.mainTitle$ | async) || 'app-name' | translate }}
       </span>
 
       <span class="fill-remaining-space"></span>

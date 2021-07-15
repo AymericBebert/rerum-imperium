@@ -1,17 +1,5 @@
 {
   "app-name": "Rerum Imperium",
-  "direct-home": {
-    "animation": {
-      "clock": "Clock",
-      "rainbow": "Rainbow",
-      "stop": "Stop"
-    },
-    "form": {
-      "label": "Thing URL",
-      "placeholder": "http://192.168.0.33:2812"
-    },
-    "welcome": "Control all the tings!"
-  },
   "home": {
     "form": {
       "label": "Room token",

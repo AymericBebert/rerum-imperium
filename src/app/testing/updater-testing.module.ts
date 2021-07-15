@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-import {UpdaterTestingService} from './updater-testing.service';
 import {UpdaterService} from '../updater/updater.service';
+import {UpdaterTestingService} from './updater-testing.service';
 
 @NgModule({
   providers: [

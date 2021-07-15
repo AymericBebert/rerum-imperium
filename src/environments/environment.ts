@@ -1,8 +1,5 @@
-export const environment = {
+import {EnvironmentConfig} from '../config/app.config';
+
+export const environment: EnvironmentConfig = {
   production: false,
-  backendUrl: 'http://localhost:4060',
-  websiteUrl: 'http://localhost:4600',
-  debugSocket: true,
-  debugHttp: true,
-  tokenLength: 8,
 };

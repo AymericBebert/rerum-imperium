@@ -10,7 +10,7 @@ export class StorageService {
   private readonly useCookie: boolean = false;
 
   constructor(private cookieService: CookieService,
-              ) {
+  ) {
     try {
       if (localStorage !== null) {
         this.storage = localStorage;

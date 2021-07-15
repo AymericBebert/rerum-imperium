@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="command.type">
+<ng-container *ngIf="command" [ngSwitch]="command.type">
   <div *ngSwitchCase="'info'" class="cmd-info">
     <span>{{ command.name }}</span>
   </div>
@@ -40,7 +40,7 @@
         <div *ngSwitchCase="'select'" class="arg-select">
           <span>{{ arg.name || '-' }}: </span>
           <span class="arg-value">{{ arg.selectValue || '-' }}</span>
-          ( <span *ngFor="let value of arg.selectValue || []">{{ arg.selectOptions || '-' }} </span>)
+          ( <span *ngFor="let value of arg.selectOptions || []">{{ value }} </span>)
         </div>
         <div *ngSwitchDefault>
           <pre>{{ arg | json }}</pre>

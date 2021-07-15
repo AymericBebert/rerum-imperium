@@ -1,14 +1,13 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Inject, Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, filter, finalize, map, skip, switchMap, takeUntil, tap} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
+import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {IRoom, IStoredRoom} from '../model/room';
-import {roomsBackendRoutes} from '../rooms-backend.routes';
-import {StorageService} from '../storage/storage.service';
 import {SocketService} from '../socket/socket.service';
+import {StorageService} from '../storage/storage.service';
 import {isNotNull} from '../utils/utils';
 
 @Injectable()
@@ -26,6 +25,7 @@ export class RoomsService {
               private socket: SocketService,
               private storageService: StorageService,
               private snackBar: MatSnackBar,
+              @Inject(APP_CONFIG) private config: AppConfig,
   ) {
     this.currentRoom$
       .pipe(
@@ -86,7 +86,7 @@ export class RoomsService {
 
   public roomExistsValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      if (control.value.length < environment.tokenLength) {
+      if (control.value.length < this.config.tokenLength) {
         return of(null);
       }
       return this.roomExistsCheck(control.value).pipe(
@@ -119,10 +119,11 @@ export class RoomsService {
   }
 
   private getRoom(token: string): Observable<IRoom | null> {
-    return this.http.get<{ result: IRoom | null; error: string }>(roomsBackendRoutes.getRoom(token)).pipe(
-      tap(res => res.error && this.snackBar.open(`getRoom: ${res.error}`, '', {duration: 3000})),
-      map(res => res.result),
-    );
+    return this.http.get<{ result: IRoom | null; error: string }>(`${this.config.backendUrl}/rooms/room/${token}`)
+      .pipe(
+        tap(res => res.error && this.snackBar.open(`getRoom: ${res.error}`, '', {duration: 3000})),
+        map(res => res.result),
+      );
   }
 
   private addToVisitedRooms(token: string, roomName: string): void {

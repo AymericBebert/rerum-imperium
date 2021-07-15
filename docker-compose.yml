@@ -11,7 +11,10 @@ services:
 #    environment:
 #      - VIRTUAL_HOST=rerum-imperium.kyr.pw
 #      - LETSENCRYPT_HOST=rerum-imperium.kyr.pw
-#      - LETSENCRYPT_EMAIL=nope@exxample.com
+#      - LETSENCRYPT_EMAIL=nope@example.com
+#      - APP_SHORT_NAME=Rerum
+#      - NGX_backendUrl="https://rerum-imperium-backend.example.com"
+#      - NGX_websiteUrl="https://rerum-imperium.example.com"
 #networks:
 #  proxy:
 #    external:

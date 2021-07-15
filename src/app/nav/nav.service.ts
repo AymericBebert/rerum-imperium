@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, from} from 'rxjs';
+import {Inject, Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {StorageService} from '../storage/storage.service';
-import {NavButtonsService} from './nav-buttons.service';
-import {SettingsService} from '../service/settings.service';
-import {DeviceService} from '../service/device.service';
+import {BehaviorSubject, from} from 'rxjs';
 import {filter, switchMap, tap} from 'rxjs/operators';
-import {version} from '../../version';
+import {APP_CONFIG, AppConfig} from '../../config/app.config';
+import {DeviceService} from '../service/device.service';
+import {SettingsService} from '../service/settings.service';
+import {StorageService} from '../storage/storage.service';
 import {UpdaterService} from '../updater/updater.service';
+import {NavButtonsService} from './nav-buttons.service';
 
 @Injectable()
 export class NavService {
@@ -28,6 +28,7 @@ export class NavService {
               private translateService: TranslateService,
               private storageService: StorageService,
               private updater: UpdaterService,
+              @Inject(APP_CONFIG) private config: AppConfig,
   ) {
     this.deviceService.isHandset$.pipe(filter(h => h)).subscribe(() => this.setPinSideNav(false));
 
@@ -109,7 +110,7 @@ export class NavService {
 
   public checkForUpdates(): void {
     console.log('checkForUpdates clicked');
-    console.log(`Current version: ${version}`);
+    console.log(`Current version: ${this.config.version}`);
     this.clearRefreshPage(false);
   }
 

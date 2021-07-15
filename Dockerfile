@@ -1,4 +1,4 @@
-FROM node:14.15.3-stretch-slim AS builder
+FROM node:14.17.3-buster-slim AS builder
 
 RUN mkdir /rerum-imperium
 WORKDIR /rerum-imperium
@@ -7,16 +7,13 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 
-ARG VERSION=untagged
-RUN echo "export const version = '$VERSION';\n" > ./src/version.ts
-
 ARG BUILD_CONFIGURATION=production
-RUN npm run build -- --configuration="${BUILD_CONFIGURATION}"
+RUN npm run build:prod
 
 #
 # Go back from a light nginx image
 #
-FROM nginx:1.19.6-alpine
+FROM nginx:1.21.1-alpine
 
 # nginx congiguration to redirect every route to /index.html
 RUN echo $'\n\
@@ -43,7 +40,12 @@ server {\n\
 }' > /etc/nginx/conf.d/default.conf
 
 WORKDIR /usr/share/nginx/html
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY --from=builder /rerum-imperium/dist/rerum-imperium .
 EXPOSE 80
 
+ARG APP_VERSION
+RUN echo $APP_VERSION > /version.txt
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

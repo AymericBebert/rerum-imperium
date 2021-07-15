@@ -1,17 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {map, takeUntil, withLatestFrom} from 'rxjs/operators';
-import {StorageService} from '../storage/storage.service';
+import {APP_CONFIG, AppConfig} from '../../config/app.config';
+import {IArgValue} from '../model/imperium';
+import {IRoom} from '../model/room';
+import {ICommand, ISatelles} from '../model/satelles';
 import {NavButtonsService} from '../nav/nav-buttons.service';
 import {ShareButtonService} from '../share-button/share-button.service';
 import {SocketService} from '../socket/socket.service';
-import {environment} from '../../environments/environment';
+import {StorageService} from '../storage/storage.service';
 import {RoomsService} from './rooms.service';
-import {IRoom} from '../model/room';
-import {IArgValue} from '../model/imperium';
-import {ICommand, ISatelles} from '../model/satelles';
 
 @Component({
   selector: 'app-room',
@@ -21,13 +21,6 @@ import {ICommand, ISatelles} from '../model/satelles';
 export class RoomComponent implements OnInit, OnDestroy {
 
   public room$ = this.roomsService.currentRoom$;
-
-  // public players$: Observable<EnrichedPlayer[]> = this.room$.pipe(
-  //   filter(room => room !== null),
-  //   map(game => {
-  //   }),
-  // );
-
   public connectionError$ = this.socket.connectionError$;
 
   private destroy$ = new Subject<void>();
@@ -40,6 +33,7 @@ export class RoomComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private roomsService: RoomsService,
               private socket: SocketService,
+              @Inject(APP_CONFIG) private config: AppConfig,
   ) {
   }
 
@@ -87,7 +81,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     if (room === null) {
       console.error('Trying to share but room is null?');
     } else {
-      this.shareButtonService.shareOrCopy(shareTitle, shareText, environment.websiteUrl + `/room/${room.token}`);
+      this.shareButtonService.shareOrCopy(shareTitle, shareText, `${this.config.websiteUrl}/room/${room.token}`);
     }
   }
 }

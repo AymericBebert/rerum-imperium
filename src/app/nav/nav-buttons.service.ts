@@ -1,9 +1,9 @@
 import {Location} from '@angular/common';
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
 import {Router} from '@angular/router';
-import {simplifyURL} from '../utils/utils';
+import {Observable, Subject} from 'rxjs';
 import {filter} from 'rxjs/operators';
+import {simplifyURL} from '../utils/utils';
 
 @Injectable()
 export class NavButtonsService {

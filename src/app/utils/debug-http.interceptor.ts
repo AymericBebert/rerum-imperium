@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Inject, Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
+import {APP_CONFIG, AppConfig} from '../../config/app.config';
 
 @Injectable()
 export class DebugHttpInterceptor implements HttpInterceptor {
-  constructor() {
+  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (environment.debugHttp) {
+    if (this.config.debugHttp) {
       console.log('http< :', request);
     }
     return next.handle(request).pipe(
@@ -20,7 +20,7 @@ export class DebugHttpInterceptor implements HttpInterceptor {
         }
         return throwError(`Error Code: ${error.status}; Message: ${error.message}`);
       }),
-      tap(response => environment.debugHttp && response instanceof HttpResponse && console.log('http> :', response))
+      tap(response => this.config.debugHttp && response instanceof HttpResponse && console.log('http> :', response))
     );
   }
 }

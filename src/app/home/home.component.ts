@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RoomsService} from '../room/rooms.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {IStoredRoom} from '../model/room';
-import {filter, map, takeUntil} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {filter, map, takeUntil} from 'rxjs/operators';
+import {IStoredRoom} from '../model/room';
+import {RoomsService} from '../room/rooms.service';
 import {ImmediateErrorStateMatcher} from '../utils/error-state-matcher';
-import {NavButtonsService} from '../nav/nav-buttons.service';
 import {isNotNull} from '../utils/utils';
 
 @Component({
@@ -17,36 +16,27 @@ import {isNotNull} from '../utils/utils';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  private rawVisitedRooms$ = new BehaviorSubject<IStoredRoom[]>([]);
-
-  public visitedRooms$: Observable<IStoredRoom[]> = this.rawVisitedRooms$.pipe(
-    map(vr => vr.sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0))),
-  );
-
   public roomFormControl: FormControl;
   public matcher: ErrorStateMatcher;
   public deletion = false;
-
   public roomCheckPending$ = this.roomsService.roomCheckPending$;
+
+  private rawVisitedRooms$ = new BehaviorSubject<IStoredRoom[]>([]);
+  public visitedRooms$: Observable<IStoredRoom[]> = this.rawVisitedRooms$.pipe(
+    map(vr => vr.sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0))),
+  );
 
   private destroy$ = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private roomsService: RoomsService,
-              private navButtonsService: NavButtonsService,
   ) {
     this.getVisitedRooms();
     this.roomFormControl = new FormControl('', {
       asyncValidators: [this.roomsService.roomExistsValidator()],
     });
     this.matcher = new ImmediateErrorStateMatcher();
-
-    this.navButtonsService.navButtonClicked$('nav-tool.wheel')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.router.navigate(['wheel'], {relativeTo: this.route}).catch(err => console.error('Navigation error', err));
-      });
   }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
-import {ShareButtonService} from './share-button.service';
-import {TranslateTestingModule} from '../testing/translate-testing-module';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {TranslateTestingModule} from '../testing/translate-testing-module';
+import {ShareButtonService} from './share-button.service';
 
 describe('ShareButtonService', () => {
   beforeEach(() => TestBed.configureTestingModule({

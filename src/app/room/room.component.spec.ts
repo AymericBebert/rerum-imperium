@@ -1,17 +1,17 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {RoomComponent} from './room.component';
-import {MatIconModule} from '@angular/material/icon';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {TranslateTestingModule} from '../testing/translate-testing-module';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute} from '@angular/router';
-import {EMPTY} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
-import {ShareButtonModule} from '../share-button/share-button.module';
-import {SocketTestingModule} from '../testing/socket-testing.module';
+import {EMPTY} from 'rxjs';
 import {NavButtonsService} from '../nav/nav-buttons.service';
-import {RoomsService} from './rooms.service';
+import {ShareButtonModule} from '../share-button/share-button.module';
 import {StorageModule} from '../storage/storage.module';
+import {SocketTestingModule} from '../testing/socket-testing.module';
+import {TranslateTestingModule} from '../testing/translate-testing-module';
+import {RoomComponent} from './room.component';
+import {RoomsService} from './rooms.service';
 
 describe('RoomComponent', () => {
   let component: RoomComponent;

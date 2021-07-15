@@ -1,11 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, Inject, ViewChild} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {marker} from '@biesbjerg/ngx-translate-extract-marker';
 import {filter, map, mergeMap} from 'rxjs/operators';
-import {version} from '../../version';
+import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {DeviceService} from '../service/device.service';
-import {NavService} from './nav.service';
 import {SettingsService} from '../service/settings.service';
+import {NavService} from './nav.service';
+
+marker('app-name');
 
 @Component({
   selector: 'app-nav',
@@ -15,13 +18,14 @@ import {SettingsService} from '../service/settings.service';
 export class NavComponent {
   @ViewChild('drawer', {static: true}) public navDrawer!: MatSidenav;
 
-  public appVersion = version;
+  public appVersion = this.config.version;
 
   constructor(public navService: NavService,
               public settingsService: SettingsService,
               public deviceService: DeviceService,
               private route: ActivatedRoute,
               private router: Router,
+              @Inject(APP_CONFIG) private config: AppConfig,
   ) {
     this.router.events
       .pipe(

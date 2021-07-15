@@ -1,6 +1,6 @@
 import {IImperiumAction, IJoinRoom} from '../model/imperium';
-import {ISatelles} from '../model/satelles';
 import {IRoom} from '../model/room';
+import {ISatelles} from '../model/satelles';
 
 export interface ReceivedEventTypes {
   'connect': void;

@@ -109,20 +109,19 @@ export class RoomsService {
   private roomExistsCheck(token: string): Observable<IRoom | null> {
     this.roomCheckPending$.next(true);
     return this.getRoom(token).pipe(
-      catchError(err => {
-        console.error(err);
-        return of(null);
-      }),
       tap(room => this.roomCheck$.next(room)),
       finalize(() => this.roomCheckPending$.next(false)),
     );
   }
 
   private getRoom(token: string): Observable<IRoom | null> {
-    return this.http.get<{ result: IRoom | null; error: string }>(`${this.config.backendUrl}/rooms/room/${token}`)
+    return this.http.get<IRoom>(`${this.config.backendUrl}/rooms/room/${token}`)
       .pipe(
-        tap(res => res.error && this.snackBar.open(`getRoom: ${res.error}`, '', {duration: 3000})),
-        map(res => res.result),
+        catchError(err => {
+          console.error(err);
+          this.snackBar.open(`getRoom: ${err}`, '', {duration: 3000});
+          return of(null);
+        }),
       );
   }
 

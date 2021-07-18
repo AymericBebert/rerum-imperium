@@ -16,20 +16,20 @@
           <span>{{ arg.stringValue || '-' }}</span>
         </div>
         <div *ngSwitchCase="'number'" class="arg-number" fxLayout="row" fxLayoutAlign="stretch center">
-          <div fxFlex="grow" style="text-align: right">{{ arg.name || '-' }}&nbsp;: </div>
+          <div fxFlex="grow" style="text-align: right">{{ arg.name || '-' }}&nbsp;:</div>
           <div class="arg-value">{{ arg.numberValue || 0 }}</div>
           <mat-slider fxFlex="grow"
-            [max]="arg.numberMax"
-            [min]="arg.numberMin"
-            [step]="arg.numberStep"
-            [(ngModel)]="arg.numberValue"
-            [thumbLabel]="true"
-            (change)="numberChange(arg, $event)"
+                      [max]="arg.numberMax"
+                      [min]="arg.numberMin"
+                      [step]="arg.numberStep"
+                      [(ngModel)]="arg.numberValue"
+                      [thumbLabel]="true"
+                      (change)="arg.numberValue = $event.value ?? undefined; submitChanges()"
           >
           </mat-slider>
         </div>
         <div *ngSwitchCase="'boolean'" class="arg-boolean">
-          <mat-checkbox [ngModel]="arg.booleanValue" (change)="booleanChange(arg, $event)">
+          <mat-checkbox [ngModel]="arg.booleanValue" (change)="arg.booleanValue = $event.checked; submitChanges()">
             {{ arg.name || '-' }}
           </mat-checkbox>
         </div>
@@ -38,9 +38,12 @@
           <span>{{ arg.colorValue || '#000000' }}</span>
         </div>
         <div *ngSwitchCase="'select'" class="arg-select">
-          <span>{{ arg.name || '-' }}: </span>
-          <span class="arg-value">{{ arg.selectValue || '-' }}</span>
-          ( <span *ngFor="let value of arg.selectOptions || []">{{ value }} </span>)
+          <mat-form-field>
+            <mat-label>{{ arg.name || '-' }}</mat-label>
+            <mat-select [(value)]="arg.selectValue" (valueChange)="submitChanges()">
+              <mat-option *ngFor="let option of arg.selectOptions || []" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <div *ngSwitchDefault>
           <pre>{{ arg | json }}</pre>

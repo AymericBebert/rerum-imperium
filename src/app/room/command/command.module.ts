@@ -5,6 +5,9 @@ import {FlexModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatOptionModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
 import {TranslateModule} from '@ngx-translate/core';
 import {CommandComponent} from './command.component';
@@ -23,6 +26,9 @@ import {CommandComponent} from './command.component';
     MatSliderModule,
     FormsModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   exports: [
     CommandComponent,

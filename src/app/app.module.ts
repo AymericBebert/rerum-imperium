@@ -37,7 +37,7 @@ import {SettingsService} from './service/settings.service';
 import {ShareButtonModule} from './share-button/share-button.module';
 import {SocketModule} from './socket/socket.module';
 import {StorageModule} from './storage/storage.module';
-import {UpdaterModule} from './updater/updater.module';
+import {UpdaterService} from './updater/updater.service';
 import {DebugHttpInterceptor} from './utils/debug-http.interceptor';
 
 // AoT requires an exported function for factories
@@ -83,7 +83,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSnackBarModule,
     MatExpansionModule,
     StorageModule,
-    UpdaterModule,
     SocketModule,
     ShareButtonModule,
     CommandModule,
@@ -99,6 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavService,
     NavButtonsService,
     SettingsService,
+    UpdaterService,
     RoomsService,
   ],
   bootstrap: [AppComponent],

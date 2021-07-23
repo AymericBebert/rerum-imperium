@@ -32,7 +32,8 @@
 
 img.main-icon {
   cursor: pointer;
-  height: 60%;
+  height: 40px;
+  width: 40px;
   padding: 0 8px;
 }
 
@@ -54,6 +55,7 @@ img.main-icon {
   }
 
   img.main-icon {
-    padding: 0 8px;
+    height: 32px;
+    width: 32px;
   }
 }

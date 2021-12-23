@@ -7,7 +7,6 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 
-ARG BUILD_CONFIGURATION=production
 RUN npm run build:prod
 
 #

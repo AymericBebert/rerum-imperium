@@ -101,7 +101,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UpdaterService,
     RoomsService,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent,
+  ],
   entryComponents: [],
 })
 export class AppModule {

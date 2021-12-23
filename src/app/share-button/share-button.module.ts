@@ -26,7 +26,6 @@ import {ShareButtonService} from './share-button.service';
   providers: [
     ShareButtonService,
   ],
-  entryComponents: [],
 })
 export class ShareButtonModule {
 }

@@ -13,7 +13,6 @@ import {StorageService} from './storage.service';
     StorageService,
     CookieService,
   ],
-  entryComponents: [],
 })
 export class StorageModule {
 }

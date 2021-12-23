@@ -104,7 +104,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [
     AppComponent,
   ],
-  entryComponents: [],
 })
 export class AppModule {
 }

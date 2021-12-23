@@ -33,7 +33,6 @@ import {CommandComponent} from './command.component';
   exports: [
     CommandComponent,
   ],
-  entryComponents: [],
 })
 export class CommandModule {
 }

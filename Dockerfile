@@ -1,4 +1,4 @@
-FROM node:14.17.3-buster-slim AS builder
+FROM node:16.13.1-bullseye-slim AS builder
 
 RUN mkdir /rerum-imperium
 WORKDIR /rerum-imperium

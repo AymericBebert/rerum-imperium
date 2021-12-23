@@ -14,7 +14,9 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build` to build the project.
+The build artifacts will be stored in the `dist/` directory.
+Use the `--configuration production` flag for a production build.
 
 ## Running unit tests
 
@@ -30,13 +32,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Run as static website
 ```bash
-npm run build -- --prod
+npm run build -- --configuration production
 python3 -m http.server --directory dist/rerum-imperium 4600
 ```
 
 ## Analyze build
 To analyze the build you can do :
 ```bash
-npm run build -- --prod --stats-json
+npm run build -- --configuration production --stats-json
 npx webpack-bundle-analyzer dist/rerum-imperium/stats.json
 ```

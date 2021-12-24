@@ -34,8 +34,12 @@
           </mat-checkbox>
         </div>
         <div *ngSwitchCase="'color'" class="arg-color">
-          <span>{{ arg.name || '-' }}: </span>
-          <span>{{ arg.colorValue || '#000000' }}</span>
+          <span>{{ arg.name || '-' }}&nbsp;:</span>
+          <input type="color" class="simple-color-input" style="margin: 0 4px"
+                 [ngModel]="arg.colorValue || '#000000'"
+                 (ngModelChange)="arg.colorValue = $event; scheduleSubmitChanges()"
+          >
+          <span class="minor-text" style="font-family: monospace">{{ arg.colorValue || '#000000' }}</span>
         </div>
         <div *ngSwitchCase="'select'" class="arg-select">
           <mat-form-field>

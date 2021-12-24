@@ -11,3 +11,8 @@ export interface IStoredRoom {
   roomName: string;
   date: Date;
 }
+
+export interface IStoredExpandedSatelles {
+  satellesName: string;
+  expanded: boolean;
+}

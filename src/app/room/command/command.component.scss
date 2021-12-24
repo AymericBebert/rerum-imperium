@@ -16,4 +16,16 @@
   .arg-value {
     min-width: 3em;
   }
+
+  .arg-color span {
+    vertical-align: top;
+    line-height: 32px;
+  }
+}
+
+input.simple-color-input {
+  height: 32px;
+  border: none;
+  background-color: unset;
+  padding: 0;
 }

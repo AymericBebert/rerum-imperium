@@ -172,14 +172,6 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.very-light-text {
-  color: #cccccc;
-
-  .bronze-dark-theme & {
-    color: #666666;
-  }
-}
-
 .bronze-dark-theme {
   .mat-button.mat-primary, .mat-icon-button.mat-primary {
     color: mat.get-color-from-palette($light-primary, 100);
@@ -203,28 +195,14 @@ body {
   }
 }
 
-.crown-icon-bw {
-  &.icon-64 {
-    background: url('assets/icons/icon-black-64.png');
-    background-size: contain;
-    height: 32px;
-    width: 32px;
-  }
-
-  .bronze-dark-theme & {
-    &.icon-64 {
-      background: url('assets/icons/icon-white-64.png');
-      background-size: contain;
-      height: 32px;
-      width: 32px;
-    }
-  }
-}
-
 .hide-focus:focus {
   outline: 0 solid transparent;
 }
 
-.edit-score div.mat-form-field-infix {
-  width: 140px;
+.very-light-text {
+  color: #cccccc;
+
+  .bronze-dark-theme & {
+    color: #666666;
+  }
 }

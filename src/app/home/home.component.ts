@@ -28,10 +28,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private roomsService: RoomsService,
+  constructor(private readonly route: ActivatedRoute,
+              private readonly router: Router,
+              private readonly roomsService: RoomsService,
   ) {
+    this.rejoinLastVisitedRoom();
     this.getVisitedRooms();
     this.roomFormControl = new FormControl('', {
       asyncValidators: [this.roomsService.roomExistsValidator()],
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       )
       .subscribe(room => {
         console.log('roomCheck$', room);
-        this.router.navigate(['..', 'room', room.token]).catch(err => console.error('Navigation error', err));
+        this.goToRoom(room.token);
       });
   }
 
@@ -60,19 +61,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.deletion) {
       this.deleteVisitedRoom(token);
     } else {
-      this.router.navigate(['..', 'room', token]).catch(err => console.error('Navigation error', err));
+      this.goToRoom(token);
     }
-  }
-
-  public getVisitedRooms(): void {
-    this.rawVisitedRooms$.next(this.roomsService.getVisitedRooms());
-  }
-
-  public deleteVisitedRoom(token: string): void {
-    this.rawVisitedRooms$.next(this.roomsService.deleteVisitedRoom(token));
   }
 
   public toggleDeletion(): void {
     this.deletion = !this.deletion;
+  }
+
+  private rejoinLastVisitedRoom(): void {
+    const lastVisited = this.roomsService.getLastVisitedRoom();
+    if (lastVisited) {
+      this.goToRoom(lastVisited);
+    }
+  }
+
+  private getVisitedRooms(): void {
+    this.rawVisitedRooms$.next(this.roomsService.getVisitedRooms());
+  }
+
+  private deleteVisitedRoom(token: string): void {
+    this.rawVisitedRooms$.next(this.roomsService.deleteVisitedRoom(token));
+  }
+
+  private goToRoom(token: string): void {
+    this.router.navigate(['..', 'room', token]).catch(err => console.error('Navigation error', err));
   }
 }

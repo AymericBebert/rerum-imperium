@@ -5,7 +5,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, filter, finalize, map, skip, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
-import {IRoom, IStoredRoom} from '../model/room';
+import {IRoom, IStoredExpandedSatelles, IStoredRoom} from '../model/room';
 import {SocketService} from '../socket/socket.service';
 import {StorageService} from '../storage/storage.service';
 import {isNotNull} from '../utils/utils';
@@ -21,11 +21,11 @@ export class RoomsService {
 
   private roomLeft$ = this.currentRoom$.pipe(skip(1), filter(r => !r), map(() => void 0));
 
-  constructor(private http: HttpClient,
-              private socket: SocketService,
-              private storageService: StorageService,
-              private snackBar: MatSnackBar,
-              @Inject(APP_CONFIG) private config: AppConfig,
+  constructor(private readonly http: HttpClient,
+              private readonly socket: SocketService,
+              private readonly storageService: StorageService,
+              private readonly snackBar: MatSnackBar,
+              @Inject(APP_CONFIG) private readonly config: AppConfig,
   ) {
     this.currentRoom$
       .pipe(
@@ -34,6 +34,8 @@ export class RoomsService {
         debounceTime(500),
       )
       .subscribe(({token, roomName}) => this.addToVisitedRooms(token, roomName));
+
+    this.currentRoomId$.pipe(skip(1)).subscribe(token => this.setLastVisitedRoom(token));
 
     combineLatest([
       this.currentRoomId$,
@@ -104,6 +106,41 @@ export class RoomsService {
     const newStoredRooms = this.getVisitedRooms().filter(sg => sg.token !== token);
     this.storageService.setItem('visitedRooms', JSON.stringify(newStoredRooms));
     return newStoredRooms;
+  }
+
+  public getLastVisitedRoom(): string {
+    return this.storageService.getItem('lastVisited') || '';
+  }
+
+  public setLastVisitedRoom(token: string): void {
+    const lastVisited = this.storageService.getItem('lastVisited') || '';
+    if (lastVisited !== token) {
+      console.log('setLastVisitedRoom:', lastVisited, '->', token);
+      this.clearExpandedSatelles();
+      this.storageService.setItem('lastVisited', token);
+    } else {
+      console.log('setLastVisitedRoom: keeping', lastVisited);
+    }
+  }
+
+  public getExpandedSatelles(): IStoredExpandedSatelles[] {
+    const expandedSatellesFromStorage = this.storageService.getItem('expandedSatelles') || '[]';
+    return JSON.parse(expandedSatellesFromStorage);
+  }
+
+  public setExpandedSatelles(satellesName: string, expanded: boolean): void {
+    const expandedSatelles = this.getExpandedSatelles();
+    const foundAtIndex = expandedSatelles.map(es => es.satellesName).indexOf(satellesName);
+    if (foundAtIndex >= 0) {
+      expandedSatelles[foundAtIndex] = {satellesName, expanded};
+    } else {
+      expandedSatelles.push({satellesName, expanded});
+    }
+    this.storageService.setItem('expandedSatelles', JSON.stringify(expandedSatelles));
+  }
+
+  public clearExpandedSatelles(): void {
+    this.storageService.removeItem('expandedSatelles');
   }
 
   private roomExistsCheck(token: string): Observable<IRoom | null> {

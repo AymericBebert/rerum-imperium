@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
-import {map, takeUntil, withLatestFrom} from 'rxjs/operators';
+import {map, takeUntil} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {IArgValue} from '../model/imperium';
 import {IRoom} from '../model/room';
@@ -13,6 +13,14 @@ import {SocketService} from '../socket/socket.service';
 import {StorageService} from '../storage/storage.service';
 import {RoomsService} from './rooms.service';
 
+interface IDisplayedSatelles extends ISatelles {
+  expanded: boolean;
+}
+
+interface IDisplayedRoom extends IRoom {
+  satellites: IDisplayedSatelles[];
+}
+
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
@@ -20,9 +28,10 @@ import {RoomsService} from './rooms.service';
 })
 export class RoomComponent implements OnInit, OnDestroy {
 
-  public room$ = this.roomsService.currentRoom$;
   public connectionError$ = this.socket.connectionError$;
+  public room: IDisplayedRoom | null = null;
 
+  private readonly expandedPanels = this.roomsService.getExpandedSatelles().filter(es => es.expanded).map(es => es.satellesName);
   private destroy$ = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
@@ -38,15 +47,20 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.roomsService.currentRoom$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(room => this.room = room ? {
+        ...room,
+        roomName: room.roomName.trim() || '...',
+        satellites: room.satellites.map(s => ({...s, expanded: this.expandedPanels.includes(s.name)})),
+      } : room);
+
     this.navButtonsService.navButtonClicked$()
-      .pipe(
-        withLatestFrom(this.room$),
-        takeUntil(this.destroy$),
-      )
-      .subscribe(([btn, room]) => {
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(btn => {
         switch (btn) {
           case 'share':
-            this.shareRoom(room);
+            this.shareRoom(this.room);
             break;
         }
       });
@@ -73,6 +87,10 @@ export class RoomComponent implements OnInit, OnDestroy {
       commandName,
       args,
     });
+  }
+
+  public expandedChanged(name: string, expanded: boolean) {
+    this.roomsService.setExpandedSatelles(name, expanded);
   }
 
   private shareRoom(room: IRoom | null): void {

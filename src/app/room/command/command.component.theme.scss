@@ -20,5 +20,9 @@
         color: mat.get-color-from-palette($accent);
       }
     }
+
+    .minor-text {
+      color: mat.get-color-from-palette($primary, 300);
+    }
   }
 }

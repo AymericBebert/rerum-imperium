@@ -73,7 +73,7 @@ export class NavService {
     const languageFromBrowser = this.translateService.getBrowserLang();
     if (languageFromStorage) {
       this.setLanguage(languageFromStorage);
-    } else if (['en', 'fr'].includes(languageFromBrowser)) {
+    } else if (languageFromBrowser && ['en', 'fr'].includes(languageFromBrowser)) {
       this.setLanguage(languageFromBrowser);
     } else {
       this.setLanguage('fr');

@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private rejoinLastVisitedRoom(): void {
     const lastVisited = this.roomsService.getLastVisitedRoom();
     if (lastVisited) {
+      console.log('Auto rejoin', lastVisited);
       this.goToRoom(lastVisited);
     }
   }
@@ -85,6 +86,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private goToRoom(token: string): void {
-    this.router.navigate(['..', 'room', token]).catch(err => console.error('Navigation error', err));
+    this.router.navigate(['room', token]).catch(err => console.error('Navigation error', err));
   }
 }

@@ -24,12 +24,12 @@
                       [step]="arg.numberStep"
                       [(ngModel)]="arg.numberValue"
                       [thumbLabel]="true"
-                      (change)="arg.numberValue = $event.value ?? undefined; submitChanges()"
+                      (change)="arg.numberValue = $event.value ?? undefined; submitChanges(arg)"
           >
           </mat-slider>
         </div>
         <div *ngSwitchCase="'boolean'" class="arg-boolean">
-          <mat-checkbox [ngModel]="arg.booleanValue" (change)="arg.booleanValue = $event.checked; submitChanges()">
+          <mat-checkbox [ngModel]="arg.booleanValue" (change)="arg.booleanValue = $event.checked; submitChanges(arg)">
             {{ arg.name || '-' }}
           </mat-checkbox>
         </div>
@@ -37,14 +37,14 @@
           <span>{{ arg.name || '-' }}&nbsp;:</span>
           <input type="color" class="simple-color-input" style="margin: 0 4px"
                  [ngModel]="arg.colorValue || '#000000'"
-                 (ngModelChange)="arg.colorValue = $event; scheduleSubmitChanges()"
+                 (ngModelChange)="arg.colorValue = $event; scheduleSubmitChanges(arg)"
           >
           <span class="minor-text" style="font-family: monospace">{{ arg.colorValue || '#000000' }}</span>
         </div>
         <div *ngSwitchCase="'select'" class="arg-select">
           <mat-form-field>
             <mat-label>{{ arg.name || '-' }}</mat-label>
-            <mat-select [(value)]="arg.selectValue" (valueChange)="submitChanges()">
+            <mat-select [(value)]="arg.selectValue" (valueChange)="submitChanges(arg)">
               <mat-option *ngFor="let option of arg.selectOptions || []" [value]="option">{{ option }}</mat-option>
             </mat-select>
           </mat-form-field>

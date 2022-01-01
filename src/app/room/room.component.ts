@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {map, takeUntil} from 'rxjs/operators';
@@ -10,7 +10,6 @@ import {ICommand, ISatelles} from '../model/satelles';
 import {NavButtonsService} from '../nav/nav-buttons.service';
 import {ShareButtonService} from '../share-button/share-button.service';
 import {SocketService} from '../socket/socket.service';
-import {StorageService} from '../storage/storage.service';
 import {RoomsService} from './rooms.service';
 
 interface IDisplayedSatelles extends ISatelles {
@@ -35,8 +34,6 @@ export class RoomComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private storageService: StorageService,
               private navButtonsService: NavButtonsService,
               private shareButtonService: ShareButtonService,
               private translateService: TranslateService,

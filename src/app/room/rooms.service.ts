@@ -81,8 +81,14 @@ export class RoomsService {
       this.currentRoom$.next(null);
     }
     if (token && (!currentRoom || currentRoom.token !== token)) {
-      this.getRoom(token).subscribe(room => this.currentRoom$.next(room));
-      this.socket.connectSocket();
+      this.getRoom(token).subscribe(room => {
+        this.currentRoom$.next(room);
+        if (room) {
+          this.socket.connectSocket();
+        } else {
+          this.setLastVisitedRoom('');
+        }
+      });
     }
   }
 

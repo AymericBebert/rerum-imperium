@@ -13,7 +13,7 @@ export class CommandComponent implements OnInit, OnDestroy {
   @Input() public command: ICommand | undefined;
   @Output() public action = new EventEmitter<IArgValue[]>();
 
-  private debouncedSubmit$ = new Subject<void>();
+  private debouncedSubmit$ = new Subject<IArg[]>();
   private destroy$ = new Subject<void>();
 
   public trackArgs = (index: number, arg: IArg) => arg.name + arg.type;
@@ -21,7 +21,7 @@ export class CommandComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.debouncedSubmit$
       .pipe(debounceTime(100), takeUntil(this.destroy$))
-      .subscribe(() => this.submitChanges());
+      .subscribe(args => this.submitChanges(...args));
   }
 
   ngOnDestroy(): void {
@@ -29,11 +29,11 @@ export class CommandComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public submitChanges(): void {
-    this.action.emit(this.command?.args ?? []);
+  public submitChanges(...args: IArg[]): void {
+    this.action.emit(args);
   }
 
-  public scheduleSubmitChanges(): void {
-    this.debouncedSubmit$.next();
+  public scheduleSubmitChanges(...args: IArg[]): void {
+    this.debouncedSubmit$.next(args);
   }
 }

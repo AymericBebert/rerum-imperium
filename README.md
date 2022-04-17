@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to `http://localhost:4600/`. The app will automatically reload if you change any of the source files.
 
 ## Build and publish new version
 
@@ -27,13 +27,13 @@ Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.pr
 
 ## Run as static website
 ```bash
-npm run build -- --configuration production
+npm run build:prod
 python3 -m http.server --directory dist/rerum-imperium 4600
 ```
 
 ## Analyze build
 To analyze the build you can do :
 ```bash
-npm run build -- --configuration production --stats-json
+npm run build:stats
 npx webpack-bundle-analyzer dist/rerum-imperium/stats.json
 ```

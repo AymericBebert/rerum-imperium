@@ -1,4 +1,4 @@
-FROM node:16.13.1-bullseye-slim AS builder
+FROM node:16.14.2-bullseye-slim AS builder
 
 RUN mkdir /rerum-imperium
 WORKDIR /rerum-imperium
@@ -12,7 +12,7 @@ RUN npm run build:prod
 #
 # Go back from a light nginx image
 #
-FROM nginx:1.21.1-alpine
+FROM nginx:1.21.6-alpine
 
 # nginx congiguration to redirect every route to /index.html
 RUN echo $'\n\

@@ -82,7 +82,7 @@ export class NavService {
 
   public setDarkMode(b: boolean): void {
     this.storageService.setItem('darkMode', JSON.stringify(b));
-    this.settingsService.darkMode$.next(b);
+    this.settingsService.darkMode = b;
   }
 
   public applyStoredDarkMode(): void {

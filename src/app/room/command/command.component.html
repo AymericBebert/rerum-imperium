@@ -22,10 +22,11 @@
                       [max]="arg.numberMax"
                       [min]="arg.numberMin"
                       [step]="arg.numberStep"
-                      [(ngModel)]="arg.numberValue"
-                      [thumbLabel]="true"
-                      (change)="arg.numberValue = $event.value ?? undefined; submitChanges(arg)"
+                      discrete
           >
+            <input matSliderThumb
+                   [value]="arg.numberValue"
+                   (valueChange)="arg.numberValue = $event; submitChanges(arg)"/>
           </mat-slider>
         </div>
         <div *ngSwitchCase="'boolean'" class="arg-boolean">

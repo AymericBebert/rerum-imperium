@@ -12,12 +12,13 @@
     background-color: mat.get-color-from-palette($background, app-bar);
   }
 
-  .mat-list-item.selectable {
+  .mat-mdc-list-item.selectable {
     background-color: mat.get-color-from-palette($accent, 0.04);
 
     &.selected {
       background-color: mat.get-color-from-palette($accent, 0.1);
     }
+
     &:hover {
       background-color: mat.get-color-from-palette($accent, 0.2);
     }

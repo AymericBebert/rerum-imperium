@@ -27,7 +27,6 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {ChangeLanguageComponent} from './nav/change-language.component';
 import {NavButtonsService} from './nav/nav-buttons.service';
-import {NavComponent} from './nav/nav.component';
 import {NavService} from './nav/nav.service';
 import {CommandModule} from './room/command/command.module';
 import {RoomComponent} from './room/room.component';
@@ -48,7 +47,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     ChangeLanguageComponent,
     HomeComponent,
     RoomComponent,

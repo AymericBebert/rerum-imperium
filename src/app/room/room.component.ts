@@ -27,11 +27,11 @@ interface IDisplayedRoom extends IRoom {
 })
 export class RoomComponent implements OnInit, OnDestroy {
 
-  public connectionError$ = this.socket.connectionError$;
+  public readonly connectionError$ = this.socket.connectionError$;
   public room: IDisplayedRoom | null = null;
 
   private readonly expandedPanels = this.roomsService.getExpandedSatelles().filter(es => es.expanded).map(es => es.satellesName);
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private route: ActivatedRoute,
               private navButtonsService: NavButtonsService,

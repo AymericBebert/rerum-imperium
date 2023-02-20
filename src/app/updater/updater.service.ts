@@ -6,11 +6,11 @@ import {first} from 'rxjs/operators';
 @Injectable()
 export class UpdaterService {
 
-  public updatesAvailable$ = this.updates.available;
-  public updatesActivated$ = this.updates.activated;
+  public readonly updatesAvailable$ = this.updates.available;
+  public readonly updatesActivated$ = this.updates.activated;
 
-  constructor(private appRef: ApplicationRef,
-              private updates: SwUpdate,
+  constructor(private readonly appRef: ApplicationRef,
+              private readonly updates: SwUpdate,
   ) {
     if (!this.updates.isEnabled) {
       return;

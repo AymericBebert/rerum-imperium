@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 @Injectable()
 export class SettingsService {
 
-  public darkMode$ = new BehaviorSubject<boolean>(false);
+  public readonly darkMode$ = new BehaviorSubject<boolean>(false);
 
   constructor() {
   }

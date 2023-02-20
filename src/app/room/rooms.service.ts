@@ -13,13 +13,13 @@ import {isNotNull} from '../utils/utils';
 @Injectable()
 export class RoomsService {
 
-  public roomCheckPending$ = new BehaviorSubject<boolean>(false);
-  public roomCheck$ = new Subject<IRoom | null>();
+  public readonly roomCheckPending$ = new BehaviorSubject<boolean>(false);
+  public readonly roomCheck$ = new Subject<IRoom | null>();
 
-  public currentRoom$ = new BehaviorSubject<IRoom | null>(null);
-  private currentRoomId$ = this.currentRoom$.pipe(map(room => room?.token || ''), distinctUntilChanged());
+  public readonly currentRoom$ = new BehaviorSubject<IRoom | null>(null);
+  private readonly currentRoomId$ = this.currentRoom$.pipe(map(room => room?.token || ''), distinctUntilChanged());
 
-  private roomLeft$ = this.currentRoom$.pipe(skip(1), filter(r => !r), map(() => void 0));
+  private readonly roomLeft$ = this.currentRoom$.pipe(skip(1), filter(r => !r), map(() => void 0));
 
   constructor(private readonly http: HttpClient,
               private readonly socket: SocketService,

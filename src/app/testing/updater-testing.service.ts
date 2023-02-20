@@ -6,10 +6,10 @@ import {Subject} from 'rxjs';
 export class UpdaterTestingService {
 
   // noinspection JSUnusedGlobalSymbols
-  public updatesAvailable$ = new Subject<UpdateAvailableEvent>();
+  public readonly updatesAvailable$ = new Subject<UpdateAvailableEvent>();
 
   // noinspection JSUnusedGlobalSymbols
-  public updatesActivated$ = new Subject<UpdateActivatedEvent>();
+  public readonly updatesActivated$ = new Subject<UpdateActivatedEvent>();
 
   constructor() {
   }

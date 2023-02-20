@@ -13,10 +13,10 @@ export class CommandComponent implements OnInit, OnDestroy {
   @Input() public command: ICommand | undefined;
   @Output() public action = new EventEmitter<IArgValue[]>();
 
-  private debouncedSubmit$ = new Subject<IArg[]>();
-  private destroy$ = new Subject<void>();
+  private readonly debouncedSubmit$ = new Subject<IArg[]>();
+  private readonly destroy$ = new Subject<void>();
 
-  public trackArgs = (index: number, arg: IArg) => arg.name + arg.type;
+  public readonly trackArgs = (index: number, arg: IArg) => arg.name + arg.type;
 
   ngOnInit(): void {
     this.debouncedSubmit$

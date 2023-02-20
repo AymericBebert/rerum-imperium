@@ -9,7 +9,7 @@ import {simplifyURL} from '../utils/utils';
 export class NavButtonsService {
   public backRouterNavigate = '';
 
-  private privateNavButtonClicked$ = new Subject<string>();
+  private readonly privateNavButtonClicked$ = new Subject<string>();
 
   constructor(private router: Router,
               private location: Location,

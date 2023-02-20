@@ -8,12 +8,12 @@ import {EmittedEventTypes, ReceivedEventTypes} from './socket-event-types';
 @Injectable()
 export class SocketService {
 
-  public connected$ = new Subject<boolean>();
+  public readonly connected$ = new Subject<boolean>();
 
   private socket: Socket | null = null;
-  private shouldBeConnected$ = new BehaviorSubject<boolean>(false);
+  private readonly shouldBeConnected$ = new BehaviorSubject<boolean>(false);
 
-  public connectionError$ = combineLatest([
+  public readonly connectionError$ = combineLatest([
     this.shouldBeConnected$,
     this.connected$.pipe(startWith(false)),
   ]).pipe(
@@ -25,7 +25,7 @@ export class SocketService {
     shareReplay(1),
   );
 
-  private disconnect$ = new Subject<void>();
+  private readonly disconnect$ = new Subject<void>();
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig) {
     this.shouldBeConnected$

@@ -11,24 +11,24 @@ import {NavButtonsService} from './nav-buttons.service';
 
 @Injectable()
 export class NavService {
-  public mainTitle$ = new BehaviorSubject<string>('');
-  public pinSideNav$ = new BehaviorSubject<boolean>(false);
-  public showBackButton$ = new BehaviorSubject<boolean>(false);
-  public navButtons$ = new BehaviorSubject<string[]>([]);
-  public navTools$ = new BehaviorSubject<{ name: string, icon: string }[]>([]);
-  public notificationBadge$ = new BehaviorSubject<string>('');
-  public displayUpdatesAvailable$ = new BehaviorSubject<boolean>(false);
-  public displayUpdatesActivated$ = new BehaviorSubject<boolean>(false);
+  public readonly mainTitle$ = new BehaviorSubject<string>('');
+  public readonly pinSideNav$ = new BehaviorSubject<boolean>(false);
+  public readonly showBackButton$ = new BehaviorSubject<boolean>(false);
+  public readonly navButtons$ = new BehaviorSubject<string[]>([]);
+  public readonly navTools$ = new BehaviorSubject<{ name: string, icon: string }[]>([]);
+  public readonly notificationBadge$ = new BehaviorSubject<string>('');
+  public readonly displayUpdatesAvailable$ = new BehaviorSubject<boolean>(false);
+  public readonly displayUpdatesActivated$ = new BehaviorSubject<boolean>(false);
 
-  public language$ = new BehaviorSubject<string>('');
+  public readonly language$ = new BehaviorSubject<string>('');
 
-  constructor(private navButtonsService: NavButtonsService,
-              private settingsService: SettingsService,
-              private deviceService: DeviceService,
-              private translateService: TranslateService,
-              private storageService: StorageService,
-              private updater: UpdaterService,
-              @Inject(APP_CONFIG) private config: AppConfig,
+  constructor(private readonly navButtonsService: NavButtonsService,
+              private readonly settingsService: SettingsService,
+              private readonly deviceService: DeviceService,
+              private readonly translateService: TranslateService,
+              private readonly storageService: StorageService,
+              private readonly updater: UpdaterService,
+              @Inject(APP_CONFIG) private readonly config: AppConfig,
   ) {
     this.deviceService.isHandset$.pipe(filter(h => h)).subscribe(() => this.setPinSideNav(false));
 
@@ -82,7 +82,7 @@ export class NavService {
 
   public setDarkMode(b: boolean): void {
     this.storageService.setItem('darkMode', JSON.stringify(b));
-    this.settingsService.darkMode$.next(b);
+    this.settingsService.darkMode = b;
   }
 
   public applyStoredDarkMode(): void {

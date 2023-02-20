@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 @Injectable()
 export class DeviceService {
 
-  public isHandset$ = new BehaviorSubject<boolean>(true);
+  public readonly isHandset$ = new BehaviorSubject<boolean>(true);
 
   constructor(private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver.observe(Breakpoints.Handset)

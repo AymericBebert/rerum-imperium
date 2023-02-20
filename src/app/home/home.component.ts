@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {filter, map, takeUntil} from 'rxjs/operators';
@@ -16,17 +15,20 @@ import {isNotNull} from '../utils/utils';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  public roomFormControl: FormControl;
-  public matcher: ErrorStateMatcher;
-  public deletion = false;
-  public roomCheckPending$ = this.roomsService.roomCheckPending$;
+  public readonly roomFormControl = new FormControl<string>('', {
+    asyncValidators: [this.roomsService.roomExistsValidator()],
+  });
 
-  private rawVisitedRooms$ = new BehaviorSubject<IStoredRoom[]>([]);
-  public visitedRooms$: Observable<IStoredRoom[]> = this.rawVisitedRooms$.pipe(
+  public readonly matcher = new ImmediateErrorStateMatcher();
+  public readonly roomCheckPending$ = this.roomsService.roomCheckPending$;
+  public deletion = false;
+
+  private readonly rawVisitedRooms$ = new BehaviorSubject<IStoredRoom[]>([]);
+  public readonly visitedRooms$: Observable<IStoredRoom[]> = this.rawVisitedRooms$.pipe(
     map(vr => vr.sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0))),
   );
 
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private readonly route: ActivatedRoute,
               private readonly router: Router,
@@ -34,10 +36,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {
     this.rejoinLastVisitedRoom();
     this.getVisitedRooms();
-    this.roomFormControl = new FormControl('', {
-      asyncValidators: [this.roomsService.roomExistsValidator()],
-    });
-    this.matcher = new ImmediateErrorStateMatcher();
   }
 
   ngOnInit(): void {

@@ -1,6 +1,5 @@
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
@@ -27,7 +26,6 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {ChangeLanguageComponent} from './nav/change-language.component';
 import {NavButtonsService} from './nav/nav-buttons.service';
-import {NavComponent} from './nav/nav.component';
 import {NavService} from './nav/nav.service';
 import {CommandModule} from './room/command/command.module';
 import {RoomComponent} from './room/room.component';
@@ -48,7 +46,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     ChangeLanguageComponent,
     HomeComponent,
     RoomComponent,
@@ -68,7 +65,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
     MatIconModule,
     MatListModule,
     MatMenuModule,

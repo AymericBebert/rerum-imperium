@@ -3,7 +3,7 @@ import {Subject} from 'rxjs';
 
 @Injectable()
 export class StorageService {
-  public noStorageError$ = new Subject<void>();
+  public readonly noStorageError$ = new Subject<void>();
 
   private readonly storage: any = null;
 

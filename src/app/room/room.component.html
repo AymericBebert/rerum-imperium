@@ -22,13 +22,11 @@
           {{ satelles.name }}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-        <span *ngIf="satelles.commands.length === 0">{{ 'room.satelles.no-commands' | translate }}</span>
-        <app-command *ngFor="let command of satelles.commands; trackBy: trackCommand"
-                     [command]="command"
-                     (action)="imperiumAction(satelles.id, command.name, $event)">
-        </app-command>
-      </div>
+      <span *ngIf="satelles.commands.length === 0">{{ 'room.satelles.no-commands' | translate }}</span>
+      <app-command *ngFor="let command of satelles.commands; trackBy: trackCommand"
+                   [command]="command"
+                   (action)="imperiumAction(satelles.id, command.name, $event)">
+      </app-command>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

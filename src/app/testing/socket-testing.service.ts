@@ -5,8 +5,8 @@ import {take} from 'rxjs/operators';
 @Injectable()
 export class SocketTestingService {
 
-  public connected$ = new Subject<boolean>();
-  public connectionError$ = new Subject<boolean>();
+  public readonly connected$ = new Subject<boolean>();
+  public readonly connectionError$ = new Subject<boolean>();
 
   private socket: true | null = null;
 

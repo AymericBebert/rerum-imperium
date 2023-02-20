@@ -13,7 +13,6 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
 import {ChangeLanguageComponent} from './nav/change-language.component';
 import {NavButtonsService} from './nav/nav-buttons.service';
-import {NavComponent} from './nav/nav.component';
 import {NavService} from './nav/nav.service';
 import {DeviceService} from './service/device.service';
 import {SettingsService} from './service/settings.service';
@@ -46,7 +45,6 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        NavComponent,
         ChangeLanguageComponent,
       ],
       providers: [

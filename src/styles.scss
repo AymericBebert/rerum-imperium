@@ -177,7 +177,7 @@ $dark-background: map_merge($dark-background, (app-bar: #101010, background: #20
 $dark-theme: map_merge($dark-theme, (background: $dark-background));
 
 .bronze-dark-theme {
-  @include mat.all-component-themes($dark-theme);
+  @include mat.all-component-colors($dark-theme);
 
   @include custom-components-theme($dark-theme);
   @include custom-components-dark-theme($dark-theme);

@@ -1,40 +1,38 @@
-<div style="padding: 20px" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
-  <span>{{ 'home.welcome' | translate }}</span>
+<p style="margin: 0 0 24px">{{ 'home.welcome' | translate }}</p>
 
-  <ng-container *ngIf="visitedRooms$ | async as visitedRooms">
-    <div *ngIf="visitedRooms.length > 0" fxLayout="column" fxLayoutAlign="start center">
-      <h3>{{ 'home.visited-rooms.title' | translate }}</h3>
-      <div *ngFor="let room of visitedRooms" style="margin-bottom: 10px">
-        <button mat-raised-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
-          {{ room.roomName.length > 25 ? room.roomName.slice(0, 24) + '...' : room.roomName }}
-        </button>
-      </div>
-      <button mat-button color="primary" (click)="toggleDeletion()" [ngClass]="{'semi-transparent': !deletion}">
-        <ng-container
-          *ngIf="deletion; else notDeletion">{{ 'home.visited-rooms.delete-stop' | translate }}</ng-container>
-        <ng-template #notDeletion>{{ 'home.visited-rooms.delete' | translate }}</ng-template>
+<ng-container *ngIf="visitedRooms$ | async as visitedRooms">
+  <ng-container *ngIf="visitedRooms.length > 0">
+    <h3>{{ 'home.visited-rooms.title' | translate }}</h3>
+    <div *ngFor="let room of visitedRooms" style="margin-bottom: 10px">
+      <button mat-raised-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
+        {{ room.roomName.length > 25 ? room.roomName.slice(0, 24) + '...' : room.roomName }}
       </button>
     </div>
+    <button mat-button color="primary" (click)="toggleDeletion()" [style.opacity]="deletion ? 1 : 0.4">
+      <ng-container
+        *ngIf="deletion; else notDeletion">{{ 'home.visited-rooms.delete-stop' | translate }}</ng-container>
+      <ng-template #notDeletion>{{ 'home.visited-rooms.delete' | translate }}</ng-template>
+    </button>
   </ng-container>
+</ng-container>
 
-  <h3>{{ 'home.form.title' | translate }}</h3>
-  <form class="token-form" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <div style="width: 24px"></div>
-    <mat-form-field>
-      <mat-label>{{ 'home.form.label' | translate }}</mat-label>
-      <input matInput
-             type="text"
-             autocomplete="off"
-             maxlength="8"
-             [formControl]="roomFormControl"
-             [errorStateMatcher]="matcher"
-             [placeholder]="'home.form.placeholder' | translate">
-      <mat-error *ngIf="roomFormControl.errors?.roomNotFound">
-        {{ 'home.form.room-not-found' | translate }}
-      </mat-error>
-    </mat-form-field>
-    <div style="width: 24px">
-      <mat-spinner diameter="24" *ngIf="roomCheckPending$ | async"></mat-spinner>
-    </div>
-  </form>
-</div>
+<h3>{{ 'home.form.title' | translate }}</h3>
+<form style="display: flex; justify-content: center; margin-top: 16px">
+  <div style="width: 24px"></div>
+  <mat-form-field style="width: 140px; margin: 0 12px">
+    <mat-label>{{ 'home.form.label' | translate }}</mat-label>
+    <input matInput
+           type="text"
+           autocomplete="off"
+           maxlength="8"
+           [formControl]="roomFormControl"
+           [errorStateMatcher]="matcher"
+           [placeholder]="'home.form.placeholder' | translate">
+    <mat-error *ngIf="roomFormControl.errors?.roomNotFound">
+      {{ 'home.form.room-not-found' | translate }}
+    </mat-error>
+  </mat-form-field>
+  <div style="width: 24px">
+    <mat-spinner *ngIf="roomCheckPending$ | async" diameter="24" style="margin-top: 18px"></mat-spinner>
+  </div>
+</form>

@@ -15,10 +15,11 @@
           <span>{{ arg.name || '-' }}: </span>
           <span>{{ arg.stringValue || '-' }}</span>
         </div>
-        <div *ngSwitchCase="'number'" class="arg-number" fxLayout="row" fxLayoutAlign="stretch center">
-          <div fxFlex="grow" style="text-align: right">{{ arg.name || '-' }}&nbsp;:</div>
+        <div *ngSwitchCase="'number'" class="arg-number" style="display: flex; align-items: center">
+          <div style="flex: 1 1 100%; text-align: right">{{ arg.name || '-' }}&nbsp;:</div>
           <div class="arg-value">{{ arg.numberValue || 0 }}</div>
-          <mat-slider fxFlex="grow"
+          <mat-slider style="flex: 1 1 100%"
+                      color="accent"
                       [max]="arg.numberMax"
                       [min]="arg.numberMin"
                       [step]="arg.numberStep"

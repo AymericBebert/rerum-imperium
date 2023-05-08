@@ -9,6 +9,12 @@ import {testConfig} from './config/test.config';
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting([{provide: APP_CONFIG, useValue: testConfig}]),
-  {teardown: {destroyAfterEach: false}},
+  platformBrowserDynamicTesting([
+    {provide: APP_CONFIG, useValue: testConfig},
+  ]),
+  {
+    teardown: {destroyAfterEach: false},
+    errorOnUnknownElements: true,
+    errorOnUnknownProperties: true,
+  },
 );

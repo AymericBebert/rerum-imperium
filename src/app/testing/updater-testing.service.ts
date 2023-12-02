@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {UpdateActivatedEvent, UpdateAvailableEvent} from '@angular/service-worker';
-import {Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable()
 export class UpdaterTestingService {
 
   // noinspection JSUnusedGlobalSymbols
-  public readonly updatesAvailable$ = new Subject<UpdateAvailableEvent>();
+  public readonly updatesAvailable$ = new BehaviorSubject<boolean>(false);
 
   // noinspection JSUnusedGlobalSymbols
-  public readonly updatesActivated$ = new Subject<UpdateActivatedEvent>();
+  public readonly updatesActivated$ = new BehaviorSubject<boolean>(false);
 
   constructor() {
   }

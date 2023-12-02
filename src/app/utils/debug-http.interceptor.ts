@@ -16,9 +16,9 @@ export class DebugHttpInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
-          return throwError(`ErrorEvent: ${error.error.message}`);
+          return throwError(() => new Error(`ErrorEvent: ${error.error.message}`));
         }
-        return throwError(`Error Code: ${error.status}; Message: ${error.message}`);
+        return throwError(() => new Error(`Error Code: ${error.status}; Message: ${error.message}`));
       }),
       tap(response => this.config.debugHttp && response instanceof HttpResponse && console.log('http> :', response))
     );

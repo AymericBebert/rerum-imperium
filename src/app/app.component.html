@@ -4,7 +4,7 @@
                position="end"
                [attr.role]="(navService.pinSideNav$ | async) ? 'navigation' : 'dialog'"
                [mode]="(navService.pinSideNav$ | async) ? 'side' : 'over'"
-               [opened]="navService.pinSideNav$ | async"
+               [opened]="(navService.pinSideNav$ | async) === true"
                (click)="closeDrawer()">
 
     <mat-toolbar>{{ 'nav.menu-title' | translate }}</mat-toolbar>
@@ -40,14 +40,14 @@
         <app-change-language (langSet)="navService.setLanguage($event); closeDrawer()"></app-change-language>
       </mat-list-item>
 
-      <mat-list-item *ngIf="navService.displayUpdatesAvailable$ | async" (click)="navService.update()">
+      <mat-list-item *ngIf="navService.displayUpdatesAvailable" (click)="navService.update()">
         <mat-icon color="warn" style="margin-right: 5px">update</mat-icon>
         <span>
           {{ 'nav.update-available' | translate }}
         </span>
       </mat-list-item>
 
-      <mat-list-item *ngIf="navService.displayUpdatesActivated$ | async">
+      <mat-list-item *ngIf="navService.displayUpdatesActivated">
         <mat-icon style="margin-right: 5px">sync</mat-icon>
         <span>
           {{ 'nav.update-activated' | translate }}
@@ -102,7 +102,8 @@
         (click)="drawer.toggle()">
         <mat-icon
           aria-label="Side nav toggle icon"
-          [matBadge]="navService.notificationBadge$ | async"
+          aria-hidden="false"
+          [matBadge]="navService.notificationBadge"
           matBadgeColor="warn">
           menu
         </mat-icon>

@@ -12,11 +12,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
 import {ChangeLanguageComponent} from './nav/change-language.component';
-import {NavButtonsService} from './nav/nav-buttons.service';
-import {NavService} from './nav/nav.service';
-import {DeviceService} from './service/device.service';
-import {SettingsService} from './service/settings.service';
-import {StorageModule} from './storage/storage.module';
+import {ConfigTestingModule} from './testing/config-testing.module';
 import {TranslateTestingModule} from './testing/translate-testing-module';
 import {UpdaterTestingModule} from './testing/updater-testing.module';
 
@@ -27,6 +23,9 @@ describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppComponent,
+        ConfigTestingModule,
+        UpdaterTestingModule,
         HttpClientTestingModule,
         TranslateTestingModule,
         RouterTestingModule,
@@ -40,19 +39,10 @@ describe('AppComponent', () => {
         MatMenuModule,
         MatSnackBarModule,
         NoopAnimationsModule,
-        StorageModule,
-        UpdaterTestingModule,
-      ],
-      declarations: [
-        AppComponent,
         ChangeLanguageComponent,
       ],
-      providers: [
-        NavService,
-        NavButtonsService,
-        SettingsService,
-        DeviceService,
-      ]
+      declarations: [],
+      providers: []
     }).compileComponents();
   }));
 

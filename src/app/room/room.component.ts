@@ -1,6 +1,9 @@
+import {CommonModule} from '@angular/common';
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {map, takeUntil} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
@@ -10,6 +13,7 @@ import {ICommand, ISatelles} from '../model/satelles';
 import {NavButtonsService} from '../nav/nav-buttons.service';
 import {ShareButtonService} from '../share-button/share-button.service';
 import {SocketService} from '../socket/socket.service';
+import {CommandComponent} from './command/command.component';
 import {RoomsService} from './rooms.service';
 
 interface IDisplayedSatelles extends ISatelles {
@@ -23,7 +27,15 @@ interface IDisplayedRoom extends IRoom {
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
-  styleUrls: ['./room.component.scss']
+  styleUrls: ['./room.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatExpansionModule,
+    MatIconModule,
+    CommandComponent,
+  ],
 })
 export class RoomComponent implements OnInit, OnDestroy {
 

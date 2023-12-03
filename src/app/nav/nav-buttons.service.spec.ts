@@ -11,9 +11,7 @@ describe('NavButtonsService', () => {
       TranslateTestingModule,
       RouterTestingModule,
     ],
-    providers: [
-      NavButtonsService,
-    ],
+    providers: [],
   }));
 
   it('should be created', () => {

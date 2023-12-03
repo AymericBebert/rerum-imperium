@@ -5,9 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
-import {NavButtonsService} from '../nav/nav-buttons.service';
-import {RoomsService} from '../room/rooms.service';
-import {StorageModule} from '../storage/storage.module';
+import {ConfigTestingModule} from '../testing/config-testing.module';
 import {SocketTestingModule} from '../testing/socket-testing.module';
 import {TranslateTestingModule} from '../testing/translate-testing-module';
 import {HomeComponent} from './home.component';
@@ -19,24 +17,20 @@ describe('HomeComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        HomeComponent,
+        ConfigTestingModule,
+        SocketTestingModule,
         HttpClientTestingModule,
         TranslateTestingModule,
-        SocketTestingModule,
         RouterTestingModule,
-        StorageModule,
         MatInputModule,
         FormsModule,
         ReactiveFormsModule,
         NoopAnimationsModule,
         MatSnackBarModule,
       ],
-      declarations: [
-        HomeComponent,
-      ],
-      providers: [
-        RoomsService,
-        NavButtonsService,
-      ]
+      declarations: [],
+      providers: [],
     })
       .compileComponents();
   }));

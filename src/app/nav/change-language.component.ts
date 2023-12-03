@@ -1,5 +1,8 @@
+import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Output} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-change-language',
@@ -15,7 +18,14 @@ import {TranslateService} from '@ngx-translate/core';
         </button>
       </mat-menu>
     </div>`,
-  styles: ['span.lang-flag { vertical-align: middle; }']
+  styles: ['span.lang-flag { vertical-align: middle; }'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatMenuModule,
+    MatIconModule,
+  ],
 })
 export class ChangeLanguageComponent {
 

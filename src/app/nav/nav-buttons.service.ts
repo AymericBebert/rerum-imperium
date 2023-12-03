@@ -5,7 +5,9 @@ import {Observable, Subject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {simplifyURL} from '../utils/utils';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NavButtonsService {
   public backRouterNavigate = '';
 

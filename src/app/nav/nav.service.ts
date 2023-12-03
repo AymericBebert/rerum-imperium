@@ -9,16 +9,19 @@ import {StorageService} from '../storage/storage.service';
 import {UpdaterService} from '../updater/updater.service';
 import {NavButtonsService} from './nav-buttons.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NavService {
   public readonly mainTitle$ = new BehaviorSubject<string>('');
   public readonly pinSideNav$ = new BehaviorSubject<boolean>(false);
   public readonly showBackButton$ = new BehaviorSubject<boolean>(false);
   public readonly navButtons$ = new BehaviorSubject<string[]>([]);
   public readonly navTools$ = new BehaviorSubject<{ name: string, icon: string }[]>([]);
-  public readonly notificationBadge$ = new BehaviorSubject<string>('');
-  public readonly displayUpdatesAvailable$ = new BehaviorSubject<boolean>(false);
-  public readonly displayUpdatesActivated$ = new BehaviorSubject<boolean>(false);
+
+  public notificationBadge = '';
+  public displayUpdatesAvailable = false;
+  public displayUpdatesActivated = false;
 
   public readonly language$ = new BehaviorSubject<string>('');
 
@@ -32,14 +35,14 @@ export class NavService {
   ) {
     this.deviceService.isHandset$.pipe(filter(h => h)).subscribe(() => this.setPinSideNav(false));
 
-    this.updater.updatesAvailable$.subscribe(() => {
-      this.notificationBadge$.next('1');
-      this.displayUpdatesAvailable$.next(true);
+    this.updater.updatesAvailable$.pipe(filter(a => a)).subscribe(() => {
+      this.notificationBadge = '1';
+      this.displayUpdatesAvailable = true;
     });
 
-    this.updater.updatesActivated$.subscribe(() => {
-      this.notificationBadge$.next('1');
-      this.displayUpdatesActivated$.next(true);
+    this.updater.updatesActivated$.pipe(filter(a => a)).subscribe(() => {
+      this.notificationBadge = '1';
+      this.displayUpdatesActivated = true;
     });
   }
 

@@ -10,7 +10,9 @@ import {SocketService} from '../socket/socket.service';
 import {StorageService} from '../storage/storage.service';
 import {isNotNull} from '../utils/utils';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RoomsService {
 
   public readonly roomCheckPending$ = new BehaviorSubject<boolean>(false);

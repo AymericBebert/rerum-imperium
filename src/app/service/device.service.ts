@@ -3,7 +3,9 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class DeviceService {
 
   public readonly isHandset$ = new BehaviorSubject<boolean>(true);

@@ -3,7 +3,9 @@ import {SwUpdate} from '@angular/service-worker';
 import {BehaviorSubject, concat, interval} from 'rxjs';
 import {first} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UpdaterService {
 
   public readonly updatesAvailable$ = new BehaviorSubject<boolean>(false);

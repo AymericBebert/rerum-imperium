@@ -9,7 +9,9 @@ import {StorageService} from '../storage/storage.service';
 import {UpdaterService} from '../updater/updater.service';
 import {NavButtonsService} from './nav-buttons.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NavService {
   public readonly mainTitle$ = new BehaviorSubject<string>('');
   public readonly pinSideNav$ = new BehaviorSubject<boolean>(false);

@@ -1,11 +1,21 @@
+import {CommonModule} from '@angular/common';
 import {Component, Input} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-share-button',
   templateUrl: './share-button.component.html',
-  styleUrls: ['./share-button.component.scss']
+  styleUrls: ['./share-button.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
 })
 export class ShareButtonComponent {
   @Input() public title = 'Rerum Imperium';

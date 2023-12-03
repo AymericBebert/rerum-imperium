@@ -1,4 +1,11 @@
+import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSliderModule} from '@angular/material/slider';
 import {Subject} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
 import {IArgValue} from '../../model/imperium';
@@ -7,7 +14,17 @@ import {IArg, ICommand} from '../../model/satelles';
 @Component({
   selector: 'app-command',
   templateUrl: './command.component.html',
-  styleUrls: ['./command.component.scss']
+  styleUrls: ['./command.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSliderModule,
+  ],
 })
 export class CommandComponent implements OnInit, OnDestroy {
   @Input() public command: ICommand | undefined;

@@ -40,7 +40,7 @@ server {\n\
 
 WORKDIR /usr/share/nginx/html
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY --from=builder /rerum-imperium/dist/rerum-imperium .
+COPY --from=builder /rerum-imperium/dist/rerum-imperium/browser .
 EXPOSE 80
 
 ARG APP_VERSION

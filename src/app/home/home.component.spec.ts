@@ -1,8 +1,5 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ConfigTestingModule} from '../testing/config-testing.module';
@@ -23,11 +20,7 @@ describe('HomeComponent', () => {
         HttpClientTestingModule,
         TranslateTestingModule,
         RouterTestingModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
         NoopAnimationsModule,
-        MatSnackBarModule,
       ],
       declarations: [],
       providers: [],

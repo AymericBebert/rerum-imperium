@@ -1,7 +1,5 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EMPTY} from 'rxjs';
@@ -21,8 +19,6 @@ describe('CommandComponent', () => {
         TranslateTestingModule,
         RouterTestingModule,
         SocketTestingModule,
-        MatIconModule,
-        MatDialogModule,
       ],
       declarations: [],
       providers: [

@@ -13,9 +13,9 @@
     "build:serve": "ng build && npx http-server -p 4600 -c-1 dist/rerum-imperium/browser",
     "build:dev": "ng build --configuration development",
     "test": "ng test",
+    "test:ci": "ng test --code-coverage --watch=false --browsers ChromeHeadlessNoSandbox",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "e2e": "ng e2e",
     "extract": "ngx-translate-extract --input './src/**/!(*.spec).{html,ts}' --output ./src/assets/i18n/{en,fr}.json --clean --sort --format namespaced-json --format-indentation '  ' --string-as-default-value 'MISSING TRANSLATION'"
   },
   "author": "Aymeric BERNARD",
@@ -49,7 +49,6 @@
     "@angular/cli": "^17.0.8",
     "@angular/compiler-cli": "^17.0.8",
     "@angular/language-service": "^17.0.8",
-    "@colsen1991/ngx-translate-extract-marker": "^2.0.8",
     "@types/jasmine": "~5.1.4",
     "@types/node": "^20.10.5",
     "@typescript-eslint/eslint-plugin": "^6.16.0",

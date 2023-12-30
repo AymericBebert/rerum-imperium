@@ -7,12 +7,12 @@ import {Subject} from 'rxjs';
 export class StorageService {
   public readonly noStorageError$ = new Subject<void>();
 
-  private readonly storage: any = null;
+  private readonly _storage: Storage | null = null;
 
   constructor() {
     try {
       if (localStorage !== null) {
-        this.storage = localStorage;
+        this._storage = localStorage;
         return;
       }
     } catch (e) {
@@ -21,45 +21,33 @@ export class StorageService {
 
     try {
       if (sessionStorage !== null) {
-        this.storage = sessionStorage;
+        this._storage = sessionStorage;
         return;
       }
     } catch (e) {
       console.warn('Could not access sessionStorage');
     }
 
-    if (!this.checkStorage()) {
-      return;
-    }
+    this.storage;
   }
 
   public setItem(key: string, value: string): void {
-    if (!this.checkStorage()) {
-      return;
-    }
     this.storage.setItem(key, value);
   }
 
   public getItem(key: string): string | null {
-    if (!this.checkStorage()) {
-      return null;
-    }
     return this.storage.getItem(key);
   }
 
   public removeItem(key: string): void {
-    if (!this.checkStorage()) {
-      return;
-    }
     this.storage.removeItem(key);
   }
 
-  private checkStorage(): boolean {
-    if (this.storage !== null) {
-      return true;
+  private get storage(): Storage {
+    if (this._storage !== null) {
+      return this._storage;
     }
-    console.error('No storage option is available.');
     this.noStorageError$.next();
-    return false;
+    throw new Error('No storage option is available.');
   }
 }

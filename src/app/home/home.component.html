@@ -9,8 +9,7 @@
       </button>
     </div>
     <button mat-button color="primary" (click)="toggleDeletion()" [style.opacity]="deletion ? 1 : 0.4">
-      <ng-container
-        *ngIf="deletion; else notDeletion">{{ 'home.visited-rooms.delete-stop' | translate }}</ng-container>
+      <ng-container *ngIf="deletion; else notDeletion">{{ 'home.visited-rooms.delete-stop' | translate }}</ng-container>
       <ng-template #notDeletion>{{ 'home.visited-rooms.delete' | translate }}</ng-template>
     </button>
   </ng-container>

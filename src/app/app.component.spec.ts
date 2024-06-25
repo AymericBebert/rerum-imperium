@@ -21,7 +21,8 @@ describe('AppComponent', () => {
         UpdaterTestingModule,
         TranslateTestingModule,
         RouterTestingModule,
-        NoopAnimationsModule],
+        NoopAnimationsModule,
+      ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

@@ -9,20 +9,20 @@
 
   app-command {
     .cmd-complex {
-      border-top: 1px solid mat.get-color-from-palette($primary, 300, 0.4);
-      border-bottom: 1px solid mat.get-color-from-palette($primary, 300, 0.4);
+      border-top: 1px solid mat.m2-get-color-from-palette($primary, 300, 0.4);
+      border-bottom: 1px solid mat.m2-get-color-from-palette($primary, 300, 0.4);
 
       .cmd-name {
-        color: mat.get-color-from-palette($primary, 300);
+        color: mat.m2-get-color-from-palette($primary, 300);
       }
 
       .arg-value {
-        color: mat.get-color-from-palette($accent);
+        color: mat.m2-get-color-from-palette($accent);
       }
     }
 
     .minor-text {
-      color: mat.get-color-from-palette($primary, 300);
+      color: mat.m2-get-color-from-palette($primary, 300);
     }
   }
 }

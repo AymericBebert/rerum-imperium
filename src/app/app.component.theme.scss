@@ -8,19 +8,19 @@
   $background: map-get($theme, background);
 
   .mat-sidenav-content {
-    color: mat.get-color-from-palette($foreground, text);
-    background-color: mat.get-color-from-palette($background, app-bar);
+    color: mat.m2-get-color-from-palette($foreground, text);
+    background-color: mat.m2-get-color-from-palette($background, app-bar);
   }
 
   .mat-mdc-list-item.selectable {
-    background-color: mat.get-color-from-palette($accent, 0.04);
+    background-color: mat.m2-get-color-from-palette($accent, 0.04);
 
     &.selected {
-      background-color: mat.get-color-from-palette($accent, 0.1);
+      background-color: mat.m2-get-color-from-palette($accent, 0.1);
     }
 
     &:hover {
-      background-color: mat.get-color-from-palette($accent, 0.2);
+      background-color: mat.m2-get-color-from-palette($accent, 0.2);
     }
   }
 }

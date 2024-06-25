@@ -1,4 +1,5 @@
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClientTesting} from '@angular/common/http/testing';
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -13,17 +14,19 @@ describe('HomeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [],
       imports: [
         HomeComponent,
         ConfigTestingModule,
         SocketTestingModule,
-        HttpClientTestingModule,
         TranslateTestingModule,
         RouterTestingModule,
         NoopAnimationsModule,
       ],
-      declarations: [],
-      providers: [],
+      providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
     })
       .compileComponents();
   }));

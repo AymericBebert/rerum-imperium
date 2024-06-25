@@ -31,9 +31,10 @@
           </mat-slider>
         </div>
         <div *ngSwitchCase="'boolean'" class="arg-boolean">
-          <mat-checkbox [ngModel]="arg.booleanValue" (change)="arg.booleanValue = $event.checked; submitChanges(arg)">
+          <mat-slide-toggle [ngModel]="arg.booleanValue"
+                            (change)="arg.booleanValue = $event.checked; submitChanges(arg)">
             {{ arg.name || '-' }}
-          </mat-checkbox>
+          </mat-slide-toggle>
         </div>
         <div *ngSwitchCase="'color'" class="arg-color">
           <span>{{ arg.name || '-' }}&nbsp;:</span>

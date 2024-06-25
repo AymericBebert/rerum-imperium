@@ -1,4 +1,5 @@
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClientTesting} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ConfigTestingModule} from '../testing/config-testing.module';
@@ -10,12 +11,14 @@ describe('NavService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       ConfigTestingModule,
-      HttpClientTestingModule,
       TranslateTestingModule,
       RouterTestingModule,
       UpdaterTestingModule,
     ],
-    providers: [],
+    providers: [
+      provideHttpClient(withInterceptorsFromDi()),
+      provideHttpClientTesting(),
+    ],
   }));
 
   it('should be created', () => {

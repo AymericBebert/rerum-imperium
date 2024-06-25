@@ -2,9 +2,9 @@ import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
 import {Subject} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
@@ -20,10 +20,10 @@ import {IArg, ICommand} from '../../model/satelles';
     CommonModule,
     FormsModule,
     MatButtonModule,
-    MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
     MatSliderModule,
+    MatSlideToggleModule,
   ],
 })
 export class CommandComponent implements OnInit, OnDestroy {

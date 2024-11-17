@@ -28,7 +28,9 @@ export class StorageService {
       console.warn('Could not access sessionStorage');
     }
 
-    this.storage;
+    if (this._storage === null) {
+      this.noStorageError$.next();
+    }
   }
 
   public setItem(key: string, value: string): void {

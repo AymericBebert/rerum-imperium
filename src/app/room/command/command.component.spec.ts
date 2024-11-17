@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EMPTY} from 'rxjs';
 import {SocketTestingModule} from '../../testing/socket-testing.module';
-import {TranslateTestingModule} from '../../testing/translate-testing-module';
+import {translateTestingModule} from '../../testing/translate-testing-module';
 import {CommandComponent} from './command.component';
 
 describe('CommandComponent', () => {
@@ -17,7 +17,7 @@ describe('CommandComponent', () => {
       declarations: [],
       imports: [
         CommandComponent,
-        TranslateTestingModule,
+        translateTestingModule,
         RouterTestingModule,
         SocketTestingModule,
       ],

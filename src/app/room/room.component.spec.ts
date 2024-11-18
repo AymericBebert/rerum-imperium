@@ -6,7 +6,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {EMPTY} from 'rxjs';
 import {ConfigTestingModule} from '../testing/config-testing.module';
 import {SocketTestingModule} from '../testing/socket-testing.module';
-import {TranslateTestingModule} from '../testing/translate-testing-module';
+import {translateTestingModule} from '../testing/translate-testing-module';
 import {RoomComponent} from './room.component';
 
 describe('RoomComponent', () => {
@@ -19,7 +19,7 @@ describe('RoomComponent', () => {
       imports: [
         RoomComponent,
         ConfigTestingModule,
-        TranslateTestingModule,
+        translateTestingModule,
         RouterTestingModule,
         SocketTestingModule,
       ],

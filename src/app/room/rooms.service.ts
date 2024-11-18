@@ -3,7 +3,18 @@ import {Inject, Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, filter, finalize, map, skip, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  finalize,
+  map,
+  skip,
+  switchMap,
+  takeUntil,
+  tap
+} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {IRoom, IStoredExpandedSatelles, IStoredRoom} from '../model/room';
 import {SocketService} from '../socket/socket.service';

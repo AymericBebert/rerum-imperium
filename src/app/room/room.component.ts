@@ -42,7 +42,9 @@ export class RoomComponent implements OnInit, OnDestroy {
   public readonly connectionError$ = this.socket.connectionError$;
   public room: IDisplayedRoom | null = null;
 
-  private readonly expandedPanels = this.roomsService.getExpandedSatelles().filter(es => es.expanded).map(es => es.satellesName);
+  private readonly expandedPanels = this.roomsService.getExpandedSatelles()
+    .filter(es => es.expanded)
+    .map(es => es.satellesName);
   private readonly destroy$ = new Subject<void>();
 
   constructor(private route: ActivatedRoute,

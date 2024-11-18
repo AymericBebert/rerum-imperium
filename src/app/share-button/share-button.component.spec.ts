@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {TranslateTestingModule} from '../testing/translate-testing-module';
+import {translateTestingModule} from '../testing/translate-testing-module';
 import {ShareButtonComponent} from './share-button.component';
 
 describe('ShareButtonComponent', () => {
@@ -10,7 +10,7 @@ describe('ShareButtonComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         ShareButtonComponent,
-        TranslateTestingModule,
+        translateTestingModule,
       ],
       declarations: [],
       providers: [],

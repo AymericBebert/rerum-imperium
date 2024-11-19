@@ -1,7 +1,7 @@
 {
   "name": "Rerum Imperium",
   "short_name": "Rerum",
-  "theme_color": "#5a3f1c",
+  "theme_color": "#5c4217",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

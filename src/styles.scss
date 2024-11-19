@@ -1,189 +1,41 @@
 @use '@angular/material' as mat;
+@use 'm3-theme' as m3t;
+@use 'theming';
 
 @include mat.core();
 
 @import '_fonts.scss';
-@import './custom-component-themes.scss';
 
-$dark-primary-text: rgba(black, 0.87);
-$light-primary-text: white;
+html {
+  @include mat.all-component-themes(m3t.$light-theme);
 
-$mat-bronze: (
-  50: #efebe6,
-  100: #d6cec0,
-  200: #bbad96,
-  300: #a08c6c,
-  400: #8b734d,
-  500: #775a2d,
-  600: #6f5228,
-  700: #644822,
-  800: #5a3f1c,
-  900: #472e11,
-  A100: #ffc081,
-  A200: #ffa74e,
-  A400: #ff8d1b,
-  A700: #ff8002,
-  contrast: (
-    50: $dark-primary-text,
-    100: $dark-primary-text,
-    200: $dark-primary-text,
-    300: $dark-primary-text,
-    400: $light-primary-text,
-    500: $light-primary-text,
-    600: $light-primary-text,
-    700: $light-primary-text,
-    800: $light-primary-text,
-    900: $light-primary-text,
-    A100: $dark-primary-text,
-    A200: $dark-primary-text,
-    A400: $dark-primary-text,
-    A700: $dark-primary-text,
-  ),
-);
+  &:not([dark-theme=true]) {
+    @include theming.theme-overrides-light(m3t.$light-theme);
+  }
 
-$mat-rose-bronze: (
-  50 : #f2e9eb,
-  100 : #e0c8ce,
-  200 : #cba3ad,
-  300 : #b67e8c,
-  400 : #a66274,
-  500 : #96465b,
-  600 : #8e3f53,
-  700 : #833749,
-  800 : #792f40,
-  900 : #68202f,
-  A100 : #ffa7b8,
-  A200 : #ff748f,
-  A400 : #ff4165,
-  A700 : #ff2850,
-  contrast: (
-    50 : $dark-primary-text,
-    100 : $dark-primary-text,
-    200 : $dark-primary-text,
-    300 : $dark-primary-text,
-    400 : $light-primary-text,
-    500 : $light-primary-text,
-    600 : $light-primary-text,
-    700 : $light-primary-text,
-    800 : $light-primary-text,
-    900 : $light-primary-text,
-    A100 : $dark-primary-text,
-    A200 : $dark-primary-text,
-    A400 : $light-primary-text,
-    A700 : $light-primary-text,
-  ),
-);
+  &[dark-theme=true] {
+    @include mat.all-component-colors(m3t.$dark-theme);
+    @include theming.theme-overrides-dark(m3t.$dark-theme);
+  }
 
-$light-primary: mat.m2-define-palette($mat-bronze);
-$light-accent: mat.m2-define-palette($mat-rose-bronze, A200, A100, A400);
-$light-warn: mat.m2-define-palette(mat.$m2-red-palette);
+  .mat-drawer-content {
+    display: flex;
+    flex-direction: column;
 
-$light-theme: mat.m2-define-light-theme((
-  color: (
-    primary: $light-primary,
-    accent: $light-accent,
-    warn: $light-warn,
-  ),
-  typography: mat.m2-define-typography-config(),
-  density: 0,
-));
+    > router-outlet + * {
+      flex-grow: 1;
+    }
+  }
 
-@include mat.all-component-themes($light-theme);
+  &[sidenav=pinned] {
+    .mat-drawer-content > router-outlet + * {
+      border-top-right-radius: 24px;
+    }
+  }
 
-@include custom-components-theme($light-theme);
-
-// Defines an alternate dark theme.
-$mat-bronze-dark: (
-  50 : #ebe8e4,
-  100 : #cec5bb,
-  200 : #ad9f8e,
-  300 : #8c7960,
-  400 : #735c3e,
-  500 : #5a3f1c,
-  600 : #523919,
-  700 : #483114,
-  800 : #3f2911,
-  900 : #2e1b09,
-  A100 : #ffa969,
-  A200 : #ff8c36,
-  A400 : #ff6f03,
-  A700 : #e96400,
-  contrast: (
-    50 : $dark-primary-text,
-    100 : $dark-primary-text,
-    200 : $dark-primary-text,
-    300 : $light-primary-text,
-    400 : $light-primary-text,
-    500 : $light-primary-text,
-    600 : $light-primary-text,
-    700 : $light-primary-text,
-    800 : $light-primary-text,
-    900 : $light-primary-text,
-    A100 : $dark-primary-text,
-    A200 : $light-primary-text,
-    A400 : $light-primary-text,
-    A700 : $light-primary-text,
-  ),
-);
-
-$mat-rose-bronze-dark: (
-  50 : #f0e7ea,
-  100 : #dac4ca,
-  200 : #c29ca7,
-  300 : #aa7483,
-  400 : #975769,
-  500 : #85394e,
-  600 : #7d3347,
-  700 : #722c3d,
-  800 : #682435,
-  900 : #551725,
-  A100 : #ff91a6,
-  A200 : #ff5e7d,
-  A400 : #ff2b54,
-  A700 : #ff1240,
-  contrast: (
-    50 : $dark-primary-text,
-    100 : $dark-primary-text,
-    200 : $dark-primary-text,
-    300 : $dark-primary-text,
-    400 : $light-primary-text,
-    500 : $light-primary-text,
-    600 : $light-primary-text,
-    700 : $light-primary-text,
-    800 : $light-primary-text,
-    900 : $light-primary-text,
-    A100 : $dark-primary-text,
-    A200 : $dark-primary-text,
-    A400 : $light-primary-text,
-    A700 : $light-primary-text,
-  ),
-);
-
-$dark-primary: mat.m2-define-palette($mat-bronze-dark);
-$dark-accent: mat.m2-define-palette($mat-rose-bronze-dark, A200, A100, A400);
-$dark-warn: mat.m2-define-palette(mat.$m2-deep-orange-palette);
-
-$dark-theme: mat.m2-define-dark-theme((
-  color: (
-    primary: $dark-primary,
-    accent: $dark-accent,
-    warn: $dark-warn,
-  ),
-));
-
-// Insert custom background color
-$dark-background: map-get($dark-theme, background);
-$dark-background: map_merge($dark-background, (app-bar: #101010, background: #202020));
-$dark-theme: map_merge($dark-theme, (background: $dark-background));
-
-.bronze-dark-theme {
-  @include mat.all-component-colors($dark-theme);
-
-  @include custom-components-theme($dark-theme);
-  @include custom-components-dark-theme($dark-theme);
+  --mat-expansion-container-text-size: 14px;
 }
 
-// CSS
 html, body {
   height: 100%;
 }
@@ -198,33 +50,5 @@ body {
 }
 
 .very-light-text {
-  color: #cccccc;
-}
-
-.bronze-dark-theme {
-  .mat-mdc-button.mat-primary, .mat-mdc-icon-button.mat-primary {
-    color: mat.m2-get-color-from-palette($light-primary, 100);
-  }
-
-  .mat-mdc-progress-spinner circle {
-    stroke: mat.m2-get-color-from-palette($light-primary, 100);
-  }
-
-  .mat-mdc-form-field.mat-focused {
-    .mat-mdc-floating-label {
-      color: mat.m2-get-color-from-palette($light-primary, 100);
-    }
-
-    .mdc-line-ripple::after {
-      border-bottom-color: mat.m2-get-color-from-palette($light-primary, 300);
-    }
-  }
-
-  .mat-mdc-input-element {
-    caret-color: mat.m2-get-color-from-palette($light-primary, 100);
-  }
-
-  .very-light-text {
-    color: #666666;
-  }
+  opacity: 0.2;
 }

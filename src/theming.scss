@@ -1,0 +1,51 @@
+@use '@angular/material' as mat;
+
+@use 'app/room/command/command.component.theme' as command;
+
+@mixin theme-overrides($theme) {
+  //@include command.command-component-theme($theme);
+}
+
+@mixin theme-overrides-light($theme) {
+  @include theme-overrides($theme);
+
+  --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
+  --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, secondary, 90)};
+  --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
+  --mat-expansion-container-background-color: #{mat.get-theme-color($theme, primary, 95)};
+
+  .mat-drawer-content > router-outlet + * {
+    background-color: mat.get-theme-color($theme, primary, 98);
+  }
+
+  .tertiary-light-bg {
+    background-color: mat.get-theme-color($theme, tertiary, 80);
+    box-shadow: 0 2px 4px -1px rgba(mat.get-theme-color($theme, tertiary, 20), 0.25),
+    0 4px 5px 0 rgba(mat.get-theme-color($theme, tertiary, 30), 0.14),
+    0 1px 10px 0 rgba(mat.get-theme-color($theme, tertiary, 35), 0.12);
+  }
+
+  @include command.component-theme-light($theme);
+}
+
+@mixin theme-overrides-dark($theme) {
+  @include theme-overrides($theme);
+
+  --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, primary, 30)};
+  --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, primary, 30)};
+  --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, primary, 30)};
+  --mat-expansion-container-background-color: #{mat.get-theme-color($theme, neutral, 17)};
+
+  .mat-drawer-content > router-outlet + * {
+    background-color: mat.get-theme-color($theme, neutral, 6);
+  }
+
+  .tertiary-light-bg {
+    background-color: mat.get-theme-color($theme, tertiary, 40);
+    box-shadow: 0 2px 4px -1px rgba(mat.get-theme-color($theme, tertiary, 10), 0.25),
+    0 4px 5px 0 rgba(mat.get-theme-color($theme, tertiary, 20), 0.14),
+    0 1px 10px 0 rgba(mat.get-theme-color($theme, tertiary, 35), 0.12);
+  }
+
+  @include command.component-theme-dark($theme);
+}

@@ -1,9 +1,13 @@
+:host {
+  position: relative;
+}
+
 .connection-error {
   position: absolute;
-  top: 10px;
+  top: 12px;
   right: 10px;
   padding: 5px 20px;
-  border-radius: 5px;
+  border-radius: 17px;
   z-index: 10;
 
   & > * {
@@ -11,11 +15,9 @@
   }
 }
 
-.header {
-  font-weight: bold;
-  font-size: 1.4em;
+h2 {
   text-align: center;
-  padding-bottom: 20px;
+  margin: 0 0 20px;
 }
 
 .wrapper {
@@ -24,9 +26,6 @@
   margin: auto;
 }
 
-.satellites-wrapper {
-}
-
 app-command + app-command {
-  margin-top: 10px;
+  margin-top: 12px;
 }

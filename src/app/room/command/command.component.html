@@ -3,13 +3,13 @@
     <span>{{ command.name }}</span>
   </div>
   <div *ngSwitchCase="'action'" class="cmd-action">
-    <button mat-raised-button color="primary" (click)="action.emit()">
+    <button mat-flat-button color="primary" (click)="action.emit()">
       {{ command.name }}
     </button>
   </div>
   <div *ngSwitchCase="'complex'" class="cmd-complex">
     <div *ngIf="!command.name.startsWith('_')" class="cmd-name">{{ command.name }}</div>
-    <div *ngFor="let arg of command.args || []; trackBy: trackArgs">
+    <ng-container *ngFor="let arg of command.args || []; trackBy: trackArgs">
       <ng-container [ngSwitch]="arg.type">
         <div *ngSwitchCase="'string'" class="arg-string">
           <span>{{ arg.name || '-' }}: </span>
@@ -45,7 +45,7 @@
           <span class="minor-text" style="font-family: monospace">{{ arg.colorValue || '#000000' }}</span>
         </div>
         <div *ngSwitchCase="'select'" class="arg-select">
-          <mat-form-field>
+          <mat-form-field subscriptSizing="dynamic">
             <mat-label>{{ arg.name || '-' }}</mat-label>
             <mat-select [(value)]="arg.selectValue" (valueChange)="submitChanges(arg)">
               <mat-option *ngFor="let option of arg.selectOptions || []" [value]="option">{{ option }}</mat-option>
@@ -56,7 +56,7 @@
           <pre>{{ arg | json }}</pre>
         </div>
       </ng-container>
-    </div>
+    </ng-container>
   </div>
   <div *ngSwitchDefault>
     <pre>{{ command | json }}</pre>

@@ -1,28 +1,52 @@
 @use '@angular/material' as mat;
 
-@mixin command-component-theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  //$warn: map-get($theme, warn);
-  //$foreground: map-get($theme, foreground);
-  //$background: map-get($theme, background);
+@mixin component-theme($theme) {
+  @include mat.slider-color($theme, $color-variant: tertiary);
+  @include mat.slide-toggle-color($theme, $color-variant: tertiary);
+}
 
+@mixin component-theme-light($theme) {
   app-command {
+    @include component-theme($theme);
+
     .cmd-complex {
-      border-top: 1px solid mat.m2-get-color-from-palette($primary, 300, 0.4);
-      border-bottom: 1px solid mat.m2-get-color-from-palette($primary, 300, 0.4);
+      border-top: 1px solid mat.get-theme-color($theme, primary, 50);
+      border-bottom: 1px solid mat.get-theme-color($theme, primary, 50);
 
       .cmd-name {
-        color: mat.m2-get-color-from-palette($primary, 300);
+        color: mat.get-theme-color($theme, primary, 50);
       }
 
       .arg-value {
-        color: mat.m2-get-color-from-palette($accent);
+        color: mat.get-theme-color($theme, tertiary, 40);
       }
     }
 
     .minor-text {
-      color: mat.m2-get-color-from-palette($primary, 300);
+      color: mat.get-theme-color($theme, primary, 50);
+    }
+  }
+}
+
+@mixin component-theme-dark($theme) {
+  app-command {
+    @include component-theme($theme);
+
+    .cmd-complex {
+      border-top: 1px solid mat.get-theme-color($theme, primary, 50);
+      border-bottom: 1px solid mat.get-theme-color($theme, primary, 50);
+
+      .cmd-name {
+        color: mat.get-theme-color($theme, primary, 50);
+      }
+
+      .arg-value {
+        color: mat.get-theme-color($theme, tertiary, 80);
+      }
+    }
+
+    .minor-text {
+      color: mat.get-theme-color($theme, primary, 50);
     }
   }
 }

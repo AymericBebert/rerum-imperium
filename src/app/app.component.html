@@ -78,7 +78,11 @@
         <mat-icon aria-label="Back arrow icon">arrow_back</mat-icon>
       </button>
 
-      <img routerLink="/" [src]="'assets/icons/icon-white-64.png'" alt="icon" class="main-icon hide-focus"/>
+      @if (settingsService.darkMode$ | async) {
+        <img routerLink="/" [src]="'assets/icons/icon-white-64.png'" alt="icon" class="main-icon hide-focus"/>
+      } @else {
+        <img routerLink="/" [src]="'assets/icons/icon-black-64.png'" alt="icon" class="main-icon hide-focus"/>
+      }
       <span routerLink="/" class="main-title hide-focus">
         {{ (navService.mainTitle$ | async) || 'app-name' | translate }}
       </span>

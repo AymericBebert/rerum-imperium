@@ -90,21 +90,25 @@ export class NavService {
 
   public applyStoredDarkMode(): void {
     const darkModeFromStorage = this.storageService.getItem('darkMode');
-    if (darkModeFromStorage && JSON.parse(darkModeFromStorage)) {
-      this.setDarkMode(true);
+    if (!darkModeFromStorage && window.matchMedia) {
+      this.setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
+    this.setDarkMode(!!JSON.parse(darkModeFromStorage || 'false'));
   }
 
   public setPinSideNav(b: boolean): void {
     this.storageService.setItem('pinSideNav', JSON.stringify(b));
     this.pinSideNav$.next(b);
+    if (b) {
+      document.getElementsByTagName('html').item(0)?.setAttribute('sidenav', 'pinned');
+    } else {
+      document.getElementsByTagName('html').item(0)?.removeAttribute('sidenav');
+    }
   }
 
   public applyPinSideNav(): void {
     const pinSideNavFromStorage = this.storageService.getItem('pinSideNav');
-    if (pinSideNavFromStorage && JSON.parse(pinSideNavFromStorage)) {
-      this.setPinSideNav(true);
-    }
+    this.setPinSideNav(!!pinSideNavFromStorage && !!JSON.parse(pinSideNavFromStorage));
   }
 
   public update(): void {

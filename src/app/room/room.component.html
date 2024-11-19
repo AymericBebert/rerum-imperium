@@ -1,18 +1,14 @@
-<div style="position: relative">
-  <div *ngIf="connectionError$ | async" class="connection-error">
-    <mat-icon style="margin-right: 5px">cloud_off</mat-icon>
-    <span>{{ 'misc.connection-error' | translate }}</span>
-  </div>
+<div *ngIf="connectionError$ | async" class="connection-error tertiary-light-bg">
+  <mat-icon style="margin-right: 5px">cloud_off</mat-icon>
+  <span>{{ 'misc.connection-error' | translate }}</span>
 </div>
 
 <div *ngIf="room" class="wrapper">
-  <div class="header">
-    <span>{{ room.roomName }}</span>
-  </div>
+  <h2>{{ room.roomName }}</h2>
 
   <span *ngIf="room.satellites.length === 0">{{ 'room.no-satellites' | translate }}</span>
 
-  <mat-accordion *ngIf="room.satellites.length > 0" class="satellites-wrapper" multi>
+  <mat-accordion *ngIf="room.satellites.length > 0" multi>
     <mat-expansion-panel *ngFor="let satelles of room.satellites; trackBy: trackSatelles"
                          [expanded]="satelles.expanded"
                          (expandedChange)="expandedChanged(satelles.name, $event)"

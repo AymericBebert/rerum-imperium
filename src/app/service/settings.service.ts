@@ -11,9 +11,9 @@ export class SettingsService {
 
   public set darkMode(isDark: boolean) {
     if (isDark) {
-      document.getElementsByTagName('html').item(0)?.classList.add('bronze-dark-theme');
+      document.getElementsByTagName('html').item(0)?.setAttribute('dark-theme', 'true');
     } else {
-      document.getElementsByTagName('html').item(0)?.classList.remove('bronze-dark-theme');
+      document.getElementsByTagName('html').item(0)?.removeAttribute('dark-theme');
     }
     this._darkMode$.next(isDark);
   }

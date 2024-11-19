@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Inject, Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -174,8 +174,9 @@ export class RoomsService {
     return this.http.get<IRoom>(`${this.config.backendUrl}/rooms/room/${token}`)
       .pipe(
         catchError(err => {
+          const message = err instanceof HttpErrorResponse ? err.message || err.name || err.status : `${err}`;
           console.error(err);
-          this.snackBar.open(`getRoom: ${err}`, '', {duration: 3000});
+          this.snackBar.open(`getRoom: ${message}`, '', {duration: 3000});
           return of(null);
         }),
       );

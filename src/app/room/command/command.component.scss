@@ -12,18 +12,35 @@
 
 .cmd-complex {
   text-align: center;
+  padding: 4px 0;
 
   .cmd-name {
     margin-top: 10px;
+  }
+
+  .arg-string {
+    padding: 4px 0;
   }
 
   .arg-value {
     min-width: 3em;
   }
 
-  .arg-color span {
-    vertical-align: top;
-    line-height: 32px;
+  .arg-boolean {
+    padding: 4px 0;
+  }
+
+  .arg-color {
+    padding: 4px 0 0;
+
+    span {
+      vertical-align: top;
+      line-height: 32px;
+    }
+  }
+
+  .arg-select {
+    padding: 4px 0;
   }
 }
 

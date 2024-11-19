@@ -4,7 +4,7 @@
   <ng-container *ngIf="visitedRooms.length > 0">
     <h3>{{ 'home.visited-rooms.title' | translate }}</h3>
     <div *ngFor="let room of visitedRooms" style="margin-bottom: 10px">
-      <button mat-raised-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
+      <button mat-flat-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
         {{ room.roomName.length > 25 ? room.roomName.slice(0, 24) + '...' : room.roomName }}
       </button>
     </div>

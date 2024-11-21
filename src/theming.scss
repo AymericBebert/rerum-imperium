@@ -2,13 +2,7 @@
 
 @use 'app/room/command/command.component.theme' as command;
 
-@mixin theme-overrides($theme) {
-  //@include command.command-component-theme($theme);
-}
-
 @mixin theme-overrides-light($theme) {
-  @include theme-overrides($theme);
-
   --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
   --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, secondary, 90)};
   --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
@@ -29,8 +23,6 @@
 }
 
 @mixin theme-overrides-dark($theme) {
-  @include theme-overrides($theme);
-
   --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, primary, 30)};
   --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, primary, 30)};
   --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, primary, 30)};

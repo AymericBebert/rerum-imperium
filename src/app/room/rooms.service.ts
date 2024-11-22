@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
@@ -25,6 +25,11 @@ import {isNotNull} from '../utils/utils';
   providedIn: 'root',
 })
 export class RoomsService {
+  private readonly http = inject(HttpClient);
+  private readonly socket = inject(SocketService);
+  private readonly storageService = inject(StorageService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly config = inject<AppConfig>(APP_CONFIG);
 
   public readonly roomCheckPending$ = new BehaviorSubject<boolean>(false);
   public readonly roomCheck$ = new Subject<IRoom | null>();
@@ -34,12 +39,7 @@ export class RoomsService {
 
   private readonly roomLeft$ = this.currentRoom$.pipe(skip(1), filter(r => !r), map(() => void 0));
 
-  constructor(private readonly http: HttpClient,
-              private readonly socket: SocketService,
-              private readonly storageService: StorageService,
-              private readonly snackBar: MatSnackBar,
-              @Inject(APP_CONFIG) private readonly config: AppConfig,
-  ) {
+  constructor() {
     this.currentRoom$
       .pipe(
         filter(isNotNull),

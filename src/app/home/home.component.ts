@@ -1,10 +1,10 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {filter, map, takeUntil} from 'rxjs/operators';
@@ -27,6 +27,8 @@ import {isNotNull} from '../utils/utils';
   ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  private readonly roomsService = inject(RoomsService);
+  private readonly router = inject(Router);
 
   public readonly roomFormControl = new FormControl<string>('', {
     asyncValidators: [this.roomsService.roomExistsValidator()],
@@ -43,10 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private readonly route: ActivatedRoute,
-              private readonly router: Router,
-              private readonly roomsService: RoomsService,
-  ) {
+  constructor() {
     this.rejoinLastVisitedRoom();
     this.getVisitedRooms();
   }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Output} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
@@ -27,6 +27,7 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
   ],
 })
 export class ChangeLanguageComponent {
+  public readonly translateService = inject(TranslateService);
 
   @Output() public langSet = new EventEmitter<string>();
 
@@ -35,9 +36,6 @@ export class ChangeLanguageComponent {
     en: '🇬🇧',
     unknown: '🏳️',
   };
-
-  constructor(public translateService: TranslateService) {
-  }
 
   public langToFlag(lang: string): string {
     return this.flagMap[lang] || this.flagMap.unknown;

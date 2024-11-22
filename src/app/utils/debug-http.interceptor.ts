@@ -6,15 +6,15 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 
 @Injectable()
 export class DebugHttpInterceptor implements HttpInterceptor {
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
-  }
+  private config = inject<AppConfig>(APP_CONFIG);
+
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.config.debugHttp) {

@@ -1,5 +1,5 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, Inject, ViewChild} from '@angular/core';
+import {Component, inject, ViewChild} from '@angular/core';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -35,18 +35,20 @@ import {SettingsService} from './service/settings.service';
   ],
 })
 export class AppComponent {
+  readonly navService = inject(NavService);
+  readonly settingsService = inject(SettingsService);
+  readonly deviceService = inject(DeviceService);
+  private readonly config = inject<AppConfig>(APP_CONFIG);
+  private readonly router = inject(Router);
+
   public readonly appVersion = this.config.version;
 
   @ViewChild('drawer', {static: true}) public navDrawer: MatSidenav | null = null;
 
-  constructor(public readonly navService: NavService,
-              public readonly settingsService: SettingsService,
-              public readonly deviceService: DeviceService,
-              @Inject(APP_CONFIG) private readonly config: AppConfig,
-              private readonly router: Router,
-              translate: TranslateService,
-              route: ActivatedRoute,
-  ) {
+  constructor() {
+    const translate = inject(TranslateService);
+    const route = inject(ActivatedRoute);
+
     translate.addLangs(['fr', 'en']);
     translate.setDefaultLang('fr');
     this.navService.applyStoredLanguage();

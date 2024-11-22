@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -15,6 +15,9 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
   ],
 })
 export class ShareButtonComponent {
+  private snackBar = inject(MatSnackBar);
+  private translateService = inject(TranslateService);
+
   @Input() public title = 'Rerum Imperium';
   @Input() public text = 'Room link';
   @Input() public url = '';
@@ -23,9 +26,7 @@ export class ShareButtonComponent {
   public canShare = false;
   private readonly webNavigator: any = null;
 
-  constructor(private snackBar: MatSnackBar,
-              private translateService: TranslateService,
-  ) {
+  constructor() {
     this.webNavigator = window.navigator;
     this.canShare = this.webNavigator !== null && this.webNavigator.share !== undefined;
   }

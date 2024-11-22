@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {BehaviorSubject, from} from 'rxjs';
 import {filter, switchMap, tap} from 'rxjs/operators';
@@ -13,6 +13,14 @@ import {NavButtonsService} from './nav-buttons.service';
   providedIn: 'root',
 })
 export class NavService {
+  private readonly navButtonsService = inject(NavButtonsService);
+  private readonly settingsService = inject(SettingsService);
+  private readonly deviceService = inject(DeviceService);
+  private readonly translateService = inject(TranslateService);
+  private readonly storageService = inject(StorageService);
+  private readonly updater = inject(UpdaterService);
+  private readonly config = inject<AppConfig>(APP_CONFIG);
+
   public readonly mainTitle$ = new BehaviorSubject<string>('');
   public readonly pinSideNav$ = new BehaviorSubject<boolean>(false);
   public readonly showBackButton$ = new BehaviorSubject<boolean>(false);
@@ -25,14 +33,7 @@ export class NavService {
 
   public readonly language$ = new BehaviorSubject<string>('');
 
-  constructor(private readonly navButtonsService: NavButtonsService,
-              private readonly settingsService: SettingsService,
-              private readonly deviceService: DeviceService,
-              private readonly translateService: TranslateService,
-              private readonly storageService: StorageService,
-              private readonly updater: UpdaterService,
-              @Inject(APP_CONFIG) private readonly config: AppConfig,
-  ) {
+  constructor() {
     this.deviceService.isHandset$.pipe(filter(h => h)).subscribe(() => this.setPinSideNav(false));
 
     this.updater.updatesAvailable$.pipe(filter(a => a)).subscribe(() => {

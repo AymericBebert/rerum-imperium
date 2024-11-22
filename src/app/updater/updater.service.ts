@@ -1,4 +1,4 @@
-import {ApplicationRef, Injectable} from '@angular/core';
+import {ApplicationRef, inject, Injectable} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {BehaviorSubject, concat, interval} from 'rxjs';
 import {first} from 'rxjs/operators';
@@ -7,13 +7,16 @@ import {first} from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UpdaterService {
+  private readonly swUpdate = inject(SwUpdate);
+
 
   public readonly updatesAvailable$ = new BehaviorSubject<boolean>(false);
   public readonly updatesActivated$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private readonly swUpdate: SwUpdate,
-              appRef: ApplicationRef,
-  ) {
+  constructor() {
+    const swUpdate = this.swUpdate;
+    const appRef = inject(ApplicationRef);
+
     if (!swUpdate.isEnabled) {
       return;
     }

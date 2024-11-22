@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, EMPTY, fromEvent, Observable, Subject} from 'rxjs';
 import {
   debounceTime,
@@ -19,6 +19,8 @@ import {EmittedEventTypes, ReceivedEventTypes} from './socket-event-types';
   providedIn: 'root',
 })
 export class SocketService {
+  private config = inject<AppConfig>(APP_CONFIG);
+
   public readonly connected$ = new Subject<boolean>();
 
   private socket: Socket | null = null;
@@ -38,7 +40,7 @@ export class SocketService {
 
   private readonly disconnect$ = new Subject<void>();
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
+  constructor() {
     this.shouldBeConnected$
       .pipe(distinctUntilChanged(), skip(1))
       .subscribe(shouldConnect => {

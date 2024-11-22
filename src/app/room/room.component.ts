@@ -1,5 +1,5 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute} from '@angular/router';
@@ -37,6 +37,13 @@ interface IDisplayedRoom extends IRoom {
   ],
 })
 export class RoomComponent implements OnInit, OnDestroy {
+  private readonly route = inject(ActivatedRoute);
+  private readonly navButtonsService = inject(NavButtonsService);
+  private readonly shareButtonService = inject(ShareButtonService);
+  private readonly translateService = inject(TranslateService);
+  private readonly roomsService = inject(RoomsService);
+  private readonly socket = inject(SocketService);
+  private readonly config = inject<AppConfig>(APP_CONFIG);
 
   public readonly connectionError$ = this.socket.connectionError$;
   public room: IDisplayedRoom | null = null;
@@ -45,16 +52,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     .filter(es => es.expanded)
     .map(es => es.satellesName);
   private readonly destroy$ = new Subject<void>();
-
-  constructor(private route: ActivatedRoute,
-              private navButtonsService: NavButtonsService,
-              private shareButtonService: ShareButtonService,
-              private translateService: TranslateService,
-              private roomsService: RoomsService,
-              private socket: SocketService,
-              @Inject(APP_CONFIG) private config: AppConfig,
-  ) {
-  }
 
   ngOnInit(): void {
     this.roomsService.currentRoom$

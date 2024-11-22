@@ -1,5 +1,5 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -7,10 +7,11 @@ import {map} from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DeviceService {
+  private readonly breakpointObserver = inject(BreakpointObserver);
 
   public readonly isHandset$ = new BehaviorSubject<boolean>(true);
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor() {
     this.breakpointObserver.observe(Breakpoints.Handset)
       .pipe(map(result => result.matches))
       .subscribe(res => this.isHandset$.next(res));

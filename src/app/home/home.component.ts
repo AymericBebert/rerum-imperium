@@ -17,7 +17,6 @@ import {isNotNull} from '../utils/utils';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

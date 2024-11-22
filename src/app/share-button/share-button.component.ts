@@ -9,7 +9,6 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
   selector: 'app-share-button',
   templateUrl: './share-button.component.html',
   styleUrls: ['./share-button.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

@@ -15,7 +15,6 @@ import {IArg, ICommand} from '../../model/satelles';
   selector: 'app-command',
   templateUrl: './command.component.html',
   styleUrls: ['./command.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

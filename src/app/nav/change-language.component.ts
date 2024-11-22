@@ -19,7 +19,6 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
       </mat-menu>
     </div>`,
   styles: ['span.lang-flag { vertical-align: middle; }'],
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

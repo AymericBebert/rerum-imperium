@@ -3,10 +3,12 @@
 @use 'app/room/command/command.component.theme' as command;
 
 @mixin theme-overrides-light($theme) {
-  --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
-  --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, secondary, 90)};
-  --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
-  --mat-expansion-container-background-color: #{mat.get-theme-color($theme, primary, 95)};
+  & {
+    --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
+    --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, secondary, 90)};
+    --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, secondary, 90)};
+    --mat-expansion-container-background-color: #{mat.get-theme-color($theme, primary, 95)};
+  }
 
   .mat-drawer-content > router-outlet + * {
     background-color: mat.get-theme-color($theme, primary, 98);
@@ -23,10 +25,12 @@
 }
 
 @mixin theme-overrides-dark($theme) {
-  --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, primary, 30)};
-  --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, primary, 30)};
-  --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, primary, 30)};
-  --mat-expansion-container-background-color: #{mat.get-theme-color($theme, neutral, 17)};
+  & {
+    --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, primary, 30)};
+    --mat-sidenav-content-background-color: #{mat.get-theme-color($theme, primary, 30)};
+    --mat-sidenav-container-background-color: #{mat.get-theme-color($theme, primary, 30)};
+    --mat-expansion-container-background-color: #{mat.get-theme-color($theme, neutral, 17)};
+  }
 
   .mat-drawer-content > router-outlet + * {
     background-color: mat.get-theme-color($theme, neutral, 6);

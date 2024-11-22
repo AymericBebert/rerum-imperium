@@ -1,11 +1,7 @@
 @use '@angular/material' as mat;
 @use 'm3-theme' as m3t;
 @use 'theming';
-
-@include mat.elevation-classes();
-@include mat.app-background();
-
-@import '_fonts.scss';
+@use 'fonts';
 
 html {
   @include mat.all-component-themes(m3t.$light-theme);
@@ -34,7 +30,9 @@ html {
     }
   }
 
-  --mat-expansion-container-text-size: 14px;
+  & {
+    --mat-expansion-container-text-size: 14px;
+  }
 }
 
 html, body {

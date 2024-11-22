@@ -19,7 +19,7 @@ import {EmittedEventTypes, ReceivedEventTypes} from './socket-event-types';
   providedIn: 'root',
 })
 export class SocketService {
-  private config = inject<AppConfig>(APP_CONFIG);
+  private readonly config = inject<AppConfig>(APP_CONFIG);
 
   public readonly connected$ = new Subject<boolean>();
 

@@ -13,8 +13,7 @@ import {APP_CONFIG, AppConfig} from '../../config/app.config';
 
 @Injectable()
 export class DebugHttpInterceptor implements HttpInterceptor {
-  private config = inject<AppConfig>(APP_CONFIG);
-
+  private readonly config = inject<AppConfig>(APP_CONFIG);
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.config.debugHttp) {

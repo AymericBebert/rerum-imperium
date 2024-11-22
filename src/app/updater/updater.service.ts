@@ -9,7 +9,6 @@ import {first} from 'rxjs/operators';
 export class UpdaterService {
   private readonly swUpdate = inject(SwUpdate);
 
-
   public readonly updatesAvailable$ = new BehaviorSubject<boolean>(false);
   public readonly updatesActivated$ = new BehaviorSubject<boolean>(false);
 

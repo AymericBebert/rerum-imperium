@@ -1,5 +1,5 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, inject, ViewChild} from '@angular/core';
+import {Component, inject, viewChild} from '@angular/core';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -43,7 +43,7 @@ export class AppComponent {
 
   public readonly appVersion = this.config.version;
 
-  @ViewChild('drawer', {static: true}) public navDrawer: MatSidenav | null = null;
+  readonly navDrawer = viewChild<MatSidenav | null>('drawer');
 
   constructor() {
     const translate = inject(TranslateService);
@@ -78,8 +78,9 @@ export class AppComponent {
   }
 
   public closeDrawer(): void {
-    if (!this.navService.pinSideNav$.getValue() && this.navDrawer) {
-      this.navDrawer.close().catch(err => console.error('Could not close drawer?', err));
+    const navDrawer = this.navDrawer();
+    if (!this.navService.pinSideNav$.getValue() && navDrawer) {
+      navDrawer.close().catch(err => console.error('Could not close drawer?', err));
     }
   }
 }

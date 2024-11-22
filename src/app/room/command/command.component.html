@@ -6,7 +6,7 @@
   }
   @case ('action') {
     <div class="cmd-action">
-      <button mat-flat-button color="primary" (click)="action.emit()">
+      <button mat-flat-button color="primary" (click)="submitChanges()">
         {{ command().name }}
       </button>
     </div>

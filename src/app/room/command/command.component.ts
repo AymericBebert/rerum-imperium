@@ -1,5 +1,5 @@
 import {JsonPipe} from '@angular/common';
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -26,7 +26,7 @@ import {IArg, ICommand} from '../../model/satelles';
   ],
 })
 export class CommandComponent implements OnInit, OnDestroy {
-  @Input() public command: ICommand | undefined;
+  public readonly command = input.required<ICommand>();
   @Output() public action = new EventEmitter<IArgValue[]>();
 
   private readonly debouncedSubmit$ = new Subject<IArg[]>();

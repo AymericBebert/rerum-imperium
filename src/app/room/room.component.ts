@@ -11,7 +11,7 @@ import {IArgValue} from '../model/imperium';
 import {IRoom} from '../model/room';
 import {ISatelles} from '../model/satelles';
 import {NavButtonsService} from '../nav/nav-buttons.service';
-import {ShareButtonService} from '../share-button/share-button.service';
+import {ShareService} from '../share/share.service';
 import {SocketService} from '../socket/socket.service';
 import {CommandComponent} from './command/command.component';
 import {RoomsService} from './rooms.service';
@@ -39,7 +39,7 @@ interface IDisplayedRoom extends IRoom {
 export class RoomComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly navButtonsService = inject(NavButtonsService);
-  private readonly shareButtonService = inject(ShareButtonService);
+  private readonly shareButtonService = inject(ShareService);
   private readonly translateService = inject(TranslateService);
   private readonly roomsService = inject(RoomsService);
   private readonly socket = inject(SocketService);

@@ -1,22 +1,22 @@
-@switch (command?.type) {
+@switch (command().type) {
   @case ('info') {
     <div class="cmd-info">
-      <span>{{ command.name }}</span>
+      <span>{{ command().name }}</span>
     </div>
   }
   @case ('action') {
     <div class="cmd-action">
       <button mat-flat-button color="primary" (click)="action.emit()">
-        {{ command.name }}
+        {{ command().name }}
       </button>
     </div>
   }
   @case ('complex') {
     <div class="cmd-complex">
-      @if (!command.name.startsWith('_')) {
-        <div class="cmd-name">{{ command.name }}</div>
+      @if (!command().name.startsWith('_')) {
+        <div class="cmd-name">{{ command().name }}</div>
       }
-      @for (arg of command.args || []; track arg.name + arg.type) {
+      @for (arg of command().args || []; track arg.name + arg.type) {
         @switch (arg.type) {
           @case ('string') {
             <div class="arg-string">
@@ -82,7 +82,7 @@
   }
   @default {
     <div>
-      <pre>{{ command | json }}</pre>
+      <pre>{{ command() | json }}</pre>
     </div>
   }
 }

@@ -1,4 +1,4 @@
-import {CommonModule} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
@@ -18,12 +18,12 @@ import {isNotNull} from '../utils/utils';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   imports: [
-    CommonModule,
     TranslateModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    AsyncPipe,
   ],
 })
 export class HomeComponent implements OnInit, OnDestroy {

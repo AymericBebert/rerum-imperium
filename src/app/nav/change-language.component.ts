@@ -1,4 +1,3 @@
-import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Output} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
@@ -13,14 +12,15 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
         <span class="lang-flag">{{ langToFlag(translateService.currentLang) }}</span>{{ translateService.currentLang }}
       </span>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let lang of translateService.langs" (click)="langClicked(lang)">
-          <span class="lang-flag">{{ langToFlag(lang) }}</span>{{ lang }}
-        </button>
+        @for (lang of translateService.langs; track lang) {
+          <button mat-menu-item (click)="langClicked(lang)">
+            <span class="lang-flag">{{ langToFlag(lang) }}</span>{{ lang }}
+          </button>
+        }
       </mat-menu>
     </div>`,
   styles: ['span.lang-flag { vertical-align: middle; }'],
   imports: [
-    CommonModule,
     TranslateModule,
     MatMenuModule,
     MatIconModule,

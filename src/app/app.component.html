@@ -1,24 +1,28 @@
 <mat-sidenav-container class="sidenav-container">
 
+  @let pinSideNav = navService.pinSideNav$ | async;
+
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                position="end"
-               [attr.role]="(navService.pinSideNav$ | async) ? 'navigation' : 'dialog'"
-               [mode]="(navService.pinSideNav$ | async) ? 'side' : 'over'"
-               [opened]="(navService.pinSideNav$ | async) === true"
+               [attr.role]="pinSideNav ? 'navigation' : 'dialog'"
+               [mode]="pinSideNav ? 'side' : 'over'"
+               [opened]="pinSideNav === true"
                (click)="closeDrawer()">
 
     <mat-toolbar>{{ 'nav.menu-title' | translate }}</mat-toolbar>
     <mat-nav-list>
 
-      <ng-container *ngIf="navService.navTools$ | async as navTools">
-        <ng-container *ngIf="navTools.length > 0">
+      @if (navService.navTools$ | async; as navTools) {
+        @if (navTools.length > 0) {
           <h3 matSubheader>{{ 'nav.tools' | translate }}</h3>
-          <mat-list-item *ngFor="let tool of navTools" (click)="navService.navToolClicked(tool.name); closeDrawer()">
-            <mat-icon style="margin-right: 5px">{{ tool.icon }}</mat-icon>
-            <span>{{ tool.name | translate }}</span>
-          </mat-list-item>
-        </ng-container>
-      </ng-container>
+          @for (tool of navTools; track tool.name) {
+            <mat-list-item (click)="navService.navToolClicked(tool.name); closeDrawer()">
+              <mat-icon style="margin-right: 5px">{{ tool.icon }}</mat-icon>
+              <span>{{ tool.name | translate }}</span>
+            </mat-list-item>
+          }
+        }
+      }
 
       <h3 matSubheader>{{ 'nav.settings' | translate }}</h3>
 
@@ -29,30 +33,36 @@
         </mat-slide-toggle>
       </mat-list-item>
 
-      <mat-list-item *ngIf="(deviceService.isHandset$ | async) === false">
-        <mat-slide-toggle color="accent" [checked]="navService.pinSideNav$ | async"
-                          (change)="navService.setPinSideNav($event.checked)">
-          {{ 'nav.pin-sidenav' | translate }}
-        </mat-slide-toggle>
-      </mat-list-item>
+      @if ((deviceService.isHandset$ | async) === false) {
+        <mat-list-item>
+          <mat-slide-toggle color="accent" [checked]="pinSideNav"
+                            (change)="navService.setPinSideNav($event.checked)">
+            {{ 'nav.pin-sidenav' | translate }}
+          </mat-slide-toggle>
+        </mat-list-item>
+      }
 
       <mat-list-item>
         <app-change-language (langSet)="navService.setLanguage($event); closeDrawer()"></app-change-language>
       </mat-list-item>
 
-      <mat-list-item *ngIf="navService.displayUpdatesAvailable" (click)="navService.update()">
-        <mat-icon color="warn" style="margin-right: 5px">update</mat-icon>
-        <span>
-          {{ 'nav.update-available' | translate }}
-        </span>
-      </mat-list-item>
+      @if (navService.displayUpdatesAvailable) {
+        <mat-list-item (click)="navService.update()">
+          <mat-icon color="warn" style="margin-right: 5px">update</mat-icon>
+          <span>
+            {{ 'nav.update-available' | translate }}
+          </span>
+        </mat-list-item>
+      }
 
-      <mat-list-item *ngIf="navService.displayUpdatesActivated">
-        <mat-icon style="margin-right: 5px">sync</mat-icon>
-        <span>
-          {{ 'nav.update-activated' | translate }}
-        </span>
-      </mat-list-item>
+      @if (navService.displayUpdatesActivated) {
+        <mat-list-item>
+          <mat-icon style="margin-right: 5px">sync</mat-icon>
+          <span>
+            {{ 'nav.update-activated' | translate }}
+          </span>
+        </mat-list-item>
+      }
 
       <mat-list-item (click)="navService.checkForUpdates()">
         <span class="very-light-text mat-small">
@@ -69,14 +79,15 @@
     <!-- Toolbar on top -->
     <mat-toolbar color="primary">
 
-      <button
-        type="button"
-        aria-label="Back button"
-        mat-icon-button
-        *ngIf="navService.showBackButton$ | async"
-        (click)="navService.backClicked()">
-        <mat-icon aria-label="Back arrow icon">arrow_back</mat-icon>
-      </button>
+      @if (navService.showBackButton$ | async) {
+        <button
+          type="button"
+          aria-label="Back button"
+          mat-icon-button
+          (click)="navService.backClicked()">
+          <mat-icon aria-label="Back arrow icon">arrow_back</mat-icon>
+        </button>
+      }
 
       @if (settingsService.darkMode$ | async) {
         <img routerLink="/" [src]="'assets/icons/icon-white-64.png'" alt="icon" class="main-icon hide-focus"/>
@@ -89,29 +100,31 @@
 
       <span class="fill-remaining-space"></span>
 
-      <button
-        *ngFor="let buttonId of navService.navButtons$ | async"
-        mat-icon-button
-        type="button"
-        [attr.aria-label]="'Button' + buttonId"
-        (click)="navService.navButtonClicked(buttonId)">
-        <mat-icon>{{ buttonId }}</mat-icon>
-      </button>
+      @for (buttonId of navService.navButtons$ | async; track buttonId) {
+        <button
+          mat-icon-button
+          type="button"
+          [attr.aria-label]="'Button' + buttonId"
+          (click)="navService.navButtonClicked(buttonId)">
+          <mat-icon>{{ buttonId }}</mat-icon>
+        </button>
+      }
 
-      <button
-        *ngIf="(navService.pinSideNav$ | async) === false"
-        mat-icon-button
-        type="button"
-        aria-label="Toggle sidenav"
-        (click)="drawer.toggle()">
-        <mat-icon
-          aria-label="Side nav toggle icon"
-          aria-hidden="false"
-          [matBadge]="navService.notificationBadge"
-          matBadgeColor="warn">
-          menu
-        </mat-icon>
-      </button>
+      @if (pinSideNav === false) {
+        <button
+          mat-icon-button
+          type="button"
+          aria-label="Toggle sidenav"
+          (click)="drawer.toggle()">
+          <mat-icon
+            aria-label="Side nav toggle icon"
+            aria-hidden="false"
+            [matBadge]="navService.notificationBadge"
+            matBadgeColor="warn">
+            menu
+          </mat-icon>
+        </button>
+      }
 
     </mat-toolbar>
 

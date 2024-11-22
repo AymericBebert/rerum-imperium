@@ -1,13 +1,11 @@
-<ng-container *ngIf="canShare; else cannotShare">
+@if (canShare) {
   <button mat-flat-button color="primary" (click)="shareClicked()" [disabled]="disabled">
     <mat-icon style="vertical-align: middle; margin-right: 10px">share</mat-icon>
     {{ 'share.share' | translate }}
   </button>
-</ng-container>
-
-<ng-template #cannotShare>
+} @else {
   <button mat-flat-button color="primary" (click)="copyToClipboard()" [disabled]="disabled">
     <mat-icon style="vertical-align: middle; margin-right: 10px">file_copy</mat-icon>
     {{ 'share.copy' | translate }}
   </button>
-</ng-template>
+}

@@ -1,19 +1,24 @@
 <p style="margin: 0 0 24px">{{ 'home.welcome' | translate }}</p>
 
-<ng-container *ngIf="visitedRooms$ | async as visitedRooms">
-  <ng-container *ngIf="visitedRooms.length > 0">
+@if (visitedRooms$ | async; as visitedRooms) {
+  @if (visitedRooms.length > 0) {
     <h3>{{ 'home.visited-rooms.title' | translate }}</h3>
-    <div *ngFor="let room of visitedRooms" style="margin-bottom: 10px">
-      <button mat-flat-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
-        {{ room.roomName.length > 25 ? room.roomName.slice(0, 24) + '...' : room.roomName }}
-      </button>
-    </div>
+    @for (room of visitedRooms; track room.token) {
+      <div style="margin-bottom: 10px">
+        <button mat-flat-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
+          {{ room.roomName.length > 25 ? room.roomName.slice(0, 24) + '...' : room.roomName }}
+        </button>
+      </div>
+    }
     <button mat-button color="primary" (click)="toggleDeletion()" [style.opacity]="deletion ? 1 : 0.4">
-      <ng-container *ngIf="deletion; else notDeletion">{{ 'home.visited-rooms.delete-stop' | translate }}</ng-container>
-      <ng-template #notDeletion>{{ 'home.visited-rooms.delete' | translate }}</ng-template>
+      @if (deletion) {
+        {{ 'home.visited-rooms.delete-stop' | translate }}
+      } @else {
+        {{ 'home.visited-rooms.delete' | translate }}
+      }
     </button>
-  </ng-container>
-</ng-container>
+  }
+}
 
 <h3>{{ 'home.form.title' | translate }}</h3>
 <form style="display: flex; justify-content: center; margin-top: 16px">
@@ -27,11 +32,13 @@
            [formControl]="roomFormControl"
            [errorStateMatcher]="matcher"
            [placeholder]="'home.form.placeholder' | translate">
-    <mat-error *ngIf="roomFormControl.errors?.roomNotFound">
-      {{ 'home.form.room-not-found' | translate }}
-    </mat-error>
+    @if (roomFormControl.errors?.roomNotFound) {
+      <mat-error>{{ 'home.form.room-not-found' | translate }}</mat-error>
+    }
   </mat-form-field>
   <div style="width: 24px">
-    <mat-spinner *ngIf="roomCheckPending$ | async" diameter="24" style="margin-top: 18px"></mat-spinner>
+    @if (roomCheckPending$ | async) {
+      <mat-spinner diameter="24" style="margin-top: 18px"></mat-spinner>
+    }
   </div>
 </form>

@@ -1,64 +1,88 @@
-<ng-container *ngIf="command" [ngSwitch]="command.type">
-  <div *ngSwitchCase="'info'" class="cmd-info">
-    <span>{{ command.name }}</span>
-  </div>
-  <div *ngSwitchCase="'action'" class="cmd-action">
-    <button mat-flat-button color="primary" (click)="action.emit()">
-      {{ command.name }}
-    </button>
-  </div>
-  <div *ngSwitchCase="'complex'" class="cmd-complex">
-    <div *ngIf="!command.name.startsWith('_')" class="cmd-name">{{ command.name }}</div>
-    <ng-container *ngFor="let arg of command.args || []; trackBy: trackArgs">
-      <ng-container [ngSwitch]="arg.type">
-        <div *ngSwitchCase="'string'" class="arg-string">
-          <span>{{ arg.name || '-' }}: </span>
-          <span>{{ arg.stringValue || '-' }}</span>
-        </div>
-        <div *ngSwitchCase="'number'" class="arg-number" style="display: flex; align-items: center">
-          <div style="flex: 1 1 100%; text-align: right">{{ arg.name || '-' }}&nbsp;:</div>
-          <div class="arg-value">{{ arg.numberValue || 0 }}</div>
-          <mat-slider style="flex: 1 1 100%"
-                      color="accent"
-                      [max]="arg.numberMax"
-                      [min]="arg.numberMin"
-                      [step]="arg.numberStep"
-                      discrete
-          >
-            <input matSliderThumb
-                   [value]="arg.numberValue"
-                   (valueChange)="arg.numberValue = $event; submitChanges(arg)"/>
-          </mat-slider>
-        </div>
-        <div *ngSwitchCase="'boolean'" class="arg-boolean">
-          <mat-slide-toggle [ngModel]="arg.booleanValue"
-                            (change)="arg.booleanValue = $event.checked; submitChanges(arg)">
-            {{ arg.name || '-' }}
-          </mat-slide-toggle>
-        </div>
-        <div *ngSwitchCase="'color'" class="arg-color">
-          <span>{{ arg.name || '-' }}&nbsp;:</span>
-          <input type="color" class="simple-color-input" style="margin: 0 4px"
-                 [ngModel]="arg.colorValue || '#000000'"
-                 (ngModelChange)="arg.colorValue = $event; scheduleSubmitChanges(arg)"
-          >
-          <span class="minor-text" style="font-family: monospace">{{ arg.colorValue || '#000000' }}</span>
-        </div>
-        <div *ngSwitchCase="'select'" class="arg-select">
-          <mat-form-field subscriptSizing="dynamic">
-            <mat-label>{{ arg.name || '-' }}</mat-label>
-            <mat-select [(value)]="arg.selectValue" (valueChange)="submitChanges(arg)">
-              <mat-option *ngFor="let option of arg.selectOptions || []" [value]="option">{{ option }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div *ngSwitchDefault>
-          <pre>{{ arg | json }}</pre>
-        </div>
-      </ng-container>
-    </ng-container>
-  </div>
-  <div *ngSwitchDefault>
-    <pre>{{ command | json }}</pre>
-  </div>
-</ng-container>
+@switch (command?.type) {
+  @case ('info') {
+    <div class="cmd-info">
+      <span>{{ command.name }}</span>
+    </div>
+  }
+  @case ('action') {
+    <div class="cmd-action">
+      <button mat-flat-button color="primary" (click)="action.emit()">
+        {{ command.name }}
+      </button>
+    </div>
+  }
+  @case ('complex') {
+    <div class="cmd-complex">
+      @if (!command.name.startsWith('_')) {
+        <div class="cmd-name">{{ command.name }}</div>
+      }
+      @for (arg of command.args || []; track arg.name + arg.type) {
+        @switch (arg.type) {
+          @case ('string') {
+            <div class="arg-string">
+              <span>{{ arg.name || '-' }}: </span>
+              <span>{{ arg.stringValue || '-' }}</span>
+            </div>
+          }
+          @case ('number') {
+            <div class="arg-number" style="display: flex; align-items: center">
+              <div style="flex: 1 1 100%; text-align: right">{{ arg.name || '-' }}&nbsp;:</div>
+              <div class="arg-value">{{ arg.numberValue || 0 }}</div>
+              <mat-slider style="flex: 1 1 100%"
+                          color="accent"
+                          [max]="arg.numberMax"
+                          [min]="arg.numberMin"
+                          [step]="arg.numberStep"
+                          discrete
+              >
+                <input matSliderThumb
+                       [value]="arg.numberValue"
+                       (valueChange)="arg.numberValue = $event; submitChanges(arg)"/>
+              </mat-slider>
+            </div>
+          }
+          @case ('boolean') {
+            <div class="arg-boolean">
+              <mat-slide-toggle [ngModel]="arg.booleanValue"
+                                (change)="arg.booleanValue = $event.checked; submitChanges(arg)">
+                {{ arg.name || '-' }}
+              </mat-slide-toggle>
+            </div>
+          }
+          @case ('color') {
+            <div class="arg-color">
+              <span>{{ arg.name || '-' }}&nbsp;:</span>
+              <input type="color" class="simple-color-input" style="margin: 0 4px"
+                     [ngModel]="arg.colorValue || '#000000'"
+                     (ngModelChange)="arg.colorValue = $event; scheduleSubmitChanges(arg)"
+              >
+              <span class="minor-text" style="font-family: monospace">{{ arg.colorValue || '#000000' }}</span>
+            </div>
+          }
+          @case ('select') {
+            <div class="arg-select">
+              <mat-form-field subscriptSizing="dynamic">
+                <mat-label>{{ arg.name || '-' }}</mat-label>
+                <mat-select [(value)]="arg.selectValue" (valueChange)="submitChanges(arg)">
+                  @for (option of arg.selectOptions || []; track option) {
+                    <mat-option [value]="option">{{ option }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          }
+          @default {
+            <div>
+              <pre>{{ arg | json }}</pre>
+            </div>
+          }
+        }
+      }
+    </div>
+  }
+  @default {
+    <div>
+      <pre>{{ command | json }}</pre>
+    </div>
+  }
+}

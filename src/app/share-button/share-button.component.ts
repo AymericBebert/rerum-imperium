@@ -1,4 +1,3 @@
-import {CommonModule} from '@angular/common';
 import {Component, Input} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -10,10 +9,9 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
   templateUrl: './share-button.component.html',
   styleUrls: ['./share-button.component.scss'],
   imports: [
-    CommonModule,
     TranslateModule,
     MatButtonModule,
-    MatIconModule,
+    MatIconModule
   ],
 })
 export class ShareButtonComponent {

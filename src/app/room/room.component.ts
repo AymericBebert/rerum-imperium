@@ -1,4 +1,4 @@
-import {CommonModule} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
@@ -9,7 +9,7 @@ import {map, takeUntil} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {IArgValue} from '../model/imperium';
 import {IRoom} from '../model/room';
-import {ICommand, ISatelles} from '../model/satelles';
+import {ISatelles} from '../model/satelles';
 import {NavButtonsService} from '../nav/nav-buttons.service';
 import {ShareButtonService} from '../share-button/share-button.service';
 import {SocketService} from '../socket/socket.service';
@@ -29,11 +29,11 @@ interface IDisplayedRoom extends IRoom {
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss'],
   imports: [
-    CommonModule,
     TranslateModule,
     MatExpansionModule,
     MatIconModule,
     CommandComponent,
+    AsyncPipe,
   ],
 })
 export class RoomComponent implements OnInit, OnDestroy {
@@ -86,10 +86,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  public trackSatelles = (index: number, satelles: ISatelles) => satelles.id;
-
-  public trackCommand = (index: number, command: ICommand) => command.name;
 
   public imperiumAction(satellesId: string, commandName: string, args: IArgValue[]): void {
     this.socket.emit('imperium action', {

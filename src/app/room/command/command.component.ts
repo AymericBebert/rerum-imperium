@@ -1,4 +1,4 @@
-import {CommonModule} from '@angular/common';
+import {JsonPipe} from '@angular/common';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,13 +16,13 @@ import {IArg, ICommand} from '../../model/satelles';
   templateUrl: './command.component.html',
   styleUrls: ['./command.component.scss'],
   imports: [
-    CommonModule,
     FormsModule,
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
     MatSliderModule,
     MatSlideToggleModule,
+    JsonPipe,
   ],
 })
 export class CommandComponent implements OnInit, OnDestroy {
@@ -31,8 +31,6 @@ export class CommandComponent implements OnInit, OnDestroy {
 
   private readonly debouncedSubmit$ = new Subject<IArg[]>();
   private readonly destroy$ = new Subject<void>();
-
-  public readonly trackArgs = (index: number, arg: IArg) => arg.name + arg.type;
 
   ngOnInit(): void {
     this.debouncedSubmit$

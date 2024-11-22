@@ -1,4 +1,4 @@
-import {CommonModule} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {Component, Inject, ViewChild} from '@angular/core';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,7 +21,6 @@ import {SettingsService} from './service/settings.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
-    CommonModule,
     RouterModule,
     TranslateModule,
     ChangeLanguageComponent,
@@ -32,6 +31,7 @@ import {SettingsService} from './service/settings.service';
     MatSidenavModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    AsyncPipe,
   ],
 })
 export class AppComponent {

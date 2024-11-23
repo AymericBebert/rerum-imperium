@@ -1,23 +1,21 @@
 <p style="margin: 0 0 24px">{{ 'home.welcome' | translate }}</p>
 
-@if (visitedRooms$ | async; as visitedRooms) {
-  @if (visitedRooms.length > 0) {
-    <h3>{{ 'home.visited-rooms.title' | translate }}</h3>
-    @for (room of visitedRooms; track room.token) {
-      <div style="margin-bottom: 10px">
-        <button mat-flat-button [color]="deletion ? 'warn' : 'primary'" (click)="visitedRoomClicked(room.token)">
-          {{ room.roomName.length > 25 ? room.roomName.slice(0, 24) + '...' : room.roomName }}
-        </button>
-      </div>
-    }
-    <button mat-button color="primary" (click)="toggleDeletion()" [style.opacity]="deletion ? 1 : 0.4">
-      @if (deletion) {
-        {{ 'home.visited-rooms.delete-stop' | translate }}
-      } @else {
-        {{ 'home.visited-rooms.delete' | translate }}
-      }
-    </button>
+@if (visitedRooms().length > 0) {
+  <h3>{{ 'home.visited-rooms.title' | translate }}</h3>
+  @for (room of visitedRooms(); track room.token) {
+    <div style="margin-bottom: 10px">
+      <button mat-flat-button [class.color-warn]="deletion" (click)="visitedRoomClicked(room.token)">
+        {{ room.roomName.length > 25 ? room.roomName.slice(0, 24) + '...' : room.roomName }}
+      </button>
+    </div>
   }
+  <button mat-button color="primary" (click)="toggleDeletion()" [style.opacity]="deletion ? 1 : 0.4">
+    @if (deletion) {
+      {{ 'home.visited-rooms.delete-stop' | translate }}
+    } @else {
+      {{ 'home.visited-rooms.delete' | translate }}
+    }
+  </button>
 }
 
 <h3>{{ 'home.form.title' | translate }}</h3>

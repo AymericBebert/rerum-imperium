@@ -1,11 +1,11 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute} from '@angular/router';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {Subject} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {IArgValue} from '../model/imperium';
 import {IRoom} from '../model/room';
@@ -44,44 +44,41 @@ export class RoomComponent implements OnInit, OnDestroy {
   private readonly roomsService = inject(RoomsService);
   private readonly socket = inject(SocketService);
   private readonly config = inject<AppConfig>(APP_CONFIG);
+  private readonly destroyRef = inject(DestroyRef);
 
   public readonly connectionError$ = this.socket.connectionError$;
-  public room: IDisplayedRoom | null = null;
+  public readonly displayedRoom = signal<IDisplayedRoom | null>(null);
 
   private readonly expandedPanels = this.roomsService.getExpandedSatelles()
     .filter(es => es.expanded)
     .map(es => es.satellesName);
-  private readonly destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     this.roomsService.currentRoom$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(room => this.room = room ? {
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(room => this.displayedRoom.set(room ? {
         ...room,
         roomName: room.roomName.trim() || '...',
         satellites: room.satellites.map(s => ({...s, expanded: this.expandedPanels.includes(s.name)})),
-      } : room);
+      } : null));
 
     this.navButtonsService.navButtonClicked$()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(btn => {
         switch (btn) {
           case 'share':
-            this.shareRoom(this.room);
+            this.shareRoom(this.displayedRoom());
             break;
         }
       });
 
     this.route.paramMap
-      .pipe(map(params => params.get('token')), takeUntil(this.destroy$))
+      .pipe(map(params => params.get('token')), takeUntilDestroyed(this.destroyRef))
       .subscribe(token => this.roomsService.setCurrentRoomToken(token));
   }
 
   ngOnDestroy(): void {
     this.roomsService.setCurrentRoomToken(null);
-
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public imperiumAction(satellesId: string, commandName: string, args: IArgValue[]): void {

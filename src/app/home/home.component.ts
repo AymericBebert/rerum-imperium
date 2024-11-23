@@ -1,13 +1,13 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {Router} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {filter, map, takeUntil} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {IStoredRoom} from '../model/room';
 import {RoomsService} from '../room/rooms.service';
 import {ImmediateErrorStateMatcher} from '../utils/error-state-matcher';
@@ -26,9 +26,10 @@ import {isNotNull} from '../utils/utils';
     AsyncPipe,
   ],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   private readonly roomsService = inject(RoomsService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   public readonly roomFormControl = new FormControl<string>('', {
     asyncValidators: [this.roomsService.roomExistsValidator()],
@@ -38,12 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public readonly roomCheckPending$ = this.roomsService.roomCheckPending$;
   public deletion = false;
 
-  private readonly rawVisitedRooms$ = new BehaviorSubject<IStoredRoom[]>([]);
-  public readonly visitedRooms$: Observable<IStoredRoom[]> = this.rawVisitedRooms$.pipe(
-    map(vr => vr.sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0))),
-  );
-
-  private readonly destroy$ = new Subject<void>();
+  public readonly visitedRooms = signal<IStoredRoom[]>([]);
 
   constructor() {
     this.rejoinLastVisitedRoom();
@@ -54,17 +50,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.roomsService.roomCheck$
       .pipe(
         filter(isNotNull),
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(room => {
         console.log('roomCheck$', room);
         this.goToRoom(room.token);
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public visitedRoomClicked(token: string): void {
@@ -87,12 +78,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  private setVisitedRooms(rooms: IStoredRoom[]): void {
+    this.visitedRooms.set(rooms.sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0)));
+  }
+
   private getVisitedRooms(): void {
-    this.rawVisitedRooms$.next(this.roomsService.getVisitedRooms());
+    this.setVisitedRooms(this.roomsService.getVisitedRooms());
   }
 
   private deleteVisitedRoom(token: string): void {
-    this.rawVisitedRooms$.next(this.roomsService.deleteVisitedRoom(token));
+    this.setVisitedRooms(this.roomsService.deleteVisitedRoom(token));
   }
 
   private goToRoom(token: string): void {

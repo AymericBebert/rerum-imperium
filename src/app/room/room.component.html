@@ -5,7 +5,7 @@
   </div>
 }
 
-@if (room) {
+@if (displayedRoom(); as room) {
   <div class="wrapper">
     <h2>{{ room.roomName }}</h2>
     @if (room.satellites.length === 0) {

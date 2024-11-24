@@ -1,41 +1,37 @@
-<mat-sidenav-container class="sidenav-container">
-
-  @let pinSideNav = navService.pinSideNav$ | async;
+<mat-sidenav-container autosize>
 
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                position="end"
-               [attr.role]="pinSideNav ? 'navigation' : 'dialog'"
-               [mode]="pinSideNav ? 'side' : 'over'"
-               [opened]="pinSideNav === true"
+               [attr.role]="navService.pinSideNav() ? 'navigation' : 'dialog'"
+               [mode]="navService.pinSideNav() ? 'side' : 'over'"
+               [opened]="navService.pinSideNav()"
                (click)="closeDrawer()">
 
     <mat-toolbar>{{ 'nav.menu-title' | translate }}</mat-toolbar>
     <mat-nav-list>
 
-      @if (navService.navTools$ | async; as navTools) {
-        @if (navTools.length > 0) {
-          <h3 matSubheader>{{ 'nav.tools' | translate }}</h3>
-          @for (tool of navTools; track tool.name) {
-            <mat-list-item (click)="navService.navToolClicked(tool.name); closeDrawer()">
-              <mat-icon style="margin-right: 5px">{{ tool.icon }}</mat-icon>
-              <span>{{ tool.name | translate }}</span>
-            </mat-list-item>
-          }
+      @if (navService.navTools().length > 0) {
+        <h3 matSubheader>{{ 'nav.tools' | translate }}</h3>
+        @for (tool of navService.navTools(); track tool.name) {
+          <mat-list-item (click)="navService.navToolClicked(tool.name); closeDrawer()">
+            <mat-icon style="margin-right: 5px">{{ tool.icon }}</mat-icon>
+            <span>{{ tool.name | translate }}</span>
+          </mat-list-item>
         }
       }
 
       <h3 matSubheader>{{ 'nav.settings' | translate }}</h3>
 
       <mat-list-item>
-        <mat-slide-toggle color="accent" [checked]="settingsService.darkMode$ | async"
-                          (change)="navService.setDarkMode($event.checked)">
+        <mat-slide-toggle color="accent" [checked]="settingsService.darkMode()"
+                          (change)="settingsService.setDarkMode($event.checked)">
           {{ 'misc.dark-mode' | translate }}
         </mat-slide-toggle>
       </mat-list-item>
 
-      @if ((deviceService.isHandset$ | async) === false) {
+      @if (!deviceService.isHandset()) {
         <mat-list-item>
-          <mat-slide-toggle color="accent" [checked]="pinSideNav"
+          <mat-slide-toggle color="accent" [checked]="navService.pinSideNav()"
                             (change)="navService.setPinSideNav($event.checked)">
             {{ 'nav.pin-sidenav' | translate }}
           </mat-slide-toggle>
@@ -46,7 +42,7 @@
         <app-change-language (langSet)="navService.setLanguage($event); closeDrawer()"></app-change-language>
       </mat-list-item>
 
-      @if (navService.displayUpdatesAvailable) {
+      @if (navService.displayUpdatesAvailable()) {
         <mat-list-item (click)="navService.update()">
           <mat-icon color="warn" style="margin-right: 5px">update</mat-icon>
           <span>
@@ -55,7 +51,7 @@
         </mat-list-item>
       }
 
-      @if (navService.displayUpdatesActivated) {
+      @if (navService.displayUpdatesActivated()) {
         <mat-list-item>
           <mat-icon style="margin-right: 5px">sync</mat-icon>
           <span>
@@ -79,7 +75,7 @@
     <!-- Toolbar on top -->
     <mat-toolbar color="primary">
 
-      @if (navService.showBackButton$ | async) {
+      @if (navService.showBackButton()) {
         <button
           type="button"
           aria-label="Back button"
@@ -89,18 +85,18 @@
         </button>
       }
 
-      @if (settingsService.darkMode$ | async) {
+      @if (settingsService.darkMode()) {
         <img routerLink="/" [src]="'assets/icons/icon-white-64.png'" alt="icon" class="main-icon hide-focus"/>
       } @else {
         <img routerLink="/" [src]="'assets/icons/icon-black-64.png'" alt="icon" class="main-icon hide-focus"/>
       }
       <span routerLink="/" class="main-title hide-focus">
-        {{ (navService.mainTitle$ | async) || 'app-name' | translate }}
+        {{ navService.mainTitle() || ('app-name' | translate) }}
       </span>
 
       <span class="fill-remaining-space"></span>
 
-      @for (buttonId of navService.navButtons$ | async; track buttonId) {
+      @for (buttonId of navService.navButtons(); track buttonId) {
         <button
           mat-icon-button
           type="button"
@@ -110,7 +106,7 @@
         </button>
       }
 
-      @if (pinSideNav === false) {
+      @if (!navService.pinSideNav()) {
         <button
           mat-icon-button
           type="button"
@@ -119,7 +115,7 @@
           <mat-icon
             aria-label="Side nav toggle icon"
             aria-hidden="false"
-            [matBadge]="navService.notificationBadge"
+            [matBadge]="navService.notificationBadge()"
             matBadgeColor="warn">
             menu
           </mat-icon>

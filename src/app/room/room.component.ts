@@ -1,6 +1,5 @@
-import {AsyncPipe} from '@angular/common';
 import {Component, DestroyRef, inject, OnDestroy, OnInit, signal} from '@angular/core';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {takeUntilDestroyed, toSignal} from '@angular/core/rxjs-interop';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute} from '@angular/router';
@@ -33,7 +32,6 @@ interface IDisplayedRoom extends IRoom {
     MatExpansionModule,
     MatIconModule,
     CommandComponent,
-    AsyncPipe,
   ],
 })
 export class RoomComponent implements OnInit, OnDestroy {
@@ -46,7 +44,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   private readonly config = inject<AppConfig>(APP_CONFIG);
   private readonly destroyRef = inject(DestroyRef);
 
-  public readonly connectionError$ = this.socket.connectionError$;
+  public readonly connectionError = toSignal(this.socket.connectionError$, {initialValue: false});
   public readonly displayedRoom = signal<IDisplayedRoom | null>(null);
 
   private readonly expandedPanels = this.roomsService.getExpandedSatelles()

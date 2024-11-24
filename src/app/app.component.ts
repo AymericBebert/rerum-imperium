@@ -1,4 +1,3 @@
-import {AsyncPipe} from '@angular/common';
 import {Component, inject, viewChild} from '@angular/core';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
@@ -31,7 +30,6 @@ import {SettingsService} from './service/settings.service';
     MatSidenavModule,
     MatSlideToggleModule,
     MatToolbarModule,
-    AsyncPipe,
   ],
 })
 export class AppComponent {
@@ -52,8 +50,7 @@ export class AppComponent {
     translate.addLangs(['fr', 'en']);
     translate.setDefaultLang('fr');
     this.navService.applyStoredLanguage();
-    this.navService.applyStoredDarkMode();
-    this.navService.applyPinSideNav();
+    this.navService.applyStoredPinSideNav();
 
     this.router.events
       .pipe(
@@ -69,17 +66,17 @@ export class AppComponent {
         mergeMap(r => r.data),
       )
       .subscribe(data => {
-        this.navService.showBackButton$.next(data.hasBack || !!data.backRouterNavigate);
-        this.navService.navButtons$.next(data.navButtons || []);
-        this.navService.navTools$.next(data.navTools || []);
-        this.navService.mainTitle$.next(data.mainTitle || '');
+        this.navService.showBackButton.set(data.hasBack || !!data.backRouterNavigate);
+        this.navService.navButtons.set(data.navButtons || []);
+        this.navService.navTools.set(data.navTools || []);
+        this.navService.mainTitle.set(data.mainTitle || '');
         this.navService.setBackRouterLink(data.backRouterNavigate);
       });
   }
 
   public closeDrawer(): void {
     const navDrawer = this.navDrawer();
-    if (!this.navService.pinSideNav$.getValue() && navDrawer) {
+    if (!this.navService.pinSideNav() && navDrawer) {
       navDrawer.close().catch(err => console.error('Could not close drawer?', err));
     }
   }

@@ -35,7 +35,7 @@
     }
   </mat-form-field>
   <div style="width: 24px">
-    @if (roomCheckPending$ | async) {
+    @if (roomCheckPending()) {
       <mat-spinner diameter="24" style="margin-top: 18px"></mat-spinner>
     }
   </div>

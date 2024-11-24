@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
@@ -31,7 +31,7 @@ export class RoomsService {
   private readonly snackBar = inject(MatSnackBar);
   private readonly config = inject<AppConfig>(APP_CONFIG);
 
-  public readonly roomCheckPending$ = new BehaviorSubject<boolean>(false);
+  public readonly roomCheckPending = signal<boolean>(false);
   public readonly roomCheck$ = new Subject<IRoom | null>();
 
   public readonly currentRoom$ = new BehaviorSubject<IRoom | null>(null);
@@ -163,10 +163,10 @@ export class RoomsService {
   }
 
   private roomExistsCheck(token: string): Observable<IRoom | null> {
-    this.roomCheckPending$.next(true);
+    this.roomCheckPending.set(true);
     return this.getRoom(token).pipe(
       tap(room => this.roomCheck$.next(room)),
-      finalize(() => this.roomCheckPending$.next(false)),
+      finalize(() => this.roomCheckPending.set(false)),
     );
   }
 

@@ -1,4 +1,3 @@
-import {AsyncPipe} from '@angular/common';
 import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -23,7 +22,6 @@ import {isNotNull} from '../utils/utils';
     MatButtonModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    AsyncPipe,
   ],
 })
 export class HomeComponent implements OnInit {
@@ -36,7 +34,7 @@ export class HomeComponent implements OnInit {
   });
 
   public readonly matcher = new ImmediateErrorStateMatcher();
-  public readonly roomCheckPending$ = this.roomsService.roomCheckPending$;
+  public readonly roomCheckPending = this.roomsService.roomCheckPending;
   public deletion = false;
 
   public readonly visitedRooms = signal<IStoredRoom[]>([]);

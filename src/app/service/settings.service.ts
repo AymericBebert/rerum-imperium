@@ -1,20 +1,31 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {inject, Injectable, signal} from '@angular/core';
+import {StorageService} from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SettingsService {
+  private readonly storageService = inject(StorageService);
 
-  private readonly _darkMode$ = new BehaviorSubject<boolean>(false);
-  public readonly darkMode$ = this._darkMode$.asObservable();
+  public readonly darkMode = signal<boolean>(false);
 
-  public set darkMode(isDark: boolean) {
+  constructor() {
+    const darkModeFromStorage = this.storageService.getItem('darkMode');
+    if (!darkModeFromStorage && window.matchMedia) {
+      this.setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches, false);
+    }
+    this.setDarkMode(!!JSON.parse(darkModeFromStorage || 'false'), false);
+  }
+
+  public setDarkMode(isDark: boolean, register = true): void {
+    if (register) {
+      this.storageService.setItem('darkMode', JSON.stringify(isDark));
+    }
     if (isDark) {
       document.getElementsByTagName('html').item(0)?.setAttribute('dark-theme', 'true');
     } else {
       document.getElementsByTagName('html').item(0)?.removeAttribute('dark-theme');
     }
-    this._darkMode$.next(isDark);
+    this.darkMode.set(isDark);
   }
 }

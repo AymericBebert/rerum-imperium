@@ -1,14 +1,6 @@
-.sidenav-container {
+mat-sidenav-container {
   height: 100%;
   min-height: 100vh;
-}
-
-.sidenav {
-  width: 200px;
-
-  &.non-clickable {
-    color: #bbbbbb;
-  }
 }
 
 .mat-toolbar.mat-primary {

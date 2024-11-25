@@ -1,19 +1,23 @@
+import {provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {translateTestingModule} from '../testing/translate-testing-module';
-import {ShareButtonService} from './share-button.service';
+import {ShareService} from './share.service';
 
-describe('ShareButtonService', () => {
+describe('ShareService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       translateTestingModule,
       MatSnackBarModule,
     ],
-    providers: [],
+    providers: [
+      ShareService,
+      provideExperimentalZonelessChangeDetection(),
+    ],
   }));
 
   it('should be created', () => {
-    const service: ShareButtonService = TestBed.inject(ShareButtonService);
+    const service: ShareService = TestBed.inject(ShareService);
     expect(service).toBeTruthy();
   });
 });

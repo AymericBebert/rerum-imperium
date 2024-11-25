@@ -1,5 +1,4 @@
-import {CommonModule} from '@angular/common';
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, inject, output} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
@@ -13,32 +12,30 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
         <span class="lang-flag">{{ langToFlag(translateService.currentLang) }}</span>{{ translateService.currentLang }}
       </span>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let lang of translateService.langs" (click)="langClicked(lang)">
-          <span class="lang-flag">{{ langToFlag(lang) }}</span>{{ lang }}
-        </button>
+        @for (lang of translateService.langs; track lang) {
+          <button mat-menu-item (click)="langClicked(lang)">
+            <span class="lang-flag">{{ langToFlag(lang) }}</span>{{ lang }}
+          </button>
+        }
       </mat-menu>
     </div>`,
   styles: ['span.lang-flag { vertical-align: middle; }'],
-  standalone: true,
   imports: [
-    CommonModule,
     TranslateModule,
     MatMenuModule,
     MatIconModule,
   ],
 })
 export class ChangeLanguageComponent {
+  public readonly translateService = inject(TranslateService);
 
-  @Output() public langSet = new EventEmitter<string>();
+  public readonly langSet = output<string>();
 
   public flagMap: Record<string, string> = {
     fr: '🇫🇷',
     en: '🇬🇧',
     unknown: '🏳️',
   };
-
-  constructor(public translateService: TranslateService) {
-  }
 
   public langToFlag(lang: string): string {
     return this.flagMap[lang] || this.flagMap.unknown;

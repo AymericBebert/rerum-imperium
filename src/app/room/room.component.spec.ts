@@ -1,6 +1,7 @@
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {provideHttpClientTesting} from '@angular/common/http/testing';
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EMPTY} from 'rxjs';
@@ -13,7 +14,7 @@ describe('RoomComponent', () => {
   let component: RoomComponent;
   let fixture: ComponentFixture<RoomComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [
@@ -24,18 +25,16 @@ describe('RoomComponent', () => {
         SocketTestingModule,
       ],
       providers: [
-        {provide: ActivatedRoute, useValue: {paramMap: EMPTY}},
+        provideExperimentalZonelessChangeDetection(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
+        {provide: ActivatedRoute, useValue: {paramMap: EMPTY}},
       ],
-    })
-      .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(RoomComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

@@ -1,52 +1,57 @@
+@use 'sass:map';
 @use '@angular/material' as mat;
+@use '../../../theme-colors' as tc;
 
-@mixin component-theme($theme) {
-  @include mat.slider-color($theme, $color-variant: tertiary);
-  @include mat.slide-toggle-color($theme, $color-variant: tertiary);
-}
-
-@mixin component-theme-light($theme) {
+@mixin component-theme($light-or-dark) {
   app-command {
-    @include component-theme($theme);
-
-    .cmd-complex {
-      border-top: 1px solid mat.get-theme-color($theme, primary, 50);
-      border-bottom: 1px solid mat.get-theme-color($theme, primary, 50);
-
-      .cmd-name {
-        color: mat.get-theme-color($theme, primary, 50);
-      }
-
-      .arg-value {
-        color: mat.get-theme-color($theme, tertiary, 40);
-      }
-    }
-
-    .minor-text {
-      color: mat.get-theme-color($theme, primary, 50);
+    @if $light-or-dark == light {
+      @include component-theme-light();
+    } @else {
+      @include component-theme-dark();
     }
   }
 }
 
-@mixin component-theme-dark($theme) {
-  app-command {
-    @include component-theme($theme);
+@mixin component-theme-light() {
+  @include mat.slider-color(tc.$light-theme, $color-variant: tertiary);
+  @include mat.slide-toggle-color(tc.$light-theme, $color-variant: tertiary);
 
-    .cmd-complex {
-      border-top: 1px solid mat.get-theme-color($theme, primary, 50);
-      border-bottom: 1px solid mat.get-theme-color($theme, primary, 50);
+  .cmd-complex {
+    border-top: 1px solid map.get(tc.$primary-palette, 50);
+    border-bottom: 1px solid map.get(tc.$primary-palette, 50);
 
-      .cmd-name {
-        color: mat.get-theme-color($theme, primary, 50);
-      }
-
-      .arg-value {
-        color: mat.get-theme-color($theme, tertiary, 80);
-      }
+    .cmd-name {
+      color: map.get(tc.$primary-palette, 50);
     }
 
-    .minor-text {
-      color: mat.get-theme-color($theme, primary, 50);
+    .arg-value {
+      color: map.get(tc.$tertiary-palette, 40);
     }
+  }
+
+  .minor-text {
+    color: map.get(tc.$primary-palette, 50);
+  }
+}
+
+@mixin component-theme-dark() {
+  @include mat.slider-color(tc.$dark-theme, $color-variant: tertiary);
+  @include mat.slide-toggle-color(tc.$dark-theme, $color-variant: tertiary);
+
+  .cmd-complex {
+    border-top: 1px solid map.get(tc.$primary-palette, 50);
+    border-bottom: 1px solid map.get(tc.$primary-palette, 50);
+
+    .cmd-name {
+      color: map.get(tc.$primary-palette, 50);
+    }
+
+    .arg-value {
+      color: map.get(tc.$tertiary-palette, 80);
+    }
+  }
+
+  .minor-text {
+    color: map.get(tc.$primary-palette, 50);
   }
 }

@@ -1,26 +1,34 @@
 @use '@angular/material' as mat;
-@use 'm3-theme' as m3t;
+@use 'theme-colors' as tc;
 @use 'theming';
-
-@include mat.core();
-
-@import '_fonts.scss';
+@use 'fonts';
 
 html {
-  @include mat.all-component-themes(m3t.$light-theme);
+  color-scheme: light;
+  @include mat.theme((
+    color: (
+      primary: tc.$primary-palette,
+      tertiary: tc.$tertiary-palette,
+    ),
+    typography: Roboto,
+  ));
 
   &:not([dark-theme=true]) {
-    @include theming.theme-overrides-light(m3t.$light-theme);
+    @include theming.theme-overrides(light);
   }
 
   &[dark-theme=true] {
-    @include mat.all-component-colors(m3t.$dark-theme);
-    @include theming.theme-overrides-dark(m3t.$dark-theme);
+    color-scheme: dark;
+    @include theming.theme-overrides(dark);
   }
 
   .mat-drawer-content {
     display: flex;
     flex-direction: column;
+
+    > mat-toolbar {
+      flex-shrink: 0;
+    }
 
     > router-outlet + * {
       flex-grow: 1;
@@ -32,8 +40,6 @@ html {
       border-top-right-radius: 24px;
     }
   }
-
-  --mat-expansion-container-text-size: 14px;
 }
 
 html, body {
@@ -51,4 +57,13 @@ body {
 
 .very-light-text {
   opacity: 0.2;
+}
+
+:root {
+  @include mat.expansion-overrides((
+    container-text-size: var(--mat-sys-body-medium-size),
+  ));
+  @include mat.sidenav-overrides((
+    container-width: 200px,
+  ));
 }

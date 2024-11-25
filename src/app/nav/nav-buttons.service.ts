@@ -1,5 +1,5 @@
 import {Location} from '@angular/common';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable, Subject} from 'rxjs';
 import {filter} from 'rxjs/operators';
@@ -9,14 +9,12 @@ import {simplifyURL} from '../utils/utils';
   providedIn: 'root',
 })
 export class NavButtonsService {
+  private readonly router = inject(Router);
+  private readonly location = inject(Location);
+
   public backRouterNavigate = '';
 
   private readonly privateNavButtonClicked$ = new Subject<string>();
-
-  constructor(private router: Router,
-              private location: Location,
-  ) {
-  }
 
   public navButtonClicked$(buttonId?: string): Observable<string> {
     if (buttonId) {

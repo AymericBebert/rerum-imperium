@@ -1,3 +1,4 @@
+import {provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {translateTestingModule} from '../testing/translate-testing-module';
@@ -9,7 +10,10 @@ describe('ShareService', () => {
       translateTestingModule,
       MatSnackBarModule,
     ],
-    providers: [],
+    providers: [
+      ShareService,
+      provideExperimentalZonelessChangeDetection(),
+    ],
   }));
 
   it('should be created', () => {

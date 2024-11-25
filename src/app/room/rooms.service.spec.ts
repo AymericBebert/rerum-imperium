@@ -1,5 +1,6 @@
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {provideHttpClientTesting} from '@angular/common/http/testing';
+import {provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {ConfigTestingModule} from '../testing/config-testing.module';
 import {SocketTestingModule} from '../testing/socket-testing.module';
@@ -12,6 +13,7 @@ describe('RoomsService', () => {
       SocketTestingModule,
     ],
     providers: [
+      provideExperimentalZonelessChangeDetection(),
       provideHttpClient(withInterceptorsFromDi()),
       provideHttpClientTesting(),
     ],

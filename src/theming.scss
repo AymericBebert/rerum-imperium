@@ -36,6 +36,10 @@
     0 4px 5px 0 rgba(map.get(tc.$tertiary-palette, 30), 0.14),
     0 1px 10px 0 rgba(map.get(tc.$tertiary-palette, 35), 0.12);
   }
+
+  .color-warn {
+    @include mat.button-color(tc.$light-theme, $color-variant: error);
+  }
 }
 
 @mixin theme-overrides-dark() {
@@ -59,5 +63,9 @@
     box-shadow: 0 2px 4px -1px rgba(map.get(tc.$tertiary-palette, 10), 0.25),
     0 4px 5px 0 rgba(map.get(tc.$tertiary-palette, 20), 0.14),
     0 1px 10px 0 rgba(map.get(tc.$tertiary-palette, 35), 0.12);
+  }
+
+  .color-warn {
+    @include mat.button-color(tc.$dark-theme, $color-variant: error);
   }
 }

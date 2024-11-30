@@ -37,7 +37,7 @@ interface IDisplayedRoom extends IRoom {
 export class RoomComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly navButtonsService = inject(NavButtonsService);
-  private readonly shareButtonService = inject(ShareService);
+  private readonly shareService = inject(ShareService);
   private readonly translateService = inject(TranslateService);
   private readonly roomsService = inject(RoomsService);
   private readonly socket = inject(SocketService);
@@ -97,7 +97,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     if (room === null) {
       console.error('Trying to share but room is null?');
     } else {
-      this.shareButtonService.shareOrCopy(shareTitle, shareText, `${this.config.websiteUrl}/room/${room.token}`);
+      this.shareService.shareOrCopy(shareTitle, shareText, `${this.config.websiteUrl}/room/${room.token}`);
     }
   }
 }

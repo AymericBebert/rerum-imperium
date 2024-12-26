@@ -21,8 +21,7 @@
     "version": "Version :"
   },
   "nav": {
-    "menu-title": "Menu",
-    "pin-sidenav": "Épingler",
+    "menu-title": "",
     "settings": "Paramètres",
     "tools": "Outils",
     "update-activated": "MàJ activée",
@@ -39,9 +38,6 @@
     }
   },
   "share": {
-    "copied": "Lien copié",
-    "copy": "Copier",
-    "disabled": "Partage désactivé",
-    "share": "Partager"
+    "copied": "Lien copié"
   }
 }

@@ -32,7 +32,7 @@ export class NavService {
 
   constructor() {
     effect(() => {
-      if (this.deviceService.isHandset() && this.pinSideNav()) {
+      if (this.deviceService.isHandset()) {
         this.setPinSideNav(false);
       }
     });
@@ -97,7 +97,9 @@ export class NavService {
 
   public applyStoredPinSideNav(): void {
     const pinSideNavFromStorage = this.storageService.getItem('pinSideNav');
-    this.setPinSideNav(!!pinSideNavFromStorage && !!JSON.parse(pinSideNavFromStorage));
+    if (pinSideNavFromStorage && JSON.parse(pinSideNavFromStorage)) {
+      this.setPinSideNav(true);
+    }
   }
 
   public update(): void {

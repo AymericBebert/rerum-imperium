@@ -21,8 +21,7 @@
     "version": "Version:"
   },
   "nav": {
-    "menu-title": "Menu",
-    "pin-sidenav": "Pin Sidenav",
+    "menu-title": "",
     "settings": "Settings",
     "tools": "Tools",
     "update-activated": "Update activated",
@@ -39,9 +38,6 @@
     }
   },
   "share": {
-    "copied": "Copied",
-    "copy": "Copy",
-    "disabled": "Sharing disabled",
-    "share": "Share"
+    "copied": "Copied"
   }
 }

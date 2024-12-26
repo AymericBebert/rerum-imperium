@@ -74,6 +74,16 @@ export class AppComponent {
       });
   }
 
+  public openDrawer(): void {
+    const navDrawer = this.navDrawer();
+    if (navDrawer) {
+      if (!this.deviceService.isHandset()) {
+        this.navService.setPinSideNav(true);
+      }
+      navDrawer.open().catch(err => console.error('Could not open drawer?', err));
+    }
+  }
+
   public closeDrawer(): void {
     const navDrawer = this.navDrawer();
     if (!this.navService.pinSideNav() && navDrawer) {

@@ -1,11 +1,11 @@
-import {provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {provideZonelessChangeDetection} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {DeviceService} from './device.service';
 
 describe('DeviceService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      provideExperimentalZonelessChangeDetection(),
+      provideZonelessChangeDetection(),
       DeviceService,
     ],
   }));

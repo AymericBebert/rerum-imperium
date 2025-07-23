@@ -1,4 +1,4 @@
-import {provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {provideZonelessChangeDetection} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {SettingsService} from './settings.service';
 
@@ -9,7 +9,7 @@ describe('SettingsService', () => {
     TestBed.configureTestingModule({
       providers: [
         SettingsService,
-        provideExperimentalZonelessChangeDetection(),
+        provideZonelessChangeDetection(),
       ],
     });
     service = TestBed.inject(SettingsService);

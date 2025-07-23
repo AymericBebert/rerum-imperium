@@ -1,5 +1,5 @@
 import {HTTP_INTERCEPTORS, provideHttpClient, withFetch} from '@angular/common/http';
-import {isDevMode, provideExperimentalZonelessChangeDetection} from '@angular/core';
+import {isDevMode, provideZonelessChangeDetection} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {provideRouter} from '@angular/router';
@@ -19,7 +19,7 @@ export class BundledTranslateLoader implements TranslateLoader {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withFetch()),
     {provide: APP_CONFIG, useFactory: appConfigFactory},

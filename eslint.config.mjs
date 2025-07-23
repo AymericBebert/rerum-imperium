@@ -35,7 +35,7 @@ export default tsEslint.config(
     rules: {
       'max-len': ['error', {code: 120}],
       'semi': [2, 'always'],
-      '@stylistic/quotes': ['error', 'single', {allowTemplateLiterals: true}],
+      '@stylistic/quotes': ['error', 'single', {avoidEscape: true}],
       '@typescript-eslint/interface-name-prefix': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 'error',

@@ -1,4 +1,4 @@
-FROM node:22.17.1-bookworm-slim AS builder
+FROM node:24.14.0-bookworm-slim AS builder
 
 RUN mkdir /rerum-imperium
 WORKDIR /rerum-imperium
@@ -16,7 +16,7 @@ RUN npm ci --production
 #
 # Go back from clean node image
 #
-FROM node:22.17.1-bookworm-slim
+FROM node:24.14.0-bookworm-slim
 
 RUN mkdir /rerum-imperium /rerum-imperium/node_modules /rerum-imperium/dist
 WORKDIR /rerum-imperium

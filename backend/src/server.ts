@@ -14,7 +14,7 @@ import {onConnection} from './socket/on-connection';
 
 // Readiness items
 const ready: Record<string, boolean> = {
-    hotel: false,
+  hotel: false,
 };
 
 // Creating web server
@@ -22,9 +22,9 @@ const app = express();
 
 // CORS config
 if (config.corsAllowedOrigin) {
-    app.use(cors({origin: `${config.corsAllowedOrigin}`, optionsSuccessStatus: 200, credentials: true}));
+  app.use(cors({origin: `${config.corsAllowedOrigin}`, optionsSuccessStatus: 200, credentials: true}));
 } else {
-    app.use(cors());
+  app.use(cors());
 }
 
 // Body and URL parsing middlewares
@@ -33,11 +33,11 @@ app.use(express.urlencoded({extended: true}));
 
 // HTTP probes (before logger middleware)
 app.get('/healthCheck', (request, response) => {
-    response.send({hostname: request.hostname, status: 'ok', version: config.version});
+  response.send({hostname: request.hostname, status: 'ok', version: config.version});
 });
 
 app.get('/ready', (request, response) => {
-    response.status(Object.values(ready).every(r => r) ? StatusCodes.OK : StatusCodes.SERVICE_UNAVAILABLE).send(ready);
+  response.status(Object.values(ready).every(r => r) ? StatusCodes.OK : StatusCodes.SERVICE_UNAVAILABLE).send(ready);
 });
 
 // Logger middleware
@@ -53,8 +53,8 @@ app.use(finalErrorHandler);
 const http: HttpServer = createServer(app);
 
 http.listen(
-    config.port,
-    () => console.log(`Rerum Imperium backend ${config.version} listening on port ${config.port}`),
+  config.port,
+  () => console.log(`Rerum Imperium backend ${config.version} listening on port ${config.port}`),
 );
 
 // Socket.IO server with CORS config

@@ -1,21 +1,21 @@
 import {CommandArgType} from './satelles';
 
 export interface IJoinRoom {
-    token: string;
+  token: string;
 }
 
 export interface IArgValue {
-    name: string;
-    type: CommandArgType;
-    stringValue?: string;
-    numberValue?: number;
-    booleanValue?: boolean;
-    colorValue?: string;
-    selectValue?: string;
+  name: string;
+  type: CommandArgType;
+  stringValue?: string;
+  numberValue?: number;
+  booleanValue?: boolean;
+  colorValue?: string;
+  selectValue?: string;
 }
 
 export interface IImperiumAction {
-    satellesId: string;
-    commandName: string;
-    args: IArgValue[];
+  satellesId: string;
+  commandName: string;
+  args: IArgValue[];
 }

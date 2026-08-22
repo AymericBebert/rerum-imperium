@@ -1,0 +1,43 @@
+{
+  "app-name": "Rerum Imperium",
+  "home": {
+    "form": {
+      "label": "Room token",
+      "placeholder": "8 characters",
+      "room-not-found": "Room not found",
+      "title": "Register new room"
+    },
+    "visited-rooms": {
+      "delete": "Delete entries",
+      "delete-stop": "Stop deleting",
+      "title": "Visited rooms"
+    },
+    "welcome": "Control all the tings!"
+  },
+  "misc": {
+    "connection-error": "Disconnected",
+    "dark-mode": "Dark mode",
+    "language": "Language:",
+    "version": "Version:"
+  },
+  "nav": {
+    "menu-title": "",
+    "settings": "Settings",
+    "tools": "Tools",
+    "update-activated": "Update activated",
+    "update-available": "Update available"
+  },
+  "room": {
+    "no-satellites": "No satelles",
+    "satelles": {
+      "no-commands": "No command"
+    },
+    "share": {
+      "text": "Control my things with Rerum Imperium!",
+      "title": "Rerum Imperium"
+    }
+  },
+  "share": {
+    "copied": "Copied"
+  }
+}

@@ -1,0 +1,40 @@
+@if (connectionError()) {
+  <div class="connection-error tertiary-light-bg">
+    <mat-icon style="margin-right: 5px">cloud_off</mat-icon>
+    <span>{{ 'misc.connection-error' | translate }}</span>
+  </div>
+}
+
+@if (displayedRoom(); as room) {
+  <div class="wrapper">
+    <h2>{{ room.roomName }}</h2>
+    @if (room.satellites.length === 0) {
+      <span>{{ 'room.no-satellites' | translate }}</span>
+    }
+    @if (room.satellites.length > 0) {
+      <mat-accordion multi>
+        @for (satelles of room.satellites; track satelles.id) {
+          <mat-expansion-panel
+            [expanded]="satelles.expanded"
+            (expandedChange)="expandedChanged(satelles.name, $event)"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ satelles.name }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            @if (satelles.commands.length === 0) {
+              <span>{{ 'room.satelles.no-commands' | translate }}</span>
+            }
+            @for (command of satelles.commands; track command.name) {
+              <app-command
+                [command]="command"
+                (action)="imperiumAction(satelles.id, command.name, $event)">
+              </app-command>
+            }
+          </mat-expansion-panel>
+        }
+      </mat-accordion>
+    }
+  </div>
+}

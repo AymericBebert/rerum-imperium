@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  rerum_imperium:
+    image: aymericbernard/rerum-imperium:latest
+    container_name: rerum_imperium
+    restart: always
+    environment:
+      - VIRTUAL_HOST=rerum-imperium.example.com
+      - LETSENCRYPT_HOST=rerum-imperium.example.com
+      - LETSENCRYPT_EMAIL=contact@example.com
+      - APP_SHORT_NAME=Rerum
+      - NGX_backendUrl="https://rerum-imperium-backend.example.com"
+      - NGX_websiteUrl="https://rerum-imperium.example.com"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external:
+      name: nginx-proxy

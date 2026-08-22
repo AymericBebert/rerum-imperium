@@ -1,0 +1,70 @@
+@use '@angular/material' as mat;
+@use 'theme-colors' as tc;
+@use 'theming';
+@use 'fonts';
+
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: (
+      primary: tc.$primary-palette,
+      tertiary: tc.$tertiary-palette,
+    ),
+    typography: Roboto,
+  ));
+
+  &:not([dark-theme=true]) {
+    @include theming.theme-overrides(light);
+  }
+
+  &[dark-theme=true] {
+    color-scheme: dark;
+    @include theming.theme-overrides(dark);
+  }
+
+  .mat-drawer-content {
+    display: flex;
+    flex-direction: column;
+
+    > mat-toolbar {
+      flex-shrink: 0;
+    }
+
+    > router-outlet + * {
+      flex-grow: 1;
+    }
+  }
+
+  &[sidenav=pinned] {
+    .mat-drawer-content > router-outlet + * {
+      border-top-right-radius: 24px;
+    }
+  }
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.hide-focus:focus {
+  outline: 0 solid transparent;
+}
+
+.very-light-text {
+  font-size: 14px;
+  opacity: 0.2;
+}
+
+:root {
+  @include mat.expansion-overrides((
+    container-text-size: var(--mat-sys-body-medium-size),
+  ));
+  @include mat.sidenav-overrides((
+    container-width: 200px,
+  ));
+}

@@ -1,12 +1,15 @@
-node_modules
-coverage
-dist
-.idea
-stash
+# IDEs and editors
+/.idea/*
+!/.idea/runConfigurations/
+!/.idea/runConfigurations/*.xml
 
-# MacOS files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
 .DS_Store
+Thumbs.db
 ._*
-
-# Env
-.env

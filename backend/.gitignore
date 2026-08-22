@@ -1,0 +1,11 @@
+node_modules
+coverage
+dist
+stash
+
+# MacOS files
+.DS_Store
+._*
+
+# Env
+.env

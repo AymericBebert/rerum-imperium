@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "npm run build && npm run serve",
+    "start:watch": "tsx watch src/server.ts",
     "tsc": "tsc",
     "test": "jest --coverage --verbose",
     "build": "tsc",

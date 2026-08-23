@@ -1,8 +1,8 @@
-import {ErrorRequestHandler} from 'express';
+import type {ErrorRequestHandler} from 'express';
 import {StatusCodes} from 'http-status-codes';
-import {getReasonPhrase} from 'http-status-codes/build/cjs/utils-functions';
-import {hasOwnProperty} from '../utils/has-own-property';
-import {HttpError} from '../utils/http-error';
+import {getReasonPhrase} from 'http-status-codes/build/cjs/utils-functions.js';
+import {hasOwnProperty} from '../utils/has-own-property.ts';
+import {HttpError} from '../utils/http-error.ts';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */

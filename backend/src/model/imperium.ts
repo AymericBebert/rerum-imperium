@@ -1,4 +1,4 @@
-import {CommandArgType} from './satelles';
+import type {CommandArgType} from './satelles.ts';
 
 export interface IJoinRoom {
   token: string;

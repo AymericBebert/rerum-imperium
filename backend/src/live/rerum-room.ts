@@ -1,10 +1,10 @@
 import {Subject} from 'rxjs';
-import socketIO from 'socket.io';
-import {config} from '../config';
-import {emitEvent, EmittedEventTypes} from '../events';
-import {IImperiumAction} from '../model/imperium';
-import {IRoom} from '../model/room';
-import {ICommand, ISatelles} from '../model/satelles';
+import type socketIO from 'socket.io';
+import {config} from '../config.ts';
+import {emitEvent, type EmittedEventTypes} from '../events.ts';
+import type {IImperiumAction} from '../model/imperium.ts';
+import type {IRoom} from '../model/room.ts';
+import type {ICommand, ISatelles} from '../model/satelles.ts';
 
 export class RerumRoom {
   public destroy$: Subject<void> = new Subject<void>();

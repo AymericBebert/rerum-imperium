@@ -1,4 +1,4 @@
-import {RerumHotel} from './live/rerum-hotel';
+import {RerumHotel} from './live/rerum-hotel.ts';
 
 
 export class HotelProvider {

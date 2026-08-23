@@ -1,4 +1,4 @@
-import {NextFunction, ParamsDictionary, Request, RequestHandler, Response,} from 'express-serve-static-core';
+import type {NextFunction, ParamsDictionary, Request, RequestHandler, Response,} from 'express-serve-static-core';
 
 export const asyncHandler = <P extends ParamsDictionary = ParamsDictionary, ResBody = any, ReqBody = any>
 (fn: RequestHandler<P, ResBody, ReqBody>) =>

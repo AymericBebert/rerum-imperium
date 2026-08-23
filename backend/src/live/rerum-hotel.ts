@@ -1,7 +1,7 @@
-import socketIO from 'socket.io';
-import {IJoinRoom} from '../model/imperium';
-import {IAnnounce} from '../model/satelles';
-import {RerumRoom} from './rerum-room';
+import type socketIO from 'socket.io';
+import type {IJoinRoom} from '../model/imperium.ts';
+import type {IAnnounce} from '../model/satelles.ts';
+import {RerumRoom} from './rerum-room.ts';
 
 export class RerumHotel {
   private rooms: { [token: string]: RerumRoom } = {};

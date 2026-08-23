@@ -1,10 +1,10 @@
 import {fromEvent, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {Socket} from 'socket.io';
-import {config} from './config';
-import {IImperiumAction, IJoinRoom} from './model/imperium';
-import {IRoom} from './model/room';
-import {IAnnounce, ICommand, ISatelles} from './model/satelles';
+import {config} from './config.ts';
+import type {IImperiumAction, IJoinRoom} from './model/imperium.ts';
+import type {IRoom} from './model/room.ts';
+import type {IAnnounce, ICommand, ISatelles} from './model/satelles.ts';
 
 export interface ReceivedEventTypes {
   'disconnect': void;

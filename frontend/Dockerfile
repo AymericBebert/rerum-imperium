@@ -1,4 +1,4 @@
-FROM node:24.18.0-bookworm-slim AS builder
+FROM node:24.19.0-alpine AS builder
 
 WORKDIR /rerum-imperium
 
@@ -11,7 +11,7 @@ RUN npm run build
 #
 # Go back from a light nginx image
 #
-FROM nginx:1.29.6-alpine
+FROM nginx:1.31.4-alpine
 
 # nginx congiguration to redirect every route to /index.html
 RUN echo $'\n\

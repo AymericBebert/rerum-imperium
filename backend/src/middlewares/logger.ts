@@ -1,4 +1,4 @@
-import {RequestHandler} from 'express';
+import type {RequestHandler} from 'express';
 
 export const loggerMiddleware: RequestHandler = (req, res, next): void => {
   console.log(`http> ${req.method}`

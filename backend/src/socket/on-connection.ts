@@ -1,8 +1,8 @@
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Socket} from 'socket.io';
-import {fromEvent$} from '../events';
-import {RerumHotel} from '../live/rerum-hotel';
+import {fromEvent$} from '../events.ts';
+import {RerumHotel} from '../live/rerum-hotel.ts';
 
 export function onConnection(socket: Socket, hotel: RerumHotel): void {
   console.log(`New connection from ${socket.id}`);

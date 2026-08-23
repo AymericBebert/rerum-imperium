@@ -1,4 +1,4 @@
-import {ISatelles} from './satelles';
+import type {ISatelles} from './satelles.ts';
 
 export interface IRoom {
   token: string;

@@ -3,14 +3,14 @@ import express from 'express';
 import {createServer, Server as HttpServer} from 'http';
 import {StatusCodes} from 'http-status-codes';
 import {Server, Socket} from 'socket.io';
-import {config} from './config';
-import {HotelProvider} from './hotel-provider';
-import {RerumHotel} from './live/rerum-hotel';
-import {handle404} from './middlewares/404-handler';
-import {finalErrorHandler} from './middlewares/final-error-handler';
-import {loggerMiddleware} from './middlewares/logger';
-import roomsRouter from './rooms/rooms.router';
-import {onConnection} from './socket/on-connection';
+import {config} from './config.ts';
+import {HotelProvider} from './hotel-provider.ts';
+import {RerumHotel} from './live/rerum-hotel.ts';
+import {handle404} from './middlewares/404-handler.ts';
+import {finalErrorHandler} from './middlewares/final-error-handler.ts';
+import {loggerMiddleware} from './middlewares/logger.ts';
+import roomsRouter from './rooms/rooms.router.ts';
+import {onConnection} from './socket/on-connection.ts';
 
 // Readiness items
 const ready: Record<string, boolean> = {

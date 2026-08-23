@@ -1,11 +1,11 @@
-import {RequestHandler, Router} from 'express';
+import {type RequestHandler, Router} from 'express';
 import {StatusCodes} from 'http-status-codes';
-import {HotelProvider} from '../hotel-provider';
-import {RerumRoom} from '../live/rerum-room';
-import {asyncHandler} from '../middlewares/async-handler';
-import {IImperiumAction} from '../model/imperium';
-import {IRoom} from '../model/room';
-import {HttpError} from '../utils/http-error';
+import {HotelProvider} from '../hotel-provider.ts';
+import {RerumRoom} from '../live/rerum-room.ts';
+import {asyncHandler} from '../middlewares/async-handler.ts';
+import type {IImperiumAction} from '../model/imperium.ts';
+import type {IRoom} from '../model/room.ts';
+import {HttpError} from '../utils/http-error.ts';
 
 const router = Router();
 

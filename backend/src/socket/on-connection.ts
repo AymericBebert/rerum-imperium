@@ -1,6 +1,6 @@
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {Socket} from 'socket.io';
+import type {Socket} from 'socket.io';
 import {fromEvent$} from '../events.ts';
 import {RerumHotel} from '../live/rerum-hotel.ts';
 

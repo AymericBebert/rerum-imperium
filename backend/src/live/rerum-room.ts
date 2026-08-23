@@ -1,5 +1,5 @@
 import {Subject} from 'rxjs';
-import type socketIO from 'socket.io';
+import type {Server, Socket} from 'socket.io';
 import {config} from '../config.ts';
 import {emitEvent, type EmittedEventTypes} from '../events.ts';
 import type {IImperiumAction} from '../model/imperium.ts';
@@ -8,9 +8,9 @@ import type {ICommand, ISatelles} from '../model/satelles.ts';
 
 export class RerumRoom {
   public destroy$: Subject<void> = new Subject<void>();
-  private _satellites: { [id: string]: { socket: socketIO.Socket, satelles: ISatelles } } = {};
+  private _satellites: { [id: string]: { socket: Socket, satelles: ISatelles } } = {};
 
-  constructor(private readonly _io: socketIO.Server,
+  constructor(private readonly _io: Server,
               private readonly _token: string,
               private readonly _roomName: string,
   ) {
@@ -30,7 +30,7 @@ export class RerumRoom {
     return this._token;
   }
 
-  public addSatelles(socket: socketIO.Socket, satelles: ISatelles): boolean {
+  public addSatelles(socket: Socket, satelles: ISatelles): boolean {
     const names = Object.values(this._satellites).map(s => s.satelles.name);
     if (!this._satellites[satelles.id]) {
       const satellesRootName = satelles.name;
@@ -68,7 +68,7 @@ export class RerumRoom {
     return Object.keys(this._satellites).length;
   }
 
-  public async addImperium(socket: socketIO.Socket): Promise<boolean> {
+  public async addImperium(socket: Socket): Promise<boolean> {
     try {
       await socket.join(this.socketRoom);
     } catch (e) {
@@ -79,7 +79,7 @@ export class RerumRoom {
     return true;
   }
 
-  public async removeImperium(socket: socketIO.Socket): Promise<boolean> {
+  public async removeImperium(socket: Socket): Promise<boolean> {
     try {
       await socket.leave(this.socketRoom);
     } catch (e) {

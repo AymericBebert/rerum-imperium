@@ -11,7 +11,7 @@ import {
   takeUntil,
   tap
 } from 'rxjs/operators';
-import {io, Socket} from 'socket.io-client';
+import {io, type Socket} from 'socket.io-client';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {EmittedEventTypes, ReceivedEventTypes} from './socket-event-types';
 

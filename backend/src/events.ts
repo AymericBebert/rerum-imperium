@@ -1,6 +1,6 @@
 import {fromEvent, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {Socket} from 'socket.io';
+import type {Socket} from 'socket.io';
 import {config} from './config.ts';
 import type {IImperiumAction, IJoinRoom} from './model/imperium.ts';
 import type {IRoom} from './model/room.ts';

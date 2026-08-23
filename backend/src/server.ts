@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import {createServer, Server as HttpServer} from 'http';
 import {StatusCodes} from 'http-status-codes';
-import {Server, Socket} from 'socket.io';
+import {Server, type Socket} from 'socket.io';
 import {config} from './config.ts';
 import {HotelProvider} from './hotel-provider.ts';
 import {RerumHotel} from './live/rerum-hotel.ts';

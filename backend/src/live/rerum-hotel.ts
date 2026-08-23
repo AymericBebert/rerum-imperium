@@ -1,4 +1,4 @@
-import type socketIO from 'socket.io';
+import type {Server, Socket} from 'socket.io';
 import type {IJoinRoom} from '../model/imperium.ts';
 import type {IAnnounce} from '../model/satelles.ts';
 import {RerumRoom} from './rerum-room.ts';
@@ -6,14 +6,14 @@ import {RerumRoom} from './rerum-room.ts';
 export class RerumHotel {
   private rooms: { [token: string]: RerumRoom } = {};
 
-  constructor(private readonly io: socketIO.Server) {
+  constructor(private readonly io: Server) {
   }
 
   public getRoom(token: string): RerumRoom | null {
     return this.rooms[token] ?? null;
   }
 
-  public addSatelles(socket: socketIO.Socket, announce: IAnnounce): RerumRoom | null {
+  public addSatelles(socket: Socket, announce: IAnnounce): RerumRoom | null {
     const token = announce.token;
     if (!this.rooms[token]) {
       this.rooms[token] = new RerumRoom(this.io, token, announce.roomName);
@@ -27,7 +27,7 @@ export class RerumHotel {
     return connected ? this.rooms[token] : null;
   }
 
-  public removeSatelles(socket: socketIO.Socket, announce: IAnnounce): boolean {
+  public removeSatelles(socket: Socket, announce: IAnnounce): boolean {
     const token = announce.token;
     if (!this.rooms[token]) {
       return false;
@@ -39,7 +39,7 @@ export class RerumHotel {
     return removed;
   }
 
-  public async addImperium(socket: socketIO.Socket, join: IJoinRoom): Promise<RerumRoom | null> {
+  public async addImperium(socket: Socket, join: IJoinRoom): Promise<RerumRoom | null> {
     const token = join.token;
     if (!this.rooms[token]) {
       return null;
@@ -50,7 +50,7 @@ export class RerumHotel {
     return connected ? this.rooms[token] : null;
   }
 
-  public async removeImperium(socket: socketIO.Socket, join: IJoinRoom): Promise<boolean> {
+  public async removeImperium(socket: Socket, join: IJoinRoom): Promise<boolean> {
     const token = join.token;
     const removed = await this.rooms[token].removeImperium(socket);
     const numImperium = await this.rooms[token].getImperiumCount();

@@ -2,7 +2,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {inject, Injectable, signal} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {BehaviorSubject, combineLatest, Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, combineLatest, EMPTY, fromEvent, Observable, of, Subject} from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -83,6 +83,21 @@ export class RoomsService {
       });
 
     this.roomLeft$.subscribe(() => console.log('room left'));
+
+    fromEvent(document, 'visibilitychange')
+      .pipe(filter(() => document.visibilityState === 'visible'))
+      .subscribe(() => this.refreshCurrentRoomOnResume());
+  }
+
+  private refreshCurrentRoomOnResume(): void {
+    this.socket.reconnectIfNeeded();
+    const currentRoom = this.currentRoom$.getValue();
+    if (!currentRoom) {
+      return;
+    }
+    this.getRoom(currentRoom.token)
+      .pipe(filter(room => !!room), catchError(() => EMPTY))
+      .subscribe(room => this.currentRoom$.next(room));
   }
 
   public setCurrentRoomToken(token: string | null): void {

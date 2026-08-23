@@ -17,6 +17,10 @@ class SocketTestingService {
     }
   }
 
+  public reconnectIfNeeded(): void {
+    // do nothing
+  }
+
   public disconnectSocket(): void {
     if (this.socket !== null) {
       console.log('Disconnecting fake socket');

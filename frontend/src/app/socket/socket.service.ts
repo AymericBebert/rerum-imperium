@@ -66,6 +66,13 @@ export class SocketService {
     this.shouldBeConnected$.next(true);
   }
 
+  public reconnectIfNeeded(): void {
+    if (this.shouldBeConnected$.getValue() && this.socket != null && this.socket.disconnected) {
+      console.log('Forcing socket reconnection');
+      this.socket.connect();
+    }
+  }
+
   public disconnectSocket(): void {
     this.shouldBeConnected$.next(false);
   }

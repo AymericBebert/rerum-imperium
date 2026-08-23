@@ -1,7 +1,6 @@
-import {HTTP_INTERCEPTORS, provideHttpClient, withFetch} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient} from '@angular/common/http';
 import {isDevMode, provideZonelessChangeDetection} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
-import {provideAnimations} from '@angular/platform-browser/animations';
 import {provideRouter} from '@angular/router';
 import {provideServiceWorker} from '@angular/service-worker';
 import {provideTranslateLoader, provideTranslateService, TranslateLoader} from '@ngx-translate/core';
@@ -21,7 +20,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(withFetch()),
+    provideHttpClient(),
     {provide: APP_CONFIG, useFactory: appConfigFactory},
     {provide: HTTP_INTERCEPTORS, useClass: DebugHttpInterceptor, multi: true},
     provideServiceWorker('ngsw-worker.js', {
@@ -31,6 +30,5 @@ bootstrapApplication(AppComponent, {
     provideTranslateService({
       loader: provideTranslateLoader(() => new BundledTranslateLoader()),
     }),
-    provideAnimations(),
   ],
 }).catch((err) => console.error(err));

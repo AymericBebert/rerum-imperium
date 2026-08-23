@@ -1,4 +1,4 @@
-FROM node:24.19.0-alpine AS builder
+FROM node:24.19.0-trixie-slim AS builder
 
 RUN mkdir /rerum-imperium
 WORKDIR /rerum-imperium
@@ -16,7 +16,7 @@ RUN npm ci --production
 #
 # Go back from clean node image
 #
-FROM node:24.19.0-alpine
+FROM node:24.19.0-trixie-slim
 
 RUN mkdir /rerum-imperium /rerum-imperium/node_modules /rerum-imperium/dist
 WORKDIR /rerum-imperium

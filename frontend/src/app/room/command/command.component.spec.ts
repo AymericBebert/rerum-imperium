@@ -7,7 +7,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {EMPTY} from 'rxjs';
 import {ICommand} from '../../model/satelles';
 import {SocketTestingModule} from '../../testing/socket-testing.module';
-import {translateTestingModule} from '../../testing/translate-testing-module';
+import {translateTestingProviders} from '../../testing/translate-testing-providers';
 import {CommandComponent} from './command.component';
 
 describe('CommandComponent', () => {
@@ -19,7 +19,6 @@ describe('CommandComponent', () => {
       declarations: [],
       imports: [
         CommandComponent,
-        translateTestingModule,
         RouterTestingModule,
         SocketTestingModule,
       ],
@@ -28,6 +27,7 @@ describe('CommandComponent', () => {
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
         {provide: ActivatedRoute, useValue: {paramMap: EMPTY}},
+        translateTestingProviders,
       ],
     });
 

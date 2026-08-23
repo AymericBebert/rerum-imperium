@@ -3,7 +3,7 @@ import {takeUntilDestroyed, toSignal} from '@angular/core/rxjs-interop';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute} from '@angular/router';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {map} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {IArgValue} from '../model/imperium';
@@ -28,7 +28,7 @@ interface IDisplayedRoom extends IRoom {
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss'],
   imports: [
-    TranslateModule,
+    TranslatePipe,
     MatExpansionModule,
     MatIconModule,
     CommandComponent,

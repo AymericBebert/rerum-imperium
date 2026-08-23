@@ -1,18 +1,18 @@
 import {provideZonelessChangeDetection} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {translateTestingModule} from '../testing/translate-testing-module';
+import {translateTestingProviders} from '../testing/translate-testing-providers';
 import {ShareService} from './share.service';
 
 describe('ShareService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
-      translateTestingModule,
       MatSnackBarModule,
     ],
     providers: [
       ShareService,
       provideZonelessChangeDetection(),
+      translateTestingProviders,
     ],
   }));
 

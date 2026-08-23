@@ -6,7 +6,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ConfigTestingModule} from '../testing/config-testing.module';
 import {SocketTestingModule} from '../testing/socket-testing.module';
-import {translateTestingModule} from '../testing/translate-testing-module';
+import {translateTestingProviders} from '../testing/translate-testing-providers';
 import {HomeComponent} from './home.component';
 
 describe('HomeComponent', () => {
@@ -20,7 +20,6 @@ describe('HomeComponent', () => {
         HomeComponent,
         ConfigTestingModule,
         SocketTestingModule,
-        translateTestingModule,
         RouterTestingModule,
         NoopAnimationsModule,
       ],
@@ -28,6 +27,7 @@ describe('HomeComponent', () => {
         provideZonelessChangeDetection(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
+        translateTestingProviders,
       ],
     });
 

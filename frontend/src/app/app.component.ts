@@ -7,7 +7,7 @@ import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {ActivatedRoute, NavigationEnd, Router, RouterModule} from '@angular/router';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {filter, map, mergeMap} from 'rxjs/operators';
 import {APP_CONFIG, AppConfig} from '../config/app.config';
 import {ChangeLanguageComponent} from './nav/change-language.component';
@@ -21,7 +21,7 @@ import {SettingsService} from './service/settings.service';
   styleUrls: ['./app.component.scss'],
   imports: [
     RouterModule,
-    TranslateModule,
+    TranslatePipe,
     ChangeLanguageComponent,
     MatBadgeModule,
     MatButtonModule,
@@ -48,7 +48,7 @@ export class AppComponent {
     const route = inject(ActivatedRoute);
 
     translate.addLangs(['fr', 'en']);
-    translate.setDefaultLang('fr');
+    translate.setFallbackLang('fr');
     this.navService.applyStoredLanguage();
     this.navService.applyStoredPinSideNav();
 

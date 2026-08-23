@@ -1,7 +1,7 @@
 import {Component, inject, output} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-change-language',
@@ -9,10 +9,11 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
     <div (click)="$event.stopPropagation()" [matMenuTriggerFor]="menu">
       <mat-icon style="margin-right: 5px; vertical-align: text-bottom;">arrow_drop_down</mat-icon>
       <span>{{ 'misc.language' | translate }}&ensp;
-        <span class="lang-flag">{{ langToFlag(translateService.currentLang) }}</span>{{ translateService.currentLang }}
-      </span>
+        <span class="lang-flag">{{ langToFlag(translateService.currentLang()) }}</span>{{
+          translateService.currentLang()
+        }}</span>
       <mat-menu #menu="matMenu">
-        @for (lang of translateService.langs; track lang) {
+        @for (lang of translateService.getLangs(); track lang) {
           <button mat-menu-item (click)="langClicked(lang)">
             <span class="lang-flag">{{ langToFlag(lang) }}</span>{{ lang }}
           </button>
@@ -21,7 +22,7 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
     </div>`,
   styles: ['span.lang-flag { vertical-align: middle; }'],
   imports: [
-    TranslateModule,
+    TranslatePipe,
     MatMenuModule,
     MatIconModule,
   ],
@@ -37,8 +38,8 @@ export class ChangeLanguageComponent {
     unknown: '🏳️',
   };
 
-  public langToFlag(lang: string): string {
-    return this.flagMap[lang] || this.flagMap.unknown;
+  public langToFlag(lang: string | null): string {
+    return (lang && this.flagMap[lang]) || this.flagMap.unknown;
   }
 
   langClicked(lang: string): void {

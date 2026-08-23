@@ -7,7 +7,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {EMPTY} from 'rxjs';
 import {ConfigTestingModule} from '../testing/config-testing.module';
 import {SocketTestingModule} from '../testing/socket-testing.module';
-import {translateTestingModule} from '../testing/translate-testing-module';
+import {translateTestingProviders} from '../testing/translate-testing-providers';
 import {RoomComponent} from './room.component';
 
 describe('RoomComponent', () => {
@@ -20,7 +20,6 @@ describe('RoomComponent', () => {
       imports: [
         RoomComponent,
         ConfigTestingModule,
-        translateTestingModule,
         RouterTestingModule,
         SocketTestingModule,
       ],
@@ -29,6 +28,7 @@ describe('RoomComponent', () => {
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
         {provide: ActivatedRoute, useValue: {paramMap: EMPTY}},
+        translateTestingProviders,
       ],
     });
 

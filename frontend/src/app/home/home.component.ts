@@ -5,7 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {Router} from '@angular/router';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslatePipe} from '@ngx-translate/core';
 import {filter} from 'rxjs/operators';
 import {IStoredRoom} from '../model/room';
 import {RoomsService} from '../room/rooms.service';
@@ -17,7 +17,7 @@ import {isNotNull} from '../utils/utils';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   imports: [
-    TranslateModule,
+    TranslatePipe,
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,

@@ -11,8 +11,8 @@
   "scripts": {
     "start": "npm run build && npm run serve",
     "start:watch": "node --watch --experimental-transform-types src/server.ts",
-    "test": "jest --coverage --verbose",
-    "build": "tsc",
+    "test": "node --test 'src/**/*.test.ts'",
+    "build": "tsc -p tsconfig.build.json",
     "serve": "node dist/server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -21,21 +21,21 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
     "http-status-codes": "^2.3.0",
     "rxjs": "^7.8.2",
-    "socket.io": "~4.8.3"
+    "socket.io": "~4.8.4"
   },
   "devDependencies": {
     "@eslint/js": "~10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^24.13.3",
-    "@typescript-eslint/eslint-plugin": "^8.67.0",
-    "eslint": "~10.9.0",
+    "@types/node": "^26.6.6",
+    "@typescript-eslint/eslint-plugin": "^8.72.2",
+    "eslint": "~10.14.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.67.0"
+    "typescript-eslint": "^8.72.2"
   }
 }

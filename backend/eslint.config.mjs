@@ -71,4 +71,11 @@ export default tsEslint.config(
       }],
     },
   },
+  {
+    files: ['**/*.test.ts'],
+    rules: {
+      // node:test describe/it return promises that the runner already tracks
+      '@typescript-eslint/no-floating-promises': 'off',
+    },
+  },
 );
